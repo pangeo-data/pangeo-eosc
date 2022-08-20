@@ -181,6 +181,11 @@ dask-gateway:
         apiToken: <token> # Jupyterhub auth token generated above with openssl
       type: jupyterhub
     prefix: /services/dask-gateway
+    extraConfig:
+      dasklimits: |
+        c.ClusterConfig.cluster_max_cores = 6
+        c.ClusterConfig.cluster_max_memory = "24 G"
+        c.ClusterConfig.cluster_max_workers = 3
     backend:
       worker:
         cores:
@@ -308,6 +313,11 @@ dask-gateway:
         apiToken: <token> # Jupyterhub auth token generated above with openssl
       type: jupyterhub
     prefix: /services/dask-gateway
+    extraConfig:
+      dasklimits: |
+        c.ClusterConfig.cluster_max_cores = 6
+        c.ClusterConfig.cluster_max_memory = "24 G"
+        c.ClusterConfig.cluster_max_workers = 3
     backend:
       worker:
         cores:
