@@ -230,10 +230,6 @@ jupyterhub:
     tolerations:
     - key: node-role.kubernetes.io/master
       operator: Exists
-  ingress:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    enabled: true
   proxy:
     chp:
       nodeSelector:
@@ -347,10 +343,6 @@ jupyterhub:
     tolerations:
     - key: node-role.kubernetes.io/master
       operator: Exists
-  ingress:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    enabled: true
   proxy:
     chp:
       nodeSelector:
