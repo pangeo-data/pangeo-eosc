@@ -135,7 +135,7 @@ sudo kubectl apply -f ingress.yaml -n daskhub
 ```
 
 If all went well, JupyterHub will be available at
-[https://pangeo.vm.fedcloud.eu/jupyterhub/](https://pangeo.vm.fedcloud.eu/jupyterhub/)
+[https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)
 
 ### Step 3) Configure EGI Check-In
 
@@ -161,7 +161,7 @@ Here are additional details to fill out the registration form in the
   * `Select Protocol`: `OIDC Service`
   * `Client ID`: leave this empty
   * `Application Type`: `Web`
-  * `Redirect URI`: `https://pangeo.vm.fedcloud.eu/jupyterhub/hub/oauth_callback`
+  * `Redirect URI`: `https://pangeo.vm.fedcloud.eu/hub/oauth_callback`
   * `Scope`: select `openid`, `email`, `profile`, `eduperson_entitlement`,
      `eduperson_scoped_affiliation`, and `eduperson_unique_id`.
   * `Grant Types`: `authorization code`
@@ -204,7 +204,7 @@ jupyterhub:
       GenericOAuthenticator:
         client_id: <id>
         client_secret: <secret>
-        oauth_callback_url: https://pangeo.vm.fedcloud.eu/jupyterhub/hub/oauth_callback
+        oauth_callback_url: https://pangeo.vm.fedcloud.eu/hub/oauth_callback
         authorize_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/auth
         token_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/token
         userdata_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/userinfo
@@ -288,7 +288,7 @@ sudo kubectl apply -f ingress.yaml -n daskhub
 
 All going well, all members of the `vo.pangeo.eu` VO will be able to log into
 JupyterHub with Check-In now at the DNS name created in [Step 1](#step-1-dns-name)
-(e.g. [https://pangeo.vm.fedcloud.eu/jupyterhub/](https://pangeo.vm.fedcloud.eu/jupyterhub/)).
+(e.g. [https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)).
 
 ## Appendix
 
