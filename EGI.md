@@ -114,7 +114,7 @@ spec:
             name: proxy-public
             port:
               name: http
-        path: /jupyterhub/
+        path: /
         pathType: Prefix
 status:
   loadBalancer:
