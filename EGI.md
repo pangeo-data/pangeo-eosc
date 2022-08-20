@@ -1,10 +1,11 @@
-# How to to use the EGI infrastructure with Pangeo
+# How to deploy Pangeo in the infrastructure of the EGI Federation
 
-This is the documentation to support the Pangeo community.
+These are the steps to deploy [Dask Gateway](https://gateway.dask.org/) using the 
+infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
 
 ## How to get access
 
-Getting access to the EGI infrastructure consists of the following steps:
+Getting access consists of the following steps:
 
 1. [Sign-up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-In account.
 1. Request to join the `vo.pangeo.eu`
@@ -64,8 +65,6 @@ attention to the following:
   * `DNS name of the public interface of the FE node to generate the certificate`
        must be set to the one configure in [Step 1](#step-1-dns-name).
 * `Dask Data` tab:
-  * `Password for the Simple auth method in the Gateway`: please configure a
-     secure password.
   * `Jupyterhub auth token`: please configure an auth token (e.g.
     with `openssl rand -hex 32` on Linux)
   * Use `Jupyterhub singleuser image` and `Jupyterhub singleuser image version`
@@ -175,17 +174,27 @@ After you have successfully registered the Pangeo service in the
 
 ```yaml
 dask-gateway:
-  enabled: false
+  enabled: true
   gateway:
     auth:
-      simple:
-        password: <password>
-      type: simple
+      jupyterhub:
+        apiToken: <token> # Jupyterhub auth token generated above with openssl
+      type: jupyterhub
+    prefix: /services/dask-gateway
+    backend:
+      worker:
+        cores:
+          limit: 2
+        memory:
+          limit: 8G
+        threads: 2
+  traefik:
+    service:
+      type: ClusterIP
 dask-kubernetes:
-  enabled: true
+  enabled: false
 jupyterhub:
   hub:
-    baseUrl: /jupyterhub/
     config:
       GenericOAuthenticator:
         client_id: <id>
@@ -208,16 +217,52 @@ jupyterhub:
         claim_groups_key: eduperson_entitlement
       JupyterHub:
         authenticator_class: generic-oauth
+    nodeSelector:
+      node-role.kubernetes.io/master: ""
+    services:
+      dask-gateway:
+        apiToken: <token> # Jupyterhub auth token generated above with openssl
+    tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
     enabled: true
   proxy:
-    secretToken: <token> # Jupyterhub auth token generated above with openssl
+    chp:
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+    service:
+      type: ClusterIP
   singleuser:
+    cpu:
+      guarantee: 1
+      limit: 2
+    defaultUrl: /lab
     image:
       name: pangeo/ml-notebook
       tag: latest
+    lifecycleHooks:
+      postStart:
+        exec:
+          command:
+          - sh
+          - -c
+          - |
+            chmod 700 .ssh; chmod g-s .ssh; chmod 600 .ssh/*; exit 0
+    memory:
+      guarantee: 2G
+      limit: 4G
+    startTimeout: 600
+    storage:
+      capacity: 2Gi
+      type: dynamic
+rbac:
+  enabled: true
 ```
 
 Here is the `kubectl` command to apply the changes:
@@ -256,17 +301,27 @@ please use the `values.yaml` below:
 
 ```yaml
 dask-gateway:
-  enabled: false
+  enabled: true
   gateway:
     auth:
-      simple:
-        password: <your-password>
-      type: simple
+      jupyterhub:
+        apiToken: <token> # Jupyterhub auth token generated above with openssl
+      type: jupyterhub
+    prefix: /services/dask-gateway
+    backend:
+      worker:
+        cores:
+          limit: 2
+        memory:
+          limit: 8G
+        threads: 2
+  traefik:
+    service:
+      type: ClusterIP
 dask-kubernetes:
-  enabled: true
+  enabled: false
 jupyterhub:
   hub:
-    baseUrl: /jupyterhub/
     config:
       Authenticator:
         admin_users:
@@ -274,16 +329,52 @@ jupyterhub:
       JupyterHub:
         admin_access: true
         authenticator_class: nativeauthenticator.NativeAuthenticator
+    nodeSelector:
+      node-role.kubernetes.io/master: ""
+    services:
+      dask-gateway:
+        apiToken: <token> # Jupyterhub auth token generated above with openssl
+    tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
     enabled: true
   proxy:
-    secretToken: <token> # Jupyterhub auth token generated above with openssl
+    chp:
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+    service:
+      type: ClusterIP
   singleuser:
+    cpu:
+      guarantee: 1
+      limit: 2
+    defaultUrl: /lab
     image:
       name: pangeo/ml-notebook
       tag: latest
+    lifecycleHooks:
+      postStart:
+        exec:
+          command:
+          - sh
+          - -c
+          - |
+            chmod 700 .ssh; chmod g-s .ssh; chmod 600 .ssh/*; exit 0
+    memory:
+      guarantee: 2G
+      limit: 4G
+    startTimeout: 600
+    storage:
+      capacity: 2Gi
+      type: dynamic
+rbac:
+  enabled: true
 ```
 
 Here is the `kubectl` command to apply the changes:
