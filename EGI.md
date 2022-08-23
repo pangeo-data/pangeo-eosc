@@ -186,6 +186,7 @@ dask-gateway:
         c.ClusterConfig.cluster_max_cores = 6
         c.ClusterConfig.cluster_max_memory = "24 G"
         c.ClusterConfig.cluster_max_workers = 3
+        c.ClusterConfig.idle_timeout = 1800
     backend:
       worker:
         cores:
@@ -314,6 +315,7 @@ dask-gateway:
         c.ClusterConfig.cluster_max_cores = 6
         c.ClusterConfig.cluster_max_memory = "24 G"
         c.ClusterConfig.cluster_max_workers = 3
+        c.ClusterConfig.idle_timeout = 1800
     backend:
       worker:
         cores:
