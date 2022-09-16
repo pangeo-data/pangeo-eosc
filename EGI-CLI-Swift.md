@@ -3,10 +3,11 @@
 ## First install required Python packages
 
 ```
-conda create -n egi python
-pip install openstackclient
+conda create -n egi python jq --yes
+conda activate egi
 pip install fedcloudclient
 ```
+See more information about `fedcloudclient` in: https://fedcloudclient.fedcloud.eu/
 
 You should be able to issue:
 ```
@@ -15,9 +16,9 @@ fedcloud token check
 
 But you don't have a token yet.
 
-## Connect to EGI
+## Get your access token from EGI Check-In
 
-Go to https://aai.egi.eu/token/ to optain your client token. Copy your access token, and then set it:
+Go to https://aai.egi.eu/token/ to [obtain your access token](https://docs.egi.eu/users/aai/check-in/obtaining-tokens/token-portal/). Copy your access token, and then set it:
 
 ```
 export OIDC_ACCESS_TOKEN=<your_token>
@@ -28,24 +29,15 @@ Last command should return a valid token.
 
 ## Use Openstack
 
-You need to set other env variables to simplify things:
-
-```
-export EGI_SITE=CESNET-MCC
-export EGI_VO=vo.pangeo.eu
-```
 
 Then the following command should work:
 ```
-fedcloud openstack container list
+fedcloud openstack --site CESNET-MCC --vo vo.pangeo.eu container list
 ```
 
 ## Retrieve Openstack swift credentials
 
 ```
-# explore sites with swift storage
-$ fedcloud endpoint list --service-type org.openstack.swift --site ALL_SITES
-
 # get OS_AUTH_URL
 $ fedcloud openstack --site CESNET-MCC --vo vo.pangeo.eu catalog show keystone
 
