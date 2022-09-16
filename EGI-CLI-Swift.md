@@ -1,4 +1,4 @@
-# Using fedcloud and openstack slients
+# Using fedcloud and openstack clients
 
 ## First install required Python packages
 
