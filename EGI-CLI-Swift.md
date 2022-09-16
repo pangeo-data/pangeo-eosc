@@ -7,7 +7,7 @@ conda create -n egi python jq --yes
 conda activate egi
 pip install fedcloudclient
 ```
-See more information about `fedcloudclient` in: https://fedcloudclient.fedcloud.eu/
+See more information about `fedcloudclient` in: https://fedcloudclient.fedcloud.eu/. Installing `fedcloudclient` will also install required `openstackclient`.
 
 You should be able to issue:
 ```
@@ -35,7 +35,7 @@ Then the following command should work:
 fedcloud openstack --site CESNET-MCC --vo vo.pangeo.eu container list
 ```
 
-## Retrieve Openstack swift credentials
+## Retrieve Openstack Swift credentials
 
 ```
 # get OS_AUTH_URL
@@ -51,3 +51,23 @@ $ fedcloud openstack --site CESNET-MCC --vo vo.pangeo.eu catalog show swift
 ```
 
 You'll need OS_AUTH_TOKEN and OS_STORAGE_URL in order to interact with Swift using Zarr.
+
+OS_STORAGE_URL is actually always https://object-store.cloud.muni.cz/swift/v1 for CESNET. So what you really need above is OS_AUTH_TOKEN.
+
+
+## Retrieve S3 credentials
+
+CESNET provides the following self-service to get S3 credentials:
+https://docs.cloud.muni.cz/cloud/advanced-features/#s3-credentials.
+
+Using `fedcloudclient` you can do:
+```
+fedcloud openstack --site CESNET-MCC --vo vo.pangeo.eu ec2 credentials create 
+fedcloud openstack --site CESNET-MCC --vo vo.pangeo.eu ec2 credentials list
+```
+
+Once you've created a credential, you can retrieve it with the `list` command. Do not use create if you already have one. 
+
+This will provide `access` and `secret` keys. The `endpoint` URL is: https://object-store.cloud.muni.cz/.
+
+__Be really careful of what you do with your credentials, e.g. avoid living them into notebooks.__
