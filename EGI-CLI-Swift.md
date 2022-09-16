@@ -40,7 +40,7 @@ Then the following command should work:
 fedcloud openstack container list
 ```
 
-## Retrieve Openstack swift important values
+## Retrieve Openstack swift credentials
 
 ```
 # explore sites with swift storage
