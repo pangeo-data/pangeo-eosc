@@ -242,13 +242,6 @@ sudo helm upgrade daskhub daskhub \
     --values values.yaml
 ```
 
-It looks like you need to reconfigure the ingress after applying the changes
-above. Please re-run:
-
-```bash
-sudo kubectl apply -f ingress.yaml -n daskhub
-```
-
 All going well, all members of the `vo.pangeo.eu` VO will be able to log into
 JupyterHub with Check-In now at the DNS name created in [Step 1](#step-1-dns-name)
 (e.g. [https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)).
@@ -367,9 +360,3 @@ sudo helm upgrade daskhub daskhub \
     --values values.yaml
 ```
 
-Remember to reconfigure the ingress after applying the changes
-above if you run into issues:
-
-```bash
-sudo kubectl apply -f ingress.yaml -n daskhub
-```
