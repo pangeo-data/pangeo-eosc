@@ -85,57 +85,8 @@ for IM Dashboard to learn more.
 Please go to the [Dynamic DNS web GUI portal](https://nsupdate.fedcloud.eu/)
 and update the public IP for the DNS name with the one shown in the `Outputs`
 button of the IM Dashboard. Now `Reconfigure` the deployment so `https` is
-correctly configured with Let's Encrypt.
-
-You also need to update the nginx ingress for `https` to work. Here is
-a template yaml file that should help:
-
-```yaml
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: daskhub
-  name: jupyterhub
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    kubernetes.io/ingress.class: nginx
-spec:
-  tls:
-  - hosts:
-    - pangeo.vm.fedcloud.eu
-    secretName: pangeo.vm.fedcloud.eu
-  rules:
-  - host: pangeo.vm.fedcloud.eu
-    http:
-      paths:
-      - backend:
-          service:
-            name: proxy-public
-            port:
-              name: http
-        path: /
-        pathType: Prefix
-status:
-  loadBalancer:
-    ingress:
-    - ip: <internal-ip-master>
-```
-
-Get the internal IP address of the master node with:
-
-```bash
-sudo kubectl get nodes -o wide
-```
-
-And update the ingress with:
-
-```bash
-sudo kubectl apply -f ingress.yaml -n daskhub
-```
-
-If all went well, JupyterHub will be available at
-[https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)
+correctly configured with Let's Encrypt. There is still a missing step that
+will be done in the section below (configuring the ingress with correct values).
 
 ### Step 3) Configure EGI Check-In
 
@@ -231,6 +182,17 @@ jupyterhub:
     tolerations:
     - key: node-role.kubernetes.io/master
       operator: Exists
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    enabled: true
+    hosts:
+      - pangeo.vm.fedcloud.eu
+    tls:
+      - hosts:
+        - pangeo.vm.fedcloud.eu
+        secretName: pangeo.vm.fedcloud.eu
   proxy:
     chp:
       nodeSelector:
@@ -345,6 +307,17 @@ jupyterhub:
     tolerations:
     - key: node-role.kubernetes.io/master
       operator: Exists
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    enabled: true
+    hosts:
+      - pangeo.vm.fedcloud.eu
+    tls:
+      - hosts:
+        - pangeo.vm.fedcloud.eu
+        secretName: pangeo.vm.fedcloud.eu
   proxy:
     chp:
       nodeSelector:
