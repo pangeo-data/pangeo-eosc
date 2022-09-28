@@ -37,7 +37,7 @@ export OS_PROTOCOL=openid
 export OS_IDENTITY_PROVIDER=egi.eu
 export OS_ACCESS_TOKEN=$OIDC_ACCESS_TOKEN
 export OS_PROJECT_ID=57102d3e06b7476088fe4924370ae170
-export OS_STORAGE_URL=https://object-store.cloud.muni.wift/v1
+export OS_STORAGE_URL=https://object-store.cloud.muni.cz/swift/v1
 ```
 
 Then the following command should work:
