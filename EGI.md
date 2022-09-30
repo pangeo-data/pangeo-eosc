@@ -1,6 +1,7 @@
 # How to deploy Pangeo in the infrastructure of the EGI Federation
 
-These are the steps to deploy [Dask Gateway](https://gateway.dask.org/) using the 
+These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes-helm.html#helm-install-dask-for-multiple-users)
+A [Dask Gateway](https://gateway.dask.org/) enabled [Jupyterhub](https://jupyter.org/hub) using the 
 infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
 
 ## How to get access
@@ -29,56 +30,143 @@ See the history [here](https://blog.dask.org/2020/08/31/helm_daskhub).
 
 Here is an overview of the steps that we will follow:
 
-1. Configure a DNS name for Pangeo using the
+1. Configure a DNS name for your Pangeo deployment using the
 [Dynamic DNS](https://docs.egi.eu/users/compute/cloud-compute/dynamic-dns/) service.
-1. Deploy a Kubernetes cluster on top of OpenStack, and install
-the [DaskHub helm chart](https://helm.dask.org/).
+1. Get credentials from [EGI Check-In](https://docs.egi.eu/users/aai/check-in/) to allow
+configuring Jupyterhub authentication using this service, giving access to all members 
+of the `vo.pangeo.eu` Virtual Organization to your deployment.
+1. Deploy a Kubernetes cluster on top of OpenStack, along with other tools like Grafana.
 [Infrastructure Manager Dashboard](https://docs.egi.eu/users/compute/orchestration/im/dashboard/)
 (or simply IM Dashboard) will do this all for us automatically.
-1. Configure JupyterHub with [EGI Check-In](https://docs.egi.eu/users/aai/check-in/) to allow
-access to all members of the `vo.pangeo.eu` Virtual Organization.
+1. Configure and install the [DaskHub helm chart](https://helm.dask.org/) using Helm.
 
-### Step 1) DNS name
+### Step 1) Get a DNS name
 
 Log into the [Dynamic DNS web GUI portal](https://nsupdate.fedcloud.eu/)
-with your EGI Check-In account to configure a domain name of your choice.
+with your EGI Check-In account to configure the DNS host name of your choice.
 The web portal is intuitive, and there is also the associated
 [documentation](https://docs.egi.eu/users/compute/cloud-compute/dynamic-dns/)
 so we will not go into more details here.
+Just use the `Add Host` button, and follow the steps.
 
 For the rest of this tutorial, let us consider the `pangeo.vm.fedcloud.eu`
-domain name.
+host name.
 
-### Step 2) Deploy Pangeo
+### Step 2) Get EGI Check-In credentials
+
+You need to follow this step for __every new Pangeo deployment host name__ 
+generated, if you want to link it with EGI Check-in (which is recommended).
+
+Please follow the steps on the Check-In documentation for
+[Service Providers](https://docs.egi.eu/providers/check-in/sp/). In particular,
+the instructions using OpenID Connect as the authentication and authorization
+protocol. You need to fill the registration form at 
+[EGI Federation Registry](https://aai.egi.eu/federation/) or 
+[Dev EGI Federation Registry](https://aai-dev.egi.eu/federation) for developement
+purpose and quick implementation.
+
+Check-In runs three separate instances: production (`aai.egi.eu`),
+demo (`aai-demo.egi.eu`), and development (`aai-dev.egi.eu`). To quickly test
+integration with Check-In, we suggest to configure Pangeo to connect to
+the development instance. Note that by default the `vo.pangeo.eu` VO only exists
+in the production instance of Check-In. Please ask the EGI Check-In team (via
+an email to `check-in@egi.eu`) to create the VO in the development instance
+of Check-In.
+
+Here are additional details to fill out the registration form:
+
+* `General` tab:
+  * `Integration environment`: `Development`
+* `Protocol Specific` tab:
+  * `Select Protocol`: `OIDC Service`
+  * `Client ID`: leave this empty
+  * `Application Type`: `Web`
+  * `Redirect URI`: `https://pangeo.vm.fedcloud.eu/hub/oauth_callback`. 
+     Adapt it to your own host name.
+  * `Scope`: select `openid`, `email`, `profile`, `eduperson_entitlement`,
+     `eduperson_scoped_affiliation`, and `eduperson_unique_id`.
+  * `Grant Types`: `authorization code`
+  * `Token Endpoint Authorization Method`: `Client Secret over HTTP Basic`
+  * `Client Secret`: leave this empty
+
+Once you submitted the registration form, you'll need to wait for approval, or review the 
+request yourself if using the Dev Federation, and then wait for the Deployment to be done.
+Then, you'll just need to get the `Client ID` and `Client Secret` that should have been generated. 
+
+
+### Step 3) Deploy a Kubernetes cluster
 
 Log into the [IM Dashboard](https://im.egi.eu/im-dashboard/)
 with your EGI Check-In account, and configure your
 [credentials](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#cloud-credentials)
-with the `vo.pangeo.eu` VO. Then click on the
-[kubernetes template](https://im.egi.eu/im-dashboard/configure?selected_tosca=kubernetes.yaml)
-and add `Dask`. Out of all the configuration options, please pay special
-attention to the following:
+with the `vo.pangeo.eu` VO. 
 
+Then click on the
+[Kubernetes template](https://im.egi.eu/im-dashboard/configure?selected_tosca=kubernetes.yaml)
+and add `Make Kubernetes Virtual Cluster Elastic` and 
+`Launch Prometheus + Grafana on top of a Kubernetes Virtual Cluster` as optional features. 
+There are also Jupyterhub and Daskhub available templates, but we'll do the deployment of
+these services using Helm for now, as Daskhub Tosca template is not yet mature enough.
+
+Out of all the configuration options, please pay special attention to the following:
+
+* `HW Data` tab:
+  * Front end node CPUs and Memory: if you want to create a big Kubernetes cluster, set at least 4 CPUs, and 16 GB of memory.
+    No user pods will run on this front end node.
+  * Worker nodes CPUs and Memory: on CESNET, you can go up to 16 CPUs and 64GB memory.
+    All hou pods will run on these nodes.
 * `Kubernetes Data` tab:
+  * `Access Token for the Kubernetes admin user`: Please change it
+  * `Version of Kubernetes to install`: we currently only tested with 1.23.11
   * `Flag to install Cert-Manager` must be set to `True`
   * `Email to be used in the Let's Encrypt issuer`: add your preferred email.
   * `DNS name of the public interface of the FE node to generate the certificate`
        must be set to the one configure in [Step 1](#step-1-dns-name).
-* `Dask Data` tab:
-  * `Jupyterhub auth token`: please configure an auth token (e.g.
-    with `openssl rand -hex 32` on Linux)
-  * Use `Jupyterhub singleuser image` and `Jupyterhub singleuser image version`
-    to configure the default user environment in JupyterHub with a container
-    image of your choice.
+* `Elastic Data` tab:
+  * `Maximum Number of WNs in the cluster`: please set the maximum of node you'll want the 
+    Kubernetes cluster to expand to. Minimum cannot be set, it is positionned to 0 in the Tosca template.
 * `Cloud Provider Selection` tab:
   * Select the [credentials](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#cloud-credentials)
     configured earlier.
+  * `Select Site image`: select `ubuntu-focal` or `ubuntu-jammy`.
 
-Please review all configuration options and click `Submit` and wait for the
-deployment to finish with status `configured`. Then click on `Outputs` and
+Please review all configuration options, click `Submit` and wait for the
+deployment to finish with status `Configured`. Then click on `Outputs` and
 take a note of the IP address assigned. See the
 [documentation](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#infrastructures)
 for IM Dashboard to learn more.
+
+
+#### Connect to deployed Kubernetes cluster
+
+In order to be able to issue `kubectl` or `helm` commands described after, you'll need 
+to connect to the Kubernetes cluster front end node. 
+
+In order to do that when the deployement is in `Configured` status, you'll need to follow these steps:
+
+1. On IM Dashboard, click on the VM with id 0 from the deployed infrastructure.
+1. Download the Credential file (`key.pem` file) on your local computer.
+1. Add the key to your ssh agent: 
+   `chmod 600 /path/to/key.pem`
+   `ssh-add /path/to/key.pem`
+1. Then just connect to the VM: `ssh cloudadm@<external_ip_of_frontendnode>`. 
+   External IP should be accessible from IM Dashboard Outputs of your ifnrastructure.
+1. Launch a bash session using `bash`
+
+From there, you should be able to issue `kubectl` or `helm` commands, for example:
+
+```bash
+$ sudo kubectl get pods -A
+
+NAMESPACE              NAME                                                       READY   STATUS      RESTARTS      AGE
+cert-manager           cert-manager-5754c77bd9-sw8gj                              1/1     Running     0             36h
+cert-manager           cert-manager-cainjector-7bb5c8d6-2xf5w                     1/1     Running     0             36h
+cert-manager           cert-manager-webhook-56ccc5ff8f-pj52w                      1/1     Running     0             36h
+daskhub                api-daskhub-dask-gateway-655db6fb79-q6626                  1/1     Running     0             11m
+daskhub                continuous-image-puller-lkzfc                              1/1     Running     0             11m
+daskhub                controller-daskhub-dask-gateway-6d988656cf-66kht           1/1     Running     0             36h
+...
+```
 
 #### HTTPS
 
@@ -134,43 +222,29 @@ And update the ingress with:
 sudo kubectl apply -f ingress.yaml -n daskhub
 ```
 
-If all went well, JupyterHub will be available at
-[https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)
 
-### Step 3) Configure EGI Check-In
+### Step 4) Deploy the Daskhub helm chart
 
-Please follow the steps on the Check-In documentation for
-[Service Providers](https://docs.egi.eu/providers/check-in/sp/). In particular,
-the instructions using OpenID Connect as the authentication and authorization
-protocol.
-
-Check-In runs three separate instances: production (`aai.egi.eu`),
-demo (`aai-demo.egi.eu`), and development (`aai-dev.egi.eu`). To quickly test
-integration with Check-In, we suggest to configure Pangeo to connect to
-the development instance. Note that by default the `vo.pangeo.eu` VO only exists
-in the production instance of Check-In. Please ask the EGI Check-In team (via
-an email to `check-in@egi.eu`) to create the VO in the development instance
-of Check-In.
-
-Here are additional details to fill out the registration form in the
-[EGI Federation Registry](https://aai.egi.eu/federation/):
-
-* `General` tab:
-  * `Integration environment`: `Development`
-* `Protocol Specific` tab:
-  * `Select Protocol`: `OIDC Service`
-  * `Client ID`: leave this empty
-  * `Application Type`: `Web`
-  * `Redirect URI`: `https://pangeo.vm.fedcloud.eu/hub/oauth_callback`
-  * `Scope`: select `openid`, `email`, `profile`, `eduperson_entitlement`,
-     `eduperson_scoped_affiliation`, and `eduperson_unique_id`.
-  * `Grant Types`: `authorization code`
-  * `Token Endpoint Authorization Method`: `Client Secret over HTTP Basic`
-  * `Client Secret`: leave this empty
+#### Daskhub with EGI Check-in auth
 
 After you have successfully registered the Pangeo service in the
-[EGI Federation Registry](https://aai.egi.eu/federation), here is the
-`values.yaml` that you need to connect Dask with Check-In:
+[EGI Federation Registry](https://aai.egi.eu/federation) and the 
+Kubernetes cluster is deployed, blow is the
+`values.yaml` that you need to deploy a Daskhub with Check-In authentication.
+
+You'll need to replace some values in there:
+* `token1` must be replaced with a hash generated using `openssl rand -hex 32` on Linux.
+* `token2` must be replaced with another hash generated using `openssl rand -hex 32` on Linux.
+* `egi_oauth_client` must be replaced by the `Client ID` created during step 2.
+* `egi_oauth_secret` must be replaced by the `Client Secret` created during step 2.
+* Don't forget to replace `pangeo.vm.fedcloud.eu` by your DNS name.
+
+You might want also to modify other things (you'll be able to do it later if needed):
+* The `dasklimits` part.
+* The `backend` limit of dask-gateway.
+* The Docker image used for Jupyter notebooks and Dask, please search for `pangeo/ml-notebook`.
+  You might want to change either the image or just the associated tag.
+* The Jupyter notebook resources limit in `singleuser`.
 
 ```yaml
 dask-gateway:
@@ -178,34 +252,48 @@ dask-gateway:
   gateway:
     auth:
       jupyterhub:
-        apiToken: <token> # Jupyterhub auth token generated above with openssl
+        apiToken: token1 # replace this 
       type: jupyterhub
-    prefix: /services/dask-gateway
     extraConfig:
       dasklimits: |
         c.ClusterConfig.cluster_max_cores = 6
         c.ClusterConfig.cluster_max_memory = "24 G"
-        c.ClusterConfig.cluster_max_workers = 3
+        c.ClusterConfig.cluster_max_workers = 4
         c.ClusterConfig.idle_timeout = 1800
+      optionHandler: |
+        from dask_gateway_server.options import Options, Integer, Float, String
+
+        def options_handler(options):
+          if ":" not in options.image:
+            raise ValueError("When specifying an image you must also provide a tag")
+          return {
+            "worker_cores": options.worker_cores,
+            "worker_memory": int(options.worker_memory * 2 ** 30),
+            "image": options.image,
+          }
+
+        c.Backend.cluster_options = Options(
+          Integer("worker_cores", default=1, min=1, max=4, label="Worker Cores"),
+          Float("worker_memory", default=2, min=2, max=8, label="Worker Memory (GiB)"),
+          String("image", default="pangeo/ml-notebook:2022.09.21", label="Image"),
+          handler=options_handler,
+        )
     backend:
       worker:
         cores:
-          limit: 2
+          limit: 4
         memory:
           limit: 8G
         threads: 2
-  traefik:
-    service:
-      type: ClusterIP
 dask-kubernetes:
   enabled: false
 jupyterhub:
   hub:
     config:
       GenericOAuthenticator:
-        client_id: <id>
-        client_secret: <secret>
-        oauth_callback_url: https://pangeo.vm.fedcloud.eu/hub/oauth_callback
+        client_id: egi_oauth_client # replace this 
+        client_secret: egi_oauth_secret # replace this 
+        oauth_callback_url: https://pangeo.vm.fedcloud.eu/hub/oauth_callback # you might want to modify this
         authorize_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/auth
         token_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/token
         userdata_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/userinfo
@@ -223,21 +311,11 @@ jupyterhub:
         claim_groups_key: eduperson_entitlement
       JupyterHub:
         authenticator_class: generic-oauth
-    nodeSelector:
-      node-role.kubernetes.io/master: ""
     services:
       dask-gateway:
-        apiToken: <token> # Jupyterhub auth token generated above with openssl
-    tolerations:
-    - key: node-role.kubernetes.io/master
-      operator: Exists
+        apiToken: token1 # replace this 
   proxy:
-    chp:
-      nodeSelector:
-        node-role.kubernetes.io/master: ""
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
+    secretToken: token2 # replace this 
     service:
       type: ClusterIP
   singleuser:
@@ -245,17 +323,11 @@ jupyterhub:
       guarantee: 1
       limit: 2
     defaultUrl: /lab
+    extraEnv:
+      DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
       name: pangeo/ml-notebook
-      tag: latest
-    lifecycleHooks:
-      postStart:
-        exec:
-          command:
-          - sh
-          - -c
-          - |
-            chmod 700 .ssh; chmod g-s .ssh; chmod 600 .ssh/*; exit 0
+      tag: 2022.09.21
     memory:
       guarantee: 2G
       limit: 4G
@@ -267,16 +339,16 @@ rbac:
   enabled: true
 ```
 
-Here is the `kubectl` command to apply the changes:
+Here is the `helm` command to apply the changes (you might want to update or change helm chart version):
 
 ```bash
 sudo helm upgrade daskhub daskhub \
     --repo=https://helm.dask.org \
-    --install \
+    --install --wait \
     --cleanup-on-fail \
     --create-namespace \
     --namespace daskhub \
-    --version 2022.6.0 \
+    --version 2022.8.2 \
     --values values.yaml
 ```
 
@@ -287,7 +359,11 @@ above. Please re-run:
 sudo kubectl apply -f ingress.yaml -n daskhub
 ```
 
-All going well, all members of the `vo.pangeo.eu` VO will be able to log into
+If all went well, JupyterHub will be available at
+[https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)
+
+
+All members of the `vo.pangeo.eu` VO will be able to log into
 JupyterHub with Check-In now at the DNS name created in [Step 1](#step-1-dns-name)
 (e.g. [https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)).
 
@@ -296,10 +372,17 @@ JupyterHub with Check-In now at the DNS name created in [Step 1](#step-1-dns-nam
 Here we collect additional information that may be helpful to reconfigure
 the Pangeo cluster.
 
-### Revert Authentication Configuration
+### Daskhub without EGI Check-in auth and less limits
 
-If you want to go back to the original configuration for user authentication
-please use the `values.yaml` below:
+If you don't want to go through the step of configuring EGI Check-in auth
+for developement purpose, you can chose another authentication method,
+for example NativeAuthenticator.
+
+You might also want to suppress all the limitation on Dask cluster and workers,
+have more resources on you Jupyterlab notebook server,
+and configure the latest Pangeo images for Jupyter and dask.
+
+Please use the `values.yaml` below to so:
 
 ```yaml
 dask-gateway:
@@ -307,25 +390,27 @@ dask-gateway:
   gateway:
     auth:
       jupyterhub:
-        apiToken: <token> # Jupyterhub auth token generated above with openssl
+        apiToken: token1 # replace this 
       type: jupyterhub
-    prefix: /services/dask-gateway
     extraConfig:
-      dasklimits: |
-        c.ClusterConfig.cluster_max_cores = 6
-        c.ClusterConfig.cluster_max_memory = "24 G"
-        c.ClusterConfig.cluster_max_workers = 3
-        c.ClusterConfig.idle_timeout = 1800
-    backend:
-      worker:
-        cores:
-          limit: 2
-        memory:
-          limit: 8G
-        threads: 2
-  traefik:
-    service:
-      type: ClusterIP
+      optionHandler: |
+        from dask_gateway_server.options import Options, Integer, Float, String
+
+        def options_handler(options):
+          if ":" not in options.image:
+            raise ValueError("When specifying an image you must also provide a tag")
+          return {
+            "worker_cores": options.worker_cores,
+            "worker_memory": int(options.worker_memory * 2 ** 30),
+            "image": options.image,
+          }
+
+        c.Backend.cluster_options = Options(
+          Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
+          Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
+          String("image", default="pangeo/ml-notebook:latest", label="Image"),
+          handler=options_handler,
+        )
 dask-kubernetes:
   enabled: false
 jupyterhub:
@@ -337,42 +422,30 @@ jupyterhub:
       JupyterHub:
         admin_access: true
         authenticator_class: nativeauthenticator.NativeAuthenticator
-    nodeSelector:
-      node-role.kubernetes.io/master: ""
+    extraConfig:
+      10-auth-config: |
+        import os, nativeauthenticator
+        c.JupyterHub.template_paths = [f"{os.path.dirname(nativeauthenticator.__file__)}/templates/"]
     services:
       dask-gateway:
-        apiToken: <token> # Jupyterhub auth token generated above with openssl
-    tolerations:
-    - key: node-role.kubernetes.io/master
-      operator: Exists
+        apiToken: token1 # replace this 
   proxy:
-    chp:
-      nodeSelector:
-        node-role.kubernetes.io/master: ""
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
+    secretToken: token2 # replace this 
     service:
       type: ClusterIP
   singleuser:
     cpu:
-      guarantee: 1
-      limit: 2
+      guarantee: 2
+      limit: 4
     defaultUrl: /lab
+    extraEnv:
+      DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
       name: pangeo/ml-notebook
       tag: latest
-    lifecycleHooks:
-      postStart:
-        exec:
-          command:
-          - sh
-          - -c
-          - |
-            chmod 700 .ssh; chmod g-s .ssh; chmod 600 .ssh/*; exit 0
     memory:
-      guarantee: 2G
-      limit: 4G
+      guarantee: 4G
+      limit: 8G
     startTimeout: 600
     storage:
       capacity: 2Gi
@@ -381,16 +454,16 @@ rbac:
   enabled: true
 ```
 
-Here is the `kubectl` command to apply the changes:
+You'll need the same `helm` command as above to apply the changes:
 
 ```bash
 sudo helm upgrade daskhub daskhub \
     --repo=https://helm.dask.org \
-    --install \
+    --install --wait \
     --cleanup-on-fail \
     --create-namespace \
     --namespace daskhub \
-    --version 2022.6.0 \
+    --version 2022.8.2 \
     --values values.yaml
 ```
 
@@ -400,3 +473,19 @@ above if you run into issues:
 ```bash
 sudo kubectl apply -f ingress.yaml -n daskhub
 ```
+
+### Using Daskhub Tosca template with Kubernetes
+
+You can use Daskhub Tosca template to deploy a Daskhub platform. 
+However, it won't be configured with EGI Checkin, and it may lack some settings as
+it has not been updated since July 2022. If using it, you'lll probably have to
+use Helm commands anyway.
+
+You can use it by selecting it as Kubernetes option, and filling the options:
+
+* `Dask Data` tab:
+  * `Jupyterhub auth token`: please configure an auth token (e.g.
+    with `openssl rand -hex 32` on Linux)
+  * Use `Jupyterhub singleuser image` and `Jupyterhub singleuser image version`
+    to configure the default user environment in JupyterHub with a container
+    image of your choice.
