@@ -173,54 +173,9 @@ daskhub                controller-daskhub-dask-gateway-6d988656cf-66kht         
 Please go to the [Dynamic DNS web GUI portal](https://nsupdate.fedcloud.eu/)
 and update the public IP for the DNS name with the one shown in the `Outputs`
 button of the IM Dashboard. Now `Reconfigure` the deployment so `https` is
-correctly configured with Let's Encrypt.
-
-You also need to update the nginx ingress for `https` to work. Here is
-a template yaml file that should help:
-
-```yaml
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: daskhub
-  name: jupyterhub
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    kubernetes.io/ingress.class: nginx
-spec:
-  tls:
-  - hosts:
-    - pangeo.vm.fedcloud.eu
-    secretName: pangeo.vm.fedcloud.eu
-  rules:
-  - host: pangeo.vm.fedcloud.eu
-    http:
-      paths:
-      - backend:
-          service:
-            name: proxy-public
-            port:
-              name: http
-        path: /
-        pathType: Prefix
-status:
-  loadBalancer:
-    ingress:
-    - ip: <internal-ip-master>
-```
-
-Get the internal IP address of the master node with:
-
-```bash
-sudo kubectl get nodes -o wide
-```
-
-And update the ingress with:
-
-```bash
-sudo kubectl apply -f ingress.yaml -n daskhub
-```
+correctly configured with Let's Encrypt. There is still a missing step that
+will be done in the section below (configuring the ingress with correct values
+in the Helm values.yaml file).
 
 
 ### Step 4) Deploy the Daskhub helm chart
@@ -313,7 +268,18 @@ jupyterhub:
         authenticator_class: generic-oauth
     services:
       dask-gateway:
-        apiToken: token1 # replace this 
+        apiToken: token1 # replace this
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    enabled: true
+    hosts:
+      - pangeo.vm.fedcloud.eu # replace this with your DNS name
+    tls:
+      - hosts:
+        - pangeo.vm.fedcloud.eu # replace this with your DNS name
+        secretName: pangeo.vm.fedcloud.eu # replace this with your DNS name
   proxy:
     secretToken: token2 # replace this 
     service:
@@ -350,13 +316,6 @@ sudo helm upgrade daskhub daskhub \
     --namespace daskhub \
     --version 2022.8.2 \
     --values values.yaml
-```
-
-It looks like you need to reconfigure the ingress after applying the changes
-above. Please re-run:
-
-```bash
-sudo kubectl apply -f ingress.yaml -n daskhub
 ```
 
 If all went well, JupyterHub will be available at
@@ -428,7 +387,18 @@ jupyterhub:
         c.JupyterHub.template_paths = [f"{os.path.dirname(nativeauthenticator.__file__)}/templates/"]
     services:
       dask-gateway:
-        apiToken: token1 # replace this 
+        apiToken: token1 # replace this
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    enabled: true
+    hosts:
+      - pangeo.vm.fedcloud.eu # replace this with your DNS name
+    tls:
+      - hosts:
+        - pangeo.vm.fedcloud.eu # replace this with your DNS name
+        secretName: pangeo.vm.fedcloud.eu # replace this with your DNS name
   proxy:
     secretToken: token2 # replace this 
     service:
@@ -467,12 +437,6 @@ sudo helm upgrade daskhub daskhub \
     --values values.yaml
 ```
 
-Remember to reconfigure the ingress after applying the changes
-above if you run into issues:
-
-```bash
-sudo kubectl apply -f ingress.yaml -n daskhub
-```
 
 ### Using Daskhub Tosca template with Kubernetes
 
