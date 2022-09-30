@@ -61,14 +61,13 @@ Please follow the steps on the Check-In documentation for
 [Service Providers](https://docs.egi.eu/providers/check-in/sp/). In particular,
 the instructions using OpenID Connect as the authentication and authorization
 protocol. You need to fill the registration form at 
-[EGI Federation Registry](https://aai.egi.eu/federation/) or 
-[Dev EGI Federation Registry](https://aai-dev.egi.eu/federation) for developement
-purpose and quick implementation.
+[EGI Federation Registry](https://aai.egi.eu/federation/).
 
 Check-In runs three separate instances: production (`aai.egi.eu`),
 demo (`aai-demo.egi.eu`), and development (`aai-dev.egi.eu`). To quickly test
 integration with Check-In, we suggest to configure Pangeo to connect to
-the development instance. Note that by default the `vo.pangeo.eu` VO only exists
+the _development_ instance (this way you can self approve the service registration). 
+Note that by default the `vo.pangeo.eu` VO only exists
 in the production instance of Check-In. Please ask the EGI Check-In team (via
 an email to `check-in@egi.eu`) to create the VO in the development instance
 of Check-In.
