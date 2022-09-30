@@ -114,7 +114,7 @@ Out of all the configuration options, please pay special attention to the follow
   * Front end node CPUs and Memory: if you want to create a big Kubernetes cluster, set at least 4 CPUs, and 16 GB of memory.
     No user pods will run on this front end node.
   * Worker nodes CPUs and Memory: on CESNET, you can go up to 16 CPUs and 64GB memory.
-    All hou pods will run on these nodes.
+    All user pods will run on these nodes.
 * `Kubernetes Data` tab:
   * `Access Token for the Kubernetes admin user`: Please change it
   * `Version of Kubernetes to install`: we currently only tested with 1.23.11
@@ -229,7 +229,7 @@ sudo kubectl apply -f ingress.yaml -n daskhub
 
 After you have successfully registered the Pangeo service in the
 [EGI Federation Registry](https://aai.egi.eu/federation) and the 
-Kubernetes cluster is deployed, blow is the
+Kubernetes cluster is deployed, below is the
 `values.yaml` that you need to deploy a Daskhub with Check-In authentication.
 
 You'll need to replace some values in there:
@@ -237,7 +237,7 @@ You'll need to replace some values in there:
 * `token2` must be replaced with another hash generated using `openssl rand -hex 32` on Linux.
 * `egi_oauth_client` must be replaced by the `Client ID` created during step 2.
 * `egi_oauth_secret` must be replaced by the `Client Secret` created during step 2.
-* Don't forget to replace `pangeo.vm.fedcloud.eu` by your DNS name.
+* Don't forget to replace `pangeo.vm.fedcloud.eu` with your DNS name.
 
 You might want also to modify other things (you'll be able to do it later if needed):
 * The `dasklimits` part.
@@ -293,7 +293,7 @@ jupyterhub:
       GenericOAuthenticator:
         client_id: egi_oauth_client # replace this 
         client_secret: egi_oauth_secret # replace this 
-        oauth_callback_url: https://pangeo.vm.fedcloud.eu/hub/oauth_callback # you might want to modify this
+        oauth_callback_url: https://pangeo.vm.fedcloud.eu/hub/oauth_callback # replace this with your DNS name
         authorize_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/auth
         token_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/token
         userdata_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/userinfo
