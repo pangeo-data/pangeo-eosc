@@ -196,7 +196,7 @@ You'll need to replace some values in there:
 You might want also to modify other things (you'll be able to do it later if needed):
 * The `dasklimits` part.
 * The `backend` limit of dask-gateway.
-* The Docker image used for Jupyter notebooks and Dask, please search for `pangeo/ml-notebook`.
+* The Docker image used for Jupyter notebooks and Dask, please search for `pangeo/pangeo-notebook`.
   You might want to change either the image or just the associated tag.
 * The Jupyter notebook resources limit in `singleuser`.
 
@@ -229,7 +229,7 @@ dask-gateway:
         c.Backend.cluster_options = Options(
           Integer("worker_cores", default=1, min=1, max=4, label="Worker Cores"),
           Float("worker_memory", default=2, min=2, max=8, label="Worker Memory (GiB)"),
-          String("image", default="pangeo/ml-notebook:2022.09.21", label="Image"),
+          String("image", default="pangeo/pangeo-notebook:2022.09.21", label="Image"),
           handler=options_handler,
         )
     backend:
@@ -291,7 +291,7 @@ jupyterhub:
     extraEnv:
       DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
-      name: pangeo/ml-notebook
+      name: pangeo/pangeo-notebook
       tag: 2022.09.21
     memory:
       guarantee: 2G
@@ -366,7 +366,7 @@ dask-gateway:
         c.Backend.cluster_options = Options(
           Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
           Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
-          String("image", default="pangeo/ml-notebook:latest", label="Image"),
+          String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
           handler=options_handler,
         )
 dask-kubernetes:
@@ -410,7 +410,7 @@ jupyterhub:
     extraEnv:
       DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
-      name: pangeo/ml-notebook
+      name: pangeo/pangeo-notebook
       tag: latest
     memory:
       guarantee: 4G
