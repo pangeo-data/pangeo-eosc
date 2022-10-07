@@ -378,7 +378,7 @@ dask-gateway:
 
         c.Backend.cluster_options = Options(
           Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
-          Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
+          Float("worker_memory", default=4, min=2, max=32, label="Worker Memory (GiB)"),
           String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
           handler=options_handler,
         )
