@@ -1,4 +1,4 @@
-# Using fedcloud and openstack clients
+# Using fedcloud and openstack clients to access CESNET object storage
 
 ## First install required Python packages
 
@@ -27,7 +27,18 @@ fedcloud token check
 
 Last command should return a valid token.
 
-## Use Openstack
+## Use Openstack without fedcloudclient to access a specific project storage
+
+It is possible to use `openstack` command through `fedcloudclient` to interact with
+Openstack object storage, as [documented here](https://docs.egi.eu/users/data/storage/object-storage/#access-via-rclone).
+
+However, this works well when there is only one project associated with a 
+Virtual Organization (i.e. a one to one mapping between the two).
+We currently have one Virtual Organization (vo.pangeo.eu) and two OpenStack projects associated with it.
+We have created _vo.pangeo.eu-swift_, a new, separate OpenStack project to allow normal users 
+(i.e. non admin users) of the _vo.pangeo.eu_ VO to work with an object store.
+This way, we should be able to set more fine grained authorizations on buckets.
+That's why we need to use `openstack` commands in replacement of the `fedcloudclient`.
 
 Please configure these environment variables:
 ```
