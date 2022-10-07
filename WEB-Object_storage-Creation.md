@@ -9,7 +9,7 @@ Click 'Object Store' -> 'Containers'
 
 You will see the list of existing containers.  
 
-Click '_Container', and in the pop up window indicating Create Container, define
+Click '+Container', and in the pop up window labelled _Create Container_, define
 **Container Name ** and If the container should be **Public** or **Not public** 
 
 
