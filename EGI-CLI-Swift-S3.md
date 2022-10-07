@@ -30,7 +30,7 @@ Last command should return a valid token.
 ## Use Openstack without fedcloudclient to access a specific project storage
 
 It is possible to use `openstack` command through `fedcloudclient` to interact with
-Openstack object storage, as [documented here](https://docs.egi.eu/users/data/storage/object-storage/#access-via-rclone).
+Openstack object storage, as [documented here](https://docs.egi.eu/users/data/storage/object-storage/#access-with-the-fedcloud-cli).
 
 However, this works well when there is only one project associated with a 
 Virtual Organization (i.e. a one to one mapping between the two).
