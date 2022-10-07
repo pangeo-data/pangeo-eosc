@@ -4,7 +4,7 @@
 Go to [Openstack dashboard of CESNET](https://dashboard.cloud.muni.cz/auth/login/) and chose EGI Check-in.
 
 ## Create containers
-Click 'Object Sore' -> 'Containers'
+Click 'Object Store' -> 'Containers'
 
 
 You will see the list of existing containers.  
