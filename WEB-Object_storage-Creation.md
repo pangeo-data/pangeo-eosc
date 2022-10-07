@@ -1,4 +1,4 @@
-# Creating object storage from openstack web interface of cesnet.
+# Creating object storage container/bucket from Openstack web interface provided by CESNET.
 
 ## Log on to openstack interface
 Go to [Openstack dashboard of CESNET](https://dashboard.cloud.muni.cz/auth/login/) and chose EGI Check-in.
