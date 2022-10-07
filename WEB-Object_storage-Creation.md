@@ -10,7 +10,9 @@ Click 'Object Store' -> 'Containers'
 You will see the list of existing containers.  
 
 Click '+Container', and in the pop up window labelled _Create Container_, define
-**Container Name ** and If the container should be **Public** or **Not public** 
+**Container Name** and if the container should be **Public** or **Not public**.
+**Not public** containers will only be accessible with Swift token or S3 credentials.
+**Public** ones will be accessible on read only mode by everyone.
 
 
 
