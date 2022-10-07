@@ -3,7 +3,7 @@
 ## Log on to openstack interface
 Go to [Openstack dashboard of CESNET](https://dashboard.cloud.muni.cz/auth/login/) and chose EGI Check-in.
 
-## Create containers
+## Create containers/buckets
 Click 'Object Store' -> 'Containers'
 
 
