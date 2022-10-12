@@ -126,7 +126,9 @@ Out of all the configuration options, please pay special attention to the follow
 * `Elastic Data` tab:
   * `Maximum Number of WNs in the cluster`: please set the maximum of node you'll want the 
     Kubernetes cluster to expand to. 
-  * `Min Number of free WNs in the cluster`: 0 or 1, not sure about the meaning of `free`.
+  * `Min Number of free WNs in the cluster`: 0 or 1, WNs without allocated pods. 
+    With this option you ensure the number of empty WNs in preparation for a peak 
+    workload, and therefore you save some time when growing the cluster.
 * `Cloud Provider Selection` tab:
   * Select the [credentials](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#cloud-credentials)
     configured earlier.
