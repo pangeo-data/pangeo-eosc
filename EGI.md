@@ -96,6 +96,8 @@ Then, you'll just need to get the `Client ID` and `Client Secret` that should ha
 ### Step 3) Deploy a Kubernetes cluster
 
 Log into the [IM Dashboard](https://im.egi.eu/im-dashboard/)
+(if you want to deploy an Elastic cluster, be sure to use operational
+instance of IM Dashboard, not `im-dashboard-dev`)
 with your EGI Check-In account, and configure your
 [credentials](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#cloud-credentials)
 with the `vo.pangeo.eu` VO. 
@@ -123,7 +125,10 @@ Out of all the configuration options, please pay special attention to the follow
        must be set to the one configure in [Step 1](#step-1-dns-name).
 * `Elastic Data` tab:
   * `Maximum Number of WNs in the cluster`: please set the maximum of node you'll want the 
-    Kubernetes cluster to expand to. Minimum cannot be set, it is positionned to 0 in the Tosca template.
+    Kubernetes cluster to expand to. 
+  * `Min Number of free WNs in the cluster`: 0 or 1, WNs without allocated pods. 
+    With this option you ensure the number of empty WNs in preparation for a peak 
+    workload, and therefore you save some time when growing the cluster.
 * `Cloud Provider Selection` tab:
   * Select the [credentials](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#cloud-credentials)
     configured earlier.
@@ -195,7 +200,7 @@ You'll need to replace some values in there:
 
 You might want also to modify other things (you'll be able to do it later if needed):
 * The `dasklimits` part.
-* The `backend` limit of dask-gateway.
+* The `c.Backend.cluster_options` limit of dask-gateway workers.
 * The Docker image used for Jupyter notebooks and Dask, please search for `pangeo/pangeo-notebook`.
   You might want to change either the image or just the associated tag.
 * The Jupyter notebook resources limit in `singleuser`.
@@ -232,13 +237,6 @@ dask-gateway:
           String("image", default="pangeo/pangeo-notebook:2022.09.21", label="Image"),
           handler=options_handler,
         )
-    backend:
-      worker:
-        cores:
-          limit: 4
-        memory:
-          limit: 8G
-        threads: 2
 dask-kubernetes:
   enabled: false
 jupyterhub:
@@ -330,6 +328,23 @@ JupyterHub with Check-In now at the DNS name created in [Step 1](#step-1-dns-nam
 Here we collect additional information that may be helpful to reconfigure
 the Pangeo cluster.
 
+### Troubleshooting the Elastic Kubernetes functionnality
+
+If things are not working as expected, you might want to look at 
+the CLUES logs (`/var/log/clues2/clues2.log`).
+
+If you see some `OIDC auth Token expired` message in the file (which might 
+happen right after the Kubernetes deployment), you'll need to renew manually
+the OIDC token. To do so:
+
+1. Login to https://im.egi.eu using EGI Checkin.
+1. Go to menu Advanced -> Settings and copy the OIDC Access token value.
+1. SSH to the cluster,
+1. Remove `/usr/local/ec3/refresh.dat`.
+1. Edit `/usr/local/ec3/auth.dat file`, copy your OIDC token in two places.
+1. Wait a few minutes, new file refresh.dat must appear, and the 
+   `OIDC auth Token expired` message from the log should disappear. 
+
 ### Daskhub without EGI Check-in auth and less limits
 
 If you don't want to go through the step of configuring EGI Check-in auth
@@ -365,7 +380,7 @@ dask-gateway:
 
         c.Backend.cluster_options = Options(
           Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
-          Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
+          Float("worker_memory", default=4, min=2, max=32, label="Worker Memory (GiB)"),
           String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
           handler=options_handler,
         )
