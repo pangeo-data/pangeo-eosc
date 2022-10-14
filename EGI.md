@@ -333,6 +333,8 @@ the Pangeo cluster.
 If things are not working as expected, you might want to look at 
 the CLUES logs (`/var/log/clues2/clues2.log`).
 
+#### OIDC Token expired
+
 If you see some `OIDC auth Token expired` message in the file (which might 
 happen right after the Kubernetes deployment), you'll need to renew manually
 the OIDC token. To do so:
@@ -343,7 +345,25 @@ the OIDC token. To do so:
 1. Remove `/usr/local/ec3/refresh.dat`.
 1. Edit `/usr/local/ec3/auth.dat file`, copy your OIDC token in two places.
 1. Wait a few minutes, new file refresh.dat must appear, and the 
-   `OIDC auth Token expired` message from the log should disappear. 
+   `OIDC auth Token expired` message from the log should disappear.
+
+#### Cluster still not scaling
+
+You need to check in /etc/clues2/conf.d/plugin-kubernetes.cfg that variables are correct,
+especially variables related to current flavor of WN VMs.
+
+For example, for a flavor with 8 cores and 32GiB:
+
+```
+KUBERNETES_NODE_MEMORY=33567285248
+KUBERNETES_NODE_SLOTS=8
+```
+
+Then, you'll need to restart clues2 service:
+
+```bash
+service cluesd restart
+```
 
 ### Daskhub without EGI Check-in auth and less limits
 
