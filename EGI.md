@@ -365,6 +365,20 @@ Then, you'll need to restart clues2 service:
 service cluesd restart
 ```
 
+#### Why cluster is not scaling down?
+
+CLUES will only delete VMs that are _"idle"_: i.e. with __no running pods__.
+
+You can use `kubectl` commands to see which pods are running on nodes:
+
+```bash
+sudo kubectl get nodes # get the list of nodes
+kubectl describe nodes vnode-4.localdomain # shows the list of pods running on vnode-4
+```
+
+Keep also in mind that if you have configured a minimum number of free nodes, 
+the same number of idle nodes will be maintained.
+
 ### Daskhub without EGI Check-in auth and less limits
 
 If you don't want to go through the step of configuring EGI Check-in auth
