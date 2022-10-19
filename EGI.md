@@ -369,11 +369,10 @@ service cluesd restart
 
 CLUES will only delete VMs that are _"idle"_: i.e. with __no running pods__.
 
-You can use `kubectl` commands to see which pods are running on nodes:
+You can use `kubectl` commands to see which pods are running on which nodes:
 
 ```bash
-sudo kubectl get nodes # get the list of nodes
-kubectl describe nodes vnode-4.localdomain # shows the list of pods running on vnode-4
+sudo kubectl get pods -o wide -n daskhub
 ```
 
 Keep also in mind that if you have configured a minimum number of free nodes, 
