@@ -17,10 +17,12 @@ Click '+Container', and in the pop up window labelled _Create Container_, define
 
 Please see below a table with the permissions to access object storage.
 
-Virtual Organisation | Create/destroy VMs | Public bucket for "vo.pangeo.eu" | Private bucket for "vo.pangeo.eu" | Public bucket for "vo.pangeo.eu-swift" | Private bucket for "vo.pangeo.eu-swift"
--- | -- | -- | -- | -- | --
-member of vo.pangeo.eu in aai.egi.eu/pangeo.admins | yes | read/write access | read/write access | read-write access | read/write access
-member of vo.pangeo.eu in aai.egi.eu | no | read-only | no access | read/write access | read/write access
-member of vo.pangeo.eu in aai-dev.egi.eu | no | read-only | no access | read-only | no access
-None | no | read-only | no access | read-only | no access
+  | Create/destroy VMs | Object Storage at OpenStack: project "vo.pangeo.eu" | Object Storage at OpenStack: project "vo.pangeo.eu" | Object Storage at OpenStack: project "vo.pangeo.eu-swift" | Object Storage at OpenStack: project "vo.pangeo.eu-swift" | Object Storage at OpenStack: project "vo.pangeo.eu-escience" | Object Storage at OpenStack: project "vo.pangeo.eu-escience"
+-- | -- | -- | -- | -- | -- | -- | --
+Virtual Organisation |   | Public bucket | Private bucket | Public bucket | Private bucket | Public bucket | Private bucket
+member of vo.pangeo.eu in aai.egi.eu/pangeo.admins | yes | read/write access | read/write access | read-write access | read/write access | read-only | no access
+member of vo.pangeo.eu in aai.egi.eu | no | read-only | no access | read/write access | read/write access | read-only | no access
+member of vo.pangeo.eu in aai.egi.eu/escience | no | read-only | no access | read-only | no access | read/write access | read/write access
+member of vo.pangeo.eu in aai-dev.egi.eu | no | read-only | no access | read-only | no access | read-only | no access
+None | no | read-only | no access | read-only | no access | read-only | no access
 
