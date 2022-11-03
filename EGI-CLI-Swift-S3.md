@@ -47,8 +47,17 @@ export OS_AUTH_TYPE=v3oidcaccesstoken
 export OS_PROTOCOL=openid
 export OS_IDENTITY_PROVIDER=egi.eu
 export OS_ACCESS_TOKEN=$OIDC_ACCESS_TOKEN
-export OS_PROJECT_ID=57102d3e06b7476088fe4924370ae170
 export OS_STORAGE_URL=https://object-store.cloud.muni.cz/swift/v1
+```
+
+Depending on the workshop you are attending, configure the project ID accordingly:
+```
+# CLIVAR workshop:
+# https://www.clivar.org/events/arctic-processes-cmip6-bootcamp
+export OS_PROJECT_ID=57102d3e06b7476088fe4924370ae170
+# eScience workshop:
+# https://www.aces.su.se/research/projects/escience-tools-in-climate-science-linking-observations-with-modelling/
+export OS_PROJECT_ID=5e5a45e153d3424997fda0c4fd21a21f
 ```
 
 Then the following command should work:
