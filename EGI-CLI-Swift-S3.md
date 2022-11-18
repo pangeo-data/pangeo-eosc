@@ -90,3 +90,11 @@ Once you've created a credential, you can retrieve it with the `list` command. D
 This will provide `access` and `secret` keys. The `endpoint` URL is: `https://object-store.cloud.muni.cz/`.
 
 __Be really careful of what you do with your credentials, e.g. avoid living them into notebooks.__
+
+In case, you need to re-set your creentials with following command. 
+
+```
+openstack ec2 credentials delete <`access` key> 
+openstack ec2 credentials create
+openstack ec2 credentials list
+```
