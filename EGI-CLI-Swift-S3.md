@@ -3,7 +3,7 @@
 ## First install required Python packages
 
 ```
-conda create -n egi python jq --yes
+conda create -n egi python gcc jq --yes
 conda activate egi
 pip install fedcloudclient
 ```
