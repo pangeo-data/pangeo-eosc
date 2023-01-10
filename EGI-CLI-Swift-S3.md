@@ -45,9 +45,12 @@ fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC container lis
 
 ## Retrieve Openstack token for Swift
 
-```
+```bash
+# get OS_STORAGE_URL
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC catalog show swift
+
 # get OS_AUTH_TOKEN
-$ openstack token issue -c id -f value
+openstack token issue -c id -f value
 ```
 
 You'll need `OS_AUTH_TOKEN` and `OS_STORAGE_URL` in order to interact with Swift using Zarr.
