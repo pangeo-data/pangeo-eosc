@@ -16,6 +16,11 @@ fedcloud token check
 
 But you don't have a token yet.
 
+You can also run `conda` from a container if don't want to install it. Steps are the same after the following command:
+```
+sudo docker run -it condaforge/mambaforge /bin/bash
+```
+
 ## Get your access token from EGI Check-In
 
 Go to https://aai.egi.eu/token/ to [obtain your access token](https://docs.egi.eu/users/aai/check-in/obtaining-tokens/token-portal/). Copy your access token, and then set it:
