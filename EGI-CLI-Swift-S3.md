@@ -3,7 +3,7 @@
 ## First install required Python packages
 
 ```
-conda create -n egi python gcc jq --yes
+conda create -n egi python jq s3fs gcc awscli --yes -c conda-forge
 conda activate egi
 pip install fedcloudclient
 ```
@@ -27,49 +27,30 @@ fedcloud token check
 
 Last command should return a valid token.
 
-## Use Openstack without fedcloudclient to access a specific project storage
+## Use Openstack CLI via fedcloudclient
 
-It is possible to use `openstack` command through `fedcloudclient` to interact with
+It is recommended to use `openstack` command through `fedcloudclient` to interact with
 Openstack object storage, as [documented here](https://docs.egi.eu/users/data/storage/object-storage/#access-with-the-fedcloud-cli).
 
-However, this works well when there is only one project associated with a 
-Virtual Organization (i.e. a one to one mapping between the two).
-We currently have one Virtual Organization (vo.pangeo.eu) and two OpenStack projects associated with it.
-We have created _vo.pangeo.eu-swift_, a new, separate OpenStack project to allow normal users 
-(i.e. non admin users) of the _vo.pangeo.eu_ VO to work with an object store.
-This way, we should be able to set more fine grained authorizations on buckets.
-That's why we need to use `openstack` commands in replacement of the `fedcloudclient`.
-
-Please configure these environment variables:
-```
-export OS_AUTH_URL=https://identity.cloud.muni.cz/v3
-export OS_AUTH_TYPE=v3oidcaccesstoken
-export OS_PROTOCOL=openid
-export OS_IDENTITY_PROVIDER=egi.eu
-export OS_ACCESS_TOKEN=$OIDC_ACCESS_TOKEN
-export OS_STORAGE_URL=https://object-store.cloud.muni.cz/swift/v1
-```
-
-Depending on the workshop you are attending, configure the project ID accordingly:
-```
+Depending on the workshop you are attending, the following command should work:
+```bash
 # CLIVAR workshop:
 # https://www.clivar.org/events/arctic-processes-cmip6-bootcamp
-export OS_PROJECT_ID=57102d3e06b7476088fe4924370ae170
+fedcloud openstack --vo "/vo.pangeo.eu/swift" --site CESNET-MCC container list
+
 # eScience workshop:
 # https://www.aces.su.se/research/projects/escience-tools-in-climate-science-linking-observations-with-modelling/
-export OS_PROJECT_ID=5e5a45e153d3424997fda0c4fd21a21f
-```
-
-Then the following command should work:
-```
-openstack container list
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC container list
 ```
 
 ## Retrieve Openstack token for Swift
 
-```
+```bash
+# get OS_STORAGE_URL
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC catalog show swift
+
 # get OS_AUTH_TOKEN
-$ openstack token issue -c id -f value
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC token issue -c id -f value
 ```
 
 You'll need `OS_AUTH_TOKEN` and `OS_STORAGE_URL` in order to interact with Swift using Zarr.
