@@ -48,6 +48,10 @@ fedcloud openstack --vo "/vo.pangeo.eu/swift" --site CESNET-MCC container list
 fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC container list
 ```
 
+Please note that the `--vo` option is supplied with different strings in the commands above depending on
+the project that you are participating. The format is `--vo "/vo.pangeo.eu/<project-name>"`. If you are unsure
+about your `<project-name>`, please [contact us](https://github.com/pangeo-data/pangeo-eosc/issues) and we will let you know.
+
 ## Retrieve Openstack token for Swift
 
 ```bash
@@ -67,8 +71,8 @@ https://docs.cloud.muni.cz/cloud/advanced-features/#s3-credentials.
 
 Please run:
 ```
-openstack ec2 credentials create
-openstack ec2 credentials list
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials create
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials list
 ```
 
 Once you've created a credential, you can retrieve it with the `list` command. Do not use create if you already have one. 
@@ -80,7 +84,7 @@ __Be really careful of what you do with your credentials, e.g. avoid living them
 In case, you need to re-set your creentials with following command. 
 
 ```
-openstack ec2 credentials delete <`access` key> 
-openstack ec2 credentials create
-openstack ec2 credentials list
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials delete <`access` key> 
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials create
+fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials list
 ```
