@@ -1,18 +1,17 @@
 # How to deploy Pangeo in the infrastructure of the EGI Federation
 
-These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes-helm.html#helm-install-dask-for-multiple-users),
-a [Dask Gateway](https://gateway.dask.org/) enabled [JupyterHub](https://jupyter.org/hub) using the 
-infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
+These are the steps to deploy [Dask Gateway](https://gateway.dask.org/) along with [JupyterHub](https://jupyter.org/hub)
+and [BinderHub](https://jupyter.org/binder) using the infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
 
 ## How to get access
 
 Getting access consists of the following steps:
 
-1. [Sign-up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-In account.
+1. [Sign-up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-in account.
 1. Request to join the `vo.pangeo.eu`
    [Virtual Organisation (VO)](https://confluence.egi.eu/display/EGIG/Virtual+organisation)
    by visiting the [enrollment URL](https://aai.egi.eu/registry/co_petitions/start/coef:386)
-   with your EGI Check-In account. The subscription requires approval from the
+   with your EGI Check-in account. The subscription requires approval from the
    VO Managers. For further information, please check the
    [VO ID card](https://operations-portal.egi.eu/vo/view/voname/vo.pangeo.eu).
 1. Use [Infrastructure Manager](https://docs.egi.eu/users/compute/orchestration/im/).
@@ -32,7 +31,7 @@ Here is an overview of the steps that we will follow:
 
 1. Configure a DNS name for your Pangeo deployment using the
 [Dynamic DNS](https://docs.egi.eu/users/compute/cloud-compute/dynamic-dns/) service.
-1. Get credentials from [EGI Check-In](https://docs.egi.eu/users/aai/check-in/) to allow
+1. Get credentials from [EGI Check-in](https://docs.egi.eu/users/aai/check-in/) to allow
 configuring JupyterHub authentication using this service, giving access to all members 
 of the `vo.pangeo.eu` Virtual Organization to your deployment.
 1. Deploy a Kubernetes cluster on top of OpenStack, along with other tools like Grafana.
@@ -43,7 +42,7 @@ of the `vo.pangeo.eu` Virtual Organization to your deployment.
 ### Step 1) Get a DNS name
 
 Log into the [Dynamic DNS web GUI portal](https://nsupdate.fedcloud.eu/)
-with your EGI Check-In account to configure the DNS host name of your choice.
+with your EGI Check-in account to configure the DNS host name of your choice.
 The web portal is intuitive, and there is also the associated
 [documentation](https://docs.egi.eu/users/compute/cloud-compute/dynamic-dns/)
 so we will not go into more details here.
@@ -52,25 +51,25 @@ Just use the `Add Host` button, and follow the steps.
 For the rest of this tutorial, let us consider the `pangeo.vm.fedcloud.eu`
 host name.
 
-### Step 2) Get EGI Check-In credentials
+### Step 2) Get EGI Check-in credentials
 
 You need to follow this step for __every new Pangeo deployment host name__ 
 generated, if you want to link it with EGI Check-in (which is recommended).
 
-Please follow the steps on the Check-In documentation for
+Please follow the steps on the Check-in documentation for
 [Service Providers](https://docs.egi.eu/providers/check-in/sp/). In particular,
 the instructions using OpenID Connect as the authentication and authorization
 protocol. You need to fill the registration form at 
 [EGI Federation Registry](https://aai.egi.eu/federation/).
 
-Check-In runs three separate instances: production (`aai.egi.eu`),
+Check-in runs three separate instances: production (`aai.egi.eu`),
 demo (`aai-demo.egi.eu`), and development (`aai-dev.egi.eu`). To quickly test
-integration with Check-In, we suggest to configure Pangeo to connect to
+integration with Check-in, we suggest to configure Pangeo to connect to
 the _development_ instance (this way you can self approve the service registration). 
 Note that by default the `vo.pangeo.eu` VO only exists
-in the production instance of Check-In. Please ask the EGI Check-In team (via
+in the production instance of Check-in. Please ask the EGI Check-in team (via
 an email to `check-in@egi.eu`) to create the VO in the development instance
-of Check-In.
+of Check-in.
 
 Here are additional details to fill out the registration form:
 
@@ -97,7 +96,7 @@ Then, you'll just need to get the `Client ID` and `Client Secret` that should ha
 Log into the [IM Dashboard](https://im.egi.eu/im-dashboard/)
 (if you want to deploy an Elastic cluster, be sure to use operational
 instance of IM Dashboard, not `im-dashboard-dev`)
-with your EGI Check-In account, and configure your
+with your EGI Check-in account, and configure your
 [credentials](https://docs.egi.eu/users/compute/orchestration/im/dashboard/#cloud-credentials)
 with the `vo.pangeo.eu` VO. 
 
@@ -179,14 +178,12 @@ correctly configured with Let's Encrypt. There is still a missing step that
 will be done in the section below (configuring the ingress with correct values
 in the Helm values.yaml file).
 
-### Step 4.a) Deploy the DaskHub helm chart
-
-#### DaskHub with EGI Check-in auth
+### Step 4.a) Deploy the DaskHub helm chart with EGI Check-in auth
 
 After you have successfully registered the Pangeo service in the
 [EGI Federation Registry](https://aai.egi.eu/federation) and the 
 Kubernetes cluster is deployed, below is the
-`values.yaml` that you need to deploy a Daskhub with Check-In authentication.
+`values.yaml` that you need to deploy a Daskhub with Check-in authentication.
 
 You'll need to replace some values in there:
 * `token1` must be replaced with a hash generated using `openssl rand -hex 32` on Linux.
@@ -202,6 +199,9 @@ You might want also to modify other things (you'll be able to do it later if nee
   Jupyter notebooks and Dask, please search for `pangeo/pangeo-notebook`.
   You might want to change either the image or just the associated tag.
 * The Jupyter notebook resources limit in `singleuser`.
+
+For reference, please also check the
+[DaskHub documentation](https://docs.dask.org/en/stable/deploying-kubernetes-helm.html#helm-install-dask-for-multiple-users).
 
 ```yaml
 dask-gateway:
@@ -257,7 +257,7 @@ jupyterhub:
         authorize_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/auth
         token_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/token
         userdata_url: https://aai-dev.egi.eu/auth/realms/egi/protocol/openid-connect/userinfo
-        login_service: EGI Check-In
+        login_service: EGI Check-in
         scope:
           - openid
           - email
@@ -324,15 +324,16 @@ If all went well, JupyterHub will be available at
 [https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)
 
 All members of the `vo.pangeo.eu` VO will be able to log into
-JupyterHub with Check-In now at the DNS name created in [Step 1](#step-1-dns-name)
+JupyterHub with Check-in now at the DNS name created in [Step 1](#step-1-dns-name)
 (e.g. [https://pangeo.vm.fedcloud.eu/](https://pangeo.vm.fedcloud.eu/)).
 
-### Step 4.b) Using DaskHub Tosca template with Kubernetes
+### Step 4.b) Deploy the DaskHub using a TOSCA template
 
-You can use Daskhub Tosca template to deploy a DaskHub platform. 
-However, it won't be configured with EGI Checkin, and it may lack some settings as
-it has not been updated since July 2022. If using it, you'lll probably have to
-use Helm commands anyway.
+You can use the
+[TOSCA template available in IM Dashboard](https://im.egi.eu/im-dashboard/configure?selected_tosca=kubernetes.yaml&childs=prometheus.yaml)
+to deploy a DaskHub platform. However, it won't be configured with EGI Check-in,
+and it may lack some settings as it has not been updated since July 2022. If using it,
+you'lll probably have to use Helm commands anyway.
 
 You can use it by selecting it as Kubernetes option, and filling the options:
 
@@ -342,6 +343,199 @@ You can use it by selecting it as Kubernetes option, and filling the options:
   * Use `Jupyterhub singleuser image` and `Jupyterhub singleuser image version`
     to configure the default user environment in JupyterHub with a container
     image of your choice.
+
+### Step 4.c) Deploy Binder and Dask Gateway
+
+To get Dask Gateway working with Binder, first we deploy BinderHub and then
+Dask Gateway alongside it.
+
+Based on the
+[BinderHub documentation](https://binderhub.readthedocs.io/en/latest/zero-to-binderhub/index.html)
+below are the deployment steps:
+
+```bash
+sudo helm repo add jupyterhub https://jupyterhub.github.io/helm-chart
+sudo helm repo update
+sudo helm upgrade binderhub jupyterhub/binderhub \
+	--install \
+	--cleanup-on-fail \
+	--create-namespace \
+	--namespace binderhub \
+	--version 1.0.0-0.dev.git.3002.h5f189ce \
+	--values binderhub.yaml
+```
+
+With the `binderhub.yaml` file below:
+
+```yaml
+config:
+  BinderHub:
+    hub_url: https://pangeo.vm.fedcloud.eu
+    image_prefix: <replace-this>
+    use_registry: true
+    
+registry:
+  password: <replace-this>
+  username: <replace-this>
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  enabled: true
+  https:
+    enabled: true
+  hosts:
+    - pangeo-binder.vm.fedcloud.eu
+  tls:
+    - hosts:
+      - pangeo-binder.vm.fedcloud.eu
+      secretName: pangeo-binder.vm.fedcloud.eu
+
+jupyterhub:
+  hub:
+    config:
+      Authenticator:
+        admin_users:
+        - admin
+      JupyterHub:
+        admin_access: true
+        authenticator_class: nativeauthenticator.NativeAuthenticator          
+    nodeSelector:
+      node-role.kubernetes.io/master: ""
+    extraConfig:
+      00-add-dask-gateway-values: |
+        # 1. Sets `DASK_GATEWAY__PROXY_ADDRESS` in the singleuser environment.
+        # 2. Adds the URL for the Dask Gateway JupyterHub service.
+        import os
+        # These are set by jupyterhub.
+        release_name = os.environ["HELM_RELEASE_NAME"]
+        release_namespace = os.environ["POD_NAMESPACE"]
+        if "PROXY_HTTP_SERVICE_HOST" in os.environ:
+            # https is enabled, we want to use the internal http service.
+            gateway_address = "http://{}:{}/services/dask-gateway/".format(
+                os.environ["PROXY_HTTP_SERVICE_HOST"],
+                os.environ["PROXY_HTTP_SERVICE_PORT"],
+            )
+            print("Setting DASK_GATEWAY__ADDRESS {} from HTTP service".format(gateway_address))
+        else:
+            gateway_address = "http://proxy-public/services/dask-gateway"
+            print("Setting DASK_GATEWAY__ADDRESS {}".format(gateway_address))
+        # Internal address to connect to the Dask Gateway.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__ADDRESS", gateway_address)
+        # Internal address for the Dask Gateway proxy.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__PROXY_ADDRESS", "gateway://traefik-dask-gateway.{}:80".format(release_namespace))
+        # Relative address for the dashboard link.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__PUBLIC_ADDRESS", "/services/dask-gateway/")
+        # Use JupyterHub to authenticate with Dask Gateway.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__AUTH__TYPE", "jupyterhub")
+        # Adds Dask Gateway as a JupyterHub service to make the gateway available at
+        # {HUB_URL}/services/dask-gateway
+        service_url = "http://traefik-dask-gateway.{}".format(release_namespace)
+        for service in c.JupyterHub.services:
+            if service["name"] == "dask-gateway":
+                if not service.get("url", None):
+                    print("Adding dask-gateway service URL")
+                    service.setdefault("url", service_url)
+                break
+        else:
+            print("dask-gateway service not found. Did you set jupyterhub.hub.services.dask-gateway.apiToken?")
+    services:
+      dask-gateway:
+        apiToken: token1 # replace this
+    tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    enabled: true
+    hosts:
+      - pangeo.vm.fedcloud.eu
+    tls:
+      - hosts:
+        - pangeo.vm.fedcloud.eu
+        secretName: pangeo.vm.fedcloud.eu
+  proxy:
+    chp:
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+    service:
+      type: ClusterIP
+  singleuser:
+    cpu:
+      guarantee: 2
+      limit: 8
+    image:
+      name: pangeo/pangeo-notebook
+      tag: 2023.01.04
+    memory:
+      guarantee: 4G
+      limit: 32G
+    startTimeout: 600
+    storage:
+      capacity: 2Gi
+```
+
+Based on the
+[Dask Gateway documentation](https://gateway.dask.org/install-kube.html#install-the-dask-gateway-helm-chart)
+below are the deployment steps:
+
+```bash
+sudo helm repo add dask https://helm.dask.org
+sudo helm repo update
+sudo helm upgrade dask-gateway dask-gateway \
+	--repo=https://helm.dask.org \
+	--install \
+	--cleanup-on-fail \
+	--create-namespace \
+	--namespace binderhub \
+	--version 2023.1.1 \
+	--values dask-gateway.yaml
+```
+
+With the `dask-gateway.yaml` file below:
+
+```yaml
+gateway:
+  auth:
+    jupyterhub:
+      apiToken: token1 # replace this
+      apiUrl: http://proxy-public/hub/api
+    type: jupyterhub
+  extraConfig:
+    optionHandler: |
+      from dask_gateway_server.options import Options, Integer, Float, String
+
+      def options_handler(options):
+        if ":" not in options.image:
+          raise ValueError("When specifying an image you must also provide a tag")
+        return {
+          "worker_cores": options.worker_cores,
+          "worker_memory": int(options.worker_memory * 2 ** 30),
+          "image": options.image,
+        }
+
+      c.Backend.cluster_options = Options(
+        Integer("worker_cores", default=1, min=1, max=4, label="Worker Cores"),
+        Float("worker_memory", default=2, min=1, max=4, label="Worker Memory (GiB)"),
+        String("image", default="pangeo/pangeo-notebook:2023.01.04", label="Image"),
+        handler=options_handler,
+      )
+  prefix: /services/dask-gateway
+
+traefik:
+  service:
+    type: ClusterIP
+
+rbac:
+  enabled: true
+```
+
 
 ## Appendix
 
@@ -385,7 +579,7 @@ Then, you'll need to restart clues2 service:
 service cluesd restart
 ```
 
-#### DaskHub without EGI Check-in auth and less limits
+#### DaskHub without EGI Check-in auth
 
 If you don't want to go through the step of configuring EGI Check-in auth
 for developement purpose, you can chose another authentication method,
