@@ -7,6 +7,12 @@ In this repository we are storing configuration files we use for setting up Pang
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
 
+### 2022
+
+- T. Odaka, A. Coca-Castro, P.L. Marasco, J.Iaquinta, A. Fouilloux,  and G. Eynard-Bontemps: [Pangeo 101: a community-centric, open, collaborative and scalable big geoscience data analytic platform](https://docs.google.com/presentation/d/1XB9jmKlPnyAtUWRG_xzGC9h3qn_88gVSegOI3uDcaKo/edit?usp=sharing), FOSS4G workshop, Florence, 23 August 2022.
+- A. Fouilloux, A. Coca-Castro, P.L. Marasco, P. Strobl, T. Odaka and G. Eynard-Bontemps: [Pangeo, an open, inclusive, reproducible and scalable EO data analytic platform](https://docs.google.com/presentation/d/1wCLz_KiTdu9NQHKiu5DXtHRve9lfr_-x/edit?usp=sharing&ouid=117649714608210077199&rtpof=true&sd=true), Oral presentation at Living Planet Symposium 2022,25 May 2022 in Bonn, Germany.
+- Anne Fouilloux, Alejandro Coca-Castro, Pier Lorenzo Marasco, Peter Strobl, Tina Odaka, Guillaume Eynard-Bontemps: [Pangeo, an open source driven community for Big Data geoscience](https://docs.google.com/presentation/d/1gGPDw2p5c38_B2KyE7PsmPr1T_HUdTBqC5wnnb_wqH8/edit?usp=sharing), Poster at Living Planet Symposium 2022, 23–27 May 2022 in Bonn, Germany.
+- A. Fouilloux, A. Coca-Castro, P.L. Marasco, P. Strobl, T. Odaka and G. Eynard-Bontemps: [Pangeo, An open, inclusive, reproducible and scalable Geoscience data analytic community](https://docs.google.com/presentation/d/1z0t8FZweVFGgecB0EISe0QQvPIRJ6xgwvwyFJpw5-M8/edit?usp=sharing), ICAS (International Computing in the Atmospheric Sciences Symposium), 11-15 September 2022;
 
 ### 2023
 
