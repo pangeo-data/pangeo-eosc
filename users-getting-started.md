@@ -45,7 +45,7 @@ If you need support, please open an [issue](https://github.com/pangeo-data/pange
 
 ## Monitoring
 
-Check out the [open grafana dashboard](https://kuba-mon.cloud.e-infra.cz/d/vd9rFCL4z/c-scale?orgId=1&refresh=30s). It is particularly useful to check that the number of GPUs available is greater than zero before requesting an environment with GPU.
+Check out the [open grafana dashboard](https://kuba-mon.cloud.e-infra.cz/d/vd9rFCL4z/c-scale?orgId=1&refresh=30s). It is particularly useful to check that there are GPUs available before requesting an environment with GPU.
 
 ## Background information
 
