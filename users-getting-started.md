@@ -1,7 +1,7 @@
 
 # Users: How to get access to `pangeo-eosc` services?
 
-In this section you will learn how to register and access `pange-eosc` services.
+In this section you will learn how to register and access `pangeo-eosc` services.
 
 ## Registration
 
