@@ -2,6 +2,7 @@
 
 In this repository we are storing configuration files we use for setting up Pangeo on EOSC.
 
+Are you a user who wants to get access to `pangeo-eosc` services? Please check the [getting started for users](./users-getting-started.md).
 
 ## Publication & outreach
 
