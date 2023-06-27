@@ -20,8 +20,8 @@ Access DaskHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.
 
 - Pangeo Notebook uses a docker image maintained by the Pangeo community. It contains all the Python packages you need to data analysis and visualization. The list of packages and all the Pangeo Notebook environment is made available [here](https://github.com/pangeo-data/pangeo-docker-images); look up the `pangeo-notebook` folder. 
 - Machine Learning Pangeo notebook with GPU enable tensorflow2: similarly, it is maintained by the Pangeo community and the complete computational environment with the list of Python packages is also available at [https://github.com/pangeo-data/pangeo-docker-images](https://github.com/pangeo-data/pangeo-docker-images) in the `ml-notebook` folder. This flavor contains all the packages from the Pangeo Notebook flavor and is GPU-enabled tensorflow2. Choose this flavor if you need GPUs; for instance for training neural networks;
-- Machine Learning Pangeo notebook with GPU enable pytorch: it is the same as `ml-notebook` but with GPU-enabled pytorch. Select this flavor if you wish/need to use pytorch for reproducing the selected paper;
-- Datascience Notebook with Python, R and Julia is maintained by the Jupyter community at [https://github.com/jupyter/docker-stacks](https://github.com/jupyter/docker-stacks). Look up the `datascience-notebook` folder. It contains 3 different kernels, namely Python, R and Julia notebooks. You should prefer this flavor if the paper you reproduce uses R or Julia programming language. Please note that you would probably need to add additional packages as the list of available packages is not exhaustive and specific to environmental data science.
+- Machine Learning Pangeo notebook with GPU enable pytorch: it is the same as `ml-notebook` but with GPU-enabled pytorch.
+- Datascience Notebook with Python, R and Julia is maintained by the Jupyter community at [https://github.com/jupyter/docker-stacks](https://github.com/jupyter/docker-stacks). Look up the `datascience-notebook` folder. It contains 3 different kernels, namely Python, R and Julia notebooks. Please note that you would probably need to add additional packages as the list of available packages is not exhaustive and specific to environmental data science.
 
 You need to click on `Sign in with EGI Check-in` and then use your ORCID iD credentials.
 
@@ -59,7 +59,7 @@ The [European Open Science Cloud (EOSC)](https://eosc-portal.eu/about/eosc) aims
 
 ### Pangeo Europe 
 
-<img src="https://github.com/eds-book/reproducibility-challenge-2023/raw/main/challenge/figures/pangeo_name_logo.png" width="180" align="Left" /></a>
+![Pangeo logo](./figures/pangeo_name_logo.png)
 
 [Pangeo](https://pangeo.io/) is a worldwide community for Big Data geoscience promoting open, reproducible, and scalable science. 
 
