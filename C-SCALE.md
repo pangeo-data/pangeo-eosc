@@ -16,7 +16,7 @@ This guide assumes that you have:
 
 The official helm chart uses [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions)
 that are not allowed in the baremetal kubernetes deployment at CESNET. The modified chart
-under [helm/dask-gateway/](helm/dask-gateway/) is adapted to avoid that issue.
+under [helm/daskhub/](helm/daskhub/) is adapted to avoid that issue.
 
 ## Before going ahead
 
@@ -37,13 +37,13 @@ git clone git@github.com:pangeo-data/pangeo-eosc.git
 Use `helm` to install **DaskHub** with the command below:
 
 ```bash
-helm upgrade daskhub pangeo-eosc/helm/dask-gateway/ \
+helm upgrade daskhub pangeo-eosc/helm/daskhub/ \
 	--install --wait \
 	--cleanup-on-fail \
 	--create-namespace \
 	--namespace c-scale-pangeo-dask \
 	--version 2022.8.2 \
-	--values pangeo-eosc/helm/dask-gateway/values.yaml
+	--values pangeo-eosc/helm/daskhub/values.yaml
 ```
 
 All going well **DaskHub** will be available at [https://pangeo.vm.fedcloud.eu](https://pangeo.vm.fedcloud.eu).
