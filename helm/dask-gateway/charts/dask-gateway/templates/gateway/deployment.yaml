@@ -38,6 +38,10 @@ spec:
       imagePullSecrets:
         {{- . | toYaml | nindent 8 }}
       {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: gateway
           image: {{ .Values.gateway.image.name }}:{{ .Values.gateway.image.tag }}
@@ -53,6 +57,10 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
           volumeMounts:
             - mountPath: /etc/dask-gateway/
               name: configmap

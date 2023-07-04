@@ -28,6 +28,10 @@ spec:
       {{- end }}
       {{- end }}
       terminationGracePeriodSeconds: 60
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: traefik
           image: {{ .Values.traefik.image.name }}:{{ .Values.traefik.image.tag }}
@@ -35,6 +39,10 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
           {{- with .Values.traefik.resources }}
           resources:
             {{- . | toYaml | nindent 12 }}
