@@ -1,5 +1,8 @@
 dask-gateway:
   enabled: true
+  traefik:
+    service:
+      type: ClusterIP
   gateway:
     auth:
       jupyterhub:
@@ -33,18 +36,41 @@ dask-gateway:
     prefix: /services/dask-gateway
     backend:
       scheduler:
+        extraPodConfig:
+          securityContext:
+            fsGroupChangePolicy: OnRootMismatch
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
         extraContainerConfig:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+             drop:
+             - ALL
+        cores:
+          request: 1
+          limit: 1
+        memory:
+          request: 8G
+          limit: 8G
       worker:
+        extraPodConfig:
+          securityContext:
+            fsGroupChangePolicy: OnRootMismatch
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
         extraContainerConfig:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
-  traefik:
-    service:
-      type: ClusterIP
+            allowPrivilegeEscalation: false
+            capabilities:
+             drop:
+             - ALL
 
 dask-kubernetes:
   enabled: false
@@ -54,6 +80,17 @@ rbac:
 
 jupyterhub:
   hub:
+    extraConfig:
+#      01-add-message: |
+#        c.JupyterHub.template_vars = {'announcement_login': 'This DaskHub is currently under maintenance. ' +
+#                                                            'It means you cannot use it at the moment, sorry! ' +
+#                                                            'We will apply the necessary fixes by 12th July.'
+#                                     }
+      pre-spawn-hook: |
+        async def bootstrap_pre_spawn(spawner):
+          spawner.container_security_context = {"capabilities": {"drop": ["ALL"]}}
+
+        c.KubeSpawner.pre_spawn_hook = bootstrap_pre_spawn
     config:
       Authenticator:
         admin_users:
@@ -66,6 +103,17 @@ jupyterhub:
         apiToken: token1 # replace this
     networkPolicy:
       interNamespaceAccessLabels: "accept"
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+       drop:
+       - ALL
+    podSecurityContext:
+      fsGroupChangePolicy: OnRootMismatch
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
@@ -78,11 +126,33 @@ jupyterhub:
       - hosts:
         - pangeo.vm.fedcloud.eu # replace this with your DNS name
         secretName: pangeo.vm.fedcloud.eu # replace this with your DNS name
+
   proxy:
     secretToken: token2 # replace this 
     service:
       type: ClusterIP
+    chp:
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+      extraPodSpec:
+        securityContext:
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+
   singleuser:
+    extraFiles:
+      jupyter_notebook_config.json:
+        mountPath: /etc/jupyter/jupyter_notebook_config.json
+        data:
+          MappingKernelManager:
+            cull_idle_timeout: 3600
+            cull_interval: 300
+            cull_connected: true
+            cull_busy: false
     networkPolicy:
       enabled: false
     cloudMetadata:
@@ -96,20 +166,54 @@ jupyterhub:
     image:
       name: pangeo/pangeo-notebook
       tag: 2022.08.19
+    profileList:
+      - display_name: "pangeo-notebook"
+        description: "Pangeo stack"
+        default: true
+      - display_name: "ml-notebook"
+        description: "pangeo-notebook + GPU-enabled tensorflow2"
+        kubespawner_override:
+          image: quay.io/pangeo/ml-notebook:2023.03.28
+          extra_resource_guarantees:
+            nvidia.com/gpu: 1
+          extra_resource_limits:
+            nvidia.com/gpu: 1
+      - display_name: "pytorch-notebook"
+        description: "pangeo-notebook + GPU-enabled pytorch"
+        kubespawner_override:
+          image: quay.io/pangeo/pytorch-notebook:2023.03.28
+          extra_resource_guarantees:
+            nvidia.com/gpu: 1
+          extra_resource_limits:
+            nvidia.com/gpu: 1
+      - display_name: "datascience-notebook"
+        description: "Python, R, and Julia."
+        kubespawner_override:
+          image: jupyter/datascience-notebook:2023-04-10
     memory:
       guarantee: 2G
       limit: 4G
     startTimeout: 600
     storage:
       capacity: 10Gi
+      dynamic:
+        storageClass: nfs-csi-backup
+    allowPrivilegeEscalation: false
     extraPodConfig:
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
   scheduling:
     userScheduler:
       enabled: false
+    userPlaceholder:
+      enabled: false
+
   prePuller:
     hook:
       enabled: false
     continuous:
-      enabled: false  
+      enabled: false
