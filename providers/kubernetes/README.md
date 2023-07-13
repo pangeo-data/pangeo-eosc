@@ -70,6 +70,12 @@ All going well **DaskHub** will be available at [https://pangeo-eosc.vm.fedcloud
 
 To get Dask Gateway working with Binder, first we deploy BinderHub and then Dask Gateway.
 
+Due to security restrictions with the deployment in the baremetal k8s cluster
+at CESNET we use [kaniko](https://github.com/GoogleContainerTools/kaniko)
+instead of [Docker](https://www.docker.com/) to build container images for
+BinderHub. Thanks to CESNET for the developments
+[in that front](https://github.com/cerit-sc/binderhub).
+
 ## Before going ahead
 
 Please configure the values below accordingly:
