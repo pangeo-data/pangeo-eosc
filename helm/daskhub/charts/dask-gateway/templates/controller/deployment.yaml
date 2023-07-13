@@ -1,0 +1,84 @@
+{{- if .Values.controller.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dask-gateway.controllerName" . }}
+  labels:
+    {{- include "dask-gateway.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "dask-gateway.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: controller
+  template:
+    metadata:
+      labels:
+        {{- include "dask-gateway.labels" . | nindent 8 }}
+        app.kubernetes.io/component: controller
+      annotations:
+        checksum/configmap: {{ include (print .Template.BasePath "/controller/configmap.yaml") . | sha256sum }}
+        {{- with .Values.controller.annotations }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- if .Values.rbac.enabled }}
+      {{- if .Values.rbac.controller.serviceAccountName }}
+      serviceAccountName: {{ .Values.rbac.controller.serviceAccountName }}
+      {{- else }}
+      serviceAccountName: {{ include "dask-gateway.controllerName" . }}
+      {{- end }}
+      {{- end }}
+      volumes:
+        - name: configmap
+          configMap:
+            name: {{ include "dask-gateway.controllerName" . }}
+      {{- with .Values.controller.imagePullSecrets }}
+      imagePullSecrets:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: controller
+          image: {{ .Values.controller.image.name }}:{{ .Values.controller.image.tag }}
+          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
+          args:
+            - dask-gateway-server
+            - kube-controller
+            - --config
+            - /etc/dask-gateway/dask_gateway_config.py
+          {{- with .Values.controller.resources }}
+          resources:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          volumeMounts:
+            - mountPath: /etc/dask-gateway/
+              name: configmap
+          ports:
+            - containerPort: 8000
+              name: api
+      {{- with .Values.controller.affinity }}
+      affinity:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with .Values.controller.tolerations }}
+      tolerations:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with .Values.controller.nodeSelector }}
+      nodeSelector:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+{{- end }}

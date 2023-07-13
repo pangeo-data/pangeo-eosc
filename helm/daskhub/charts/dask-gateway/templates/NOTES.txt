@@ -1,0 +1,9 @@
+You've installed Dask-Gateway version {{ .Chart.AppVersion }}, from chart
+version {{ .Chart.Version }}!
+
+Your release is named {{ .Release.Name | quote }} and installed into the
+namespace {{ .Release.Namespace | quote }}.
+
+You can find the public address(es) at:
+
+  $ kubectl --namespace={{ .Release.Namespace }} get service {{ include "dask-gateway.traefikName" . }}

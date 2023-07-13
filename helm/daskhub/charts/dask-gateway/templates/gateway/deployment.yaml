@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dask-gateway.apiName" . }}
+  labels:
+    {{- include "dask-gateway.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  selector:
+    matchLabels:
+      {{- include "dask-gateway.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: gateway
+  template:
+    metadata:
+      labels:
+        {{- include "dask-gateway.labels" . | nindent 8 }}
+        app.kubernetes.io/component: gateway
+        hub.jupyter.org/network-access-hub: "true"
+      annotations:
+        checksum/configmap: {{ include (print .Template.BasePath "/gateway/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print .Template.BasePath "/gateway/secret.yaml") . | sha256sum }}
+        {{- with .Values.gateway.annotations }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- if .Values.rbac.enabled }}
+      {{- if .Values.rbac.gateway.serviceAccountName }}
+      serviceAccountName: {{ .Values.rbac.gateway.serviceAccountName }}
+      {{- else }}
+      serviceAccountName: {{ include "dask-gateway.apiName" . }}
+      {{- end }}
+      {{- end }}
+      volumes:
+        - name: configmap
+          configMap:
+            name: {{ include "dask-gateway.apiName" . }}
+      {{- with .Values.gateway.imagePullSecrets }}
+      imagePullSecrets:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: gateway
+          image: {{ .Values.gateway.image.name }}:{{ .Values.gateway.image.tag }}
+          imagePullPolicy: {{ .Values.gateway.image.pullPolicy }}
+          args:
+            - dask-gateway-server
+            - --config
+            - /etc/dask-gateway/dask_gateway_config.py
+          {{- with .Values.gateway.resources }}
+          resources:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          volumeMounts:
+            - mountPath: /etc/dask-gateway/
+              name: configmap
+          env:
+            {{- if (eq .Values.gateway.auth.type "jupyterhub") }}
+            - name: JUPYTERHUB_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.gateway.auth.jupyterhub.apiToken }}
+                  name: {{ include "dask-gateway.apiName" . }}
+                  key: jupyterhub-api-token
+                  {{- else }}
+                  name: "{{ .Values.gateway.auth.jupyterhub.apiTokenFromSecretName }}"
+                  key: "{{ .Values.gateway.auth.jupyterhub.apiTokenFromSecretKey }}"
+                  {{- end }}
+            {{- end }}
+          ports:
+            - containerPort: 8000
+              name: api
+
+          {{- if .Values.gateway.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: api
+            initialDelaySeconds: {{ .Values.gateway.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.gateway.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.gateway.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.gateway.livenessProbe.failureThreshold }}
+          {{- end }}
+
+          {{- if .Values.gateway.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: api
+            initialDelaySeconds: {{ .Values.gateway.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.gateway.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.gateway.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.gateway.readinessProbe.failureThreshold }}
+          {{- end }}
+      {{- with .Values.gateway.affinity }}
+      affinity:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with .Values.gateway.tolerations }}
+      tolerations:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with .Values.gateway.nodeSelector }}
+      nodeSelector:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}

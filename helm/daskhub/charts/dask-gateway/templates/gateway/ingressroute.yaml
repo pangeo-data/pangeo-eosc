@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "dask-gateway.apiName" . }}
+  labels:
+    {{- include "dask-gateway.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: PathPrefix(`{{ .Values.gateway.prefix }}`)
+    kind: Rule
+    services:
+    - name: {{ include "dask-gateway.apiName" . }}
+      port: 8000
+    {{- if ne .Values.gateway.prefix "/"}}
+    middlewares:
+    - name: '{{ include "dask-gateway.fullname" . | printf "api-prefix-%s" | trunc 63 | trimSuffix "-" }}'
+    {{- end }}
