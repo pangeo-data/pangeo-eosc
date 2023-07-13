@@ -88,3 +88,20 @@ fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentia
 fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials create
 fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials list
 ```
+
+## Use S3 credentials
+
+Configure [awscli](https://aws.amazon.com/cli/) with the `access` and `secret` keys returned by
+the `ec2 credentials list` command above:
+
+```bash
+aws configure set aws_access_key_id xxx
+aws configure set aws_secret_access_key yyy
+```
+
+Now, you just need to choose which _bucket_ or object _container_ you'll upload files. In this example
+we chose `testfred` as destination bucket, pushing the `tar/` local folder to this bucket.
+
+```bash
+aws s3 sync tar/ s3://testfred/ --endpoint-url https://object-store.cloud.muni.cz
+```
