@@ -2,7 +2,12 @@
 
 In this repository we are storing configuration files we use for setting up Pangeo on EOSC.
 
-Are you a user who wants to get access to `pangeo-eosc` services? Please check the [getting started for users](./users/users-getting-started.md).
+Are you a user who wants to get access to `pangeo-eosc` services?
+Please check the [getting started for users](./users/users-getting-started.md).
+
+Would you like to deploy the [Pangeo](https://pangeo.io/) stack using services
+from the [European Open Science Cloud](https://eosc-portal.eu/about)?
+Please check the [getting started for providers](./providers/providers-getting-started.md).
 
 ## Publication & outreach
 
