@@ -1,0 +1,54 @@
+# See: https://github.com/bitnami/charts/blob/main/bitnami/minio/values.yaml
+# https://github.com/bitnami/charts/tree/main/bitnami/minio/#installing-the-chart
+
+global:
+  storageClass: "nfs-csi-backup"
+
+#image:
+#  debug: true
+
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  hostname: pangeo-eosc-minio.vm.fedcloud.eu
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100g"
+  tls: true
+
+apiIngress:
+  enabled: true
+  ingressClassName: "nginx"
+  hostname: pangeo-eosc-minioapi.vm.fedcloud.eu
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100g"
+  tls: true
+
+## Enable persistence using Persistent Volume Claims
+## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  enabled: true
+#  storageClass: "nfs-csi-backup"
+  mountPath: /data
+  accessModes:
+    - ReadWriteOnce
+#  size: 50Gi
+#  annotations: {}
+  existingClaim: "pvc-minio-c-scale"
+
+# required by "pvc-minio-c-scale"
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1000
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+
+podSecurityContext:
+  enabled: true
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
