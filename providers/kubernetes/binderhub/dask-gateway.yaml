@@ -1,0 +1,70 @@
+gateway:
+  extraConfig:
+    dasklimits: |
+      c.ClusterConfig.cluster_max_cores = 6
+      c.ClusterConfig.cluster_max_memory = "24 G"
+      c.ClusterConfig.cluster_max_workers = 4
+      c.ClusterConfig.idle_timeout = 1800
+    optionHandler: |
+      from dask_gateway_server.options import Options, Integer, Float, String
+
+      def options_handler(options):
+        if ":" not in options.image:
+          raise ValueError("When specifying an image you must also provide a tag")
+        return {
+          "worker_cores": options.worker_cores,
+          "worker_memory": int(options.worker_memory * 2 ** 30),
+          "image": options.image,
+        }
+
+      c.Backend.cluster_options = Options(
+        Integer("worker_cores", default=1, min=1, max=4, label="Worker Cores"),
+        Float("worker_memory", default=2, min=2, max=8, label="Worker Memory (GiB)"),
+        String("image", default="pangeo/pangeo-notebook:2022.08.19", label="Image"),
+        handler=options_handler,
+      )
+  prefix: /services/dask-gateway
+  backend:
+    scheduler:
+      extraPodConfig:
+        securityContext:
+          fsGroupChangePolicy: OnRootMismatch
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+      extraContainerConfig:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+           drop:
+           - ALL
+      cores:
+        request: 1
+        limit: 1
+      memory:
+        request: 8G
+        limit: 8G
+    worker:
+      extraPodConfig:
+        securityContext:
+          fsGroupChangePolicy: OnRootMismatch
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+      extraContainerConfig:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+           drop:
+           - ALL
+
+traefik:
+  service:
+    type: ClusterIP
+
+rbac:
+  enabled: true

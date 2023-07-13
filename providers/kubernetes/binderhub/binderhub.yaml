@@ -1,0 +1,353 @@
+config:
+  BinderHub:
+    auth_enabled: true
+    hub_url: https://daskgateway.vm.fedcloud.eu/ # replace this with your DNS name
+    image_prefix: 'cerit.io/pangeo/pangeo-'
+    use_registry: true
+    push_secret: registrycred
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "1g"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  enabled: true
+  https:
+    enabled: true
+  hosts:
+    - daskbinder.vm.fedcloud.eu # replace this with your DNS name
+  tls:
+    - hosts:
+      - daskbinder.vm.fedcloud.eu # replace this with your DNS name
+      secretName: daskbinder.vm.fedcloud.eu # replace this with your DNS name
+
+image:
+  name: jupyterhub/k8s-binderhub
+  tag: "1.0.0-0.dev.git.3057.h0a4304c"
+
+imageCleaner:
+  enabled: false
+
+jupyterhub:
+  hub:
+    redirectToServer: false
+    loadRoles:
+      user:
+        scopes:
+          - self
+          - "access:services"
+    networkPolicy:
+      interNamespaceAccessLabels: "accept"
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+       drop:
+       - ALL
+    podSecurityContext:
+      fsGroupChangePolicy: OnRootMismatch
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+    extraConfig:
+      pre-spawn-hook: |
+        async def bootstrap_pre_spawn(spawner):
+          spawner.container_security_context = {"capabilities": {"drop": ["ALL"]}}
+
+        c.KubeSpawner.pre_spawn_hook = bootstrap_pre_spawn
+      00-add-dask-gateway-values: |
+        # 1. Sets `DASK_GATEWAY__PROXY_ADDRESS` in the singleuser environment.
+        # 2. Adds the URL for the Dask Gateway JupyterHub service.
+        import os
+        # These are set by jupyterhub.
+        release_name = os.environ["HELM_RELEASE_NAME"]
+        release_namespace = os.environ["POD_NAMESPACE"]
+        if "PROXY_HTTP_SERVICE_HOST" in os.environ:
+            # https is enabled, we want to use the internal http service.
+            gateway_address = "http://{}:{}/services/dask-gateway/".format(
+                os.environ["PROXY_HTTP_SERVICE_HOST"],
+                os.environ["PROXY_HTTP_SERVICE_PORT"],
+            )
+            print("Setting DASK_GATEWAY__ADDRESS {} from HTTP service".format(gateway_address))
+        else:
+            gateway_address = "http://proxy-public/services/dask-gateway"
+            print("Setting DASK_GATEWAY__ADDRESS {}".format(gateway_address))
+        # Internal address to connect to the Dask Gateway.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__ADDRESS", gateway_address)
+        # Internal address for the Dask Gateway proxy.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__PROXY_ADDRESS", "gateway://traefik-dask-gateway.{}:80".format(release_namespace))
+        # Relative address for the dashboard link.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__PUBLIC_ADDRESS", "/services/dask-gateway/")
+        # Use JupyterHub to authenticate with Dask Gateway.
+        c.KubeSpawner.environment.setdefault("DASK_GATEWAY__AUTH__TYPE", "jupyterhub")
+        # Adds Dask Gateway as a JupyterHub service to make the gateway available at
+        # {HUB_URL}/services/dask-gateway
+        service_url = "http://traefik-dask-gateway.{}".format(release_namespace)
+        for service in c.JupyterHub.services:
+            if service["name"] == "dask-gateway":
+                if not service.get("url", None):
+                    print("Adding dask-gateway service URL")
+                    service.setdefault("url", service_url)
+                break
+        else:
+            print("dask-gateway service not found. Did you set jupyterhub.hub.services.dask-gateway.apiToken?")
+
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      nginx.ingress.kubernetes.io/proxy-body-size: "1g"
+    enabled: true
+    hosts:
+      - daskgateway.vm.fedcloud.eu # replace this with your DNS name
+    tls:
+      - hosts:
+        - daskgateway.vm.fedcloud.eu # replace this with your DNS name
+        secretName: daskgateway.vm.fedcloud.eu # replace this with your DNS name
+
+  proxy:
+    service:
+      type: ClusterIP
+    chp:
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+      extraPodSpec:
+        securityContext:
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+
+  singleuser:
+#    cmd: jupyterhub-singleuser
+    networkPolicy:
+      enabled: false
+    cloudMetadata:
+      blockWithIptables: false
+    cpu:
+      guarantee: 1
+      limit: 8
+    defaultUrl: /lab
+    extraEnv:
+      DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
+    image:
+      name: pangeo/pangeo-notebook
+      tag: 2022.08.19
+    memory:
+      guarantee: 2G
+      limit: 48G
+    startTimeout: 600
+    storage:
+      capacity: 10Gi
+      dynamic:
+        storageClass: nfs-csi-backup
+    allowPrivilegeEscalation: false
+    extraPodConfig:
+      securityContext:
+        fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
+  scheduling:
+    userScheduler:
+      enabled: false
+    userPlaceholder:
+      enabled: false
+
+  prePuller:
+    hook:
+      enabled: false
+    continuous:
+      enabled: false
+
+extraConfig:
+  zz-swap-kaniko-for-docker: |
+    from binderhub.build import KubernetesBuildExecutor, ProgressEvent
+    from binderhub.utils import KUBE_REQUEST_TIMEOUT
+    from kubernetes import client, watch
+    from tornado.log import app_log
+    class KanikoBuilder(KubernetesBuildExecutor):
+
+      def get_cmd(self):
+          """Get the cmd to run to build the image"""
+          cmd = self.get_r2d_cmd_options()
+          # repo_url comes at the end, since otherwise our arguments
+          # might be mistook for commands to run.
+          # see https://github.com/jupyter/repo2docker/pull/128
+          # cmd.append(self.repo_url)
+          print('repo building command args are: %s' % ' '.join(cmd), flush = True)
+
+          return cmd
+
+      def get_r2d_cmd_options(self):
+
+          r2d_options = []
+          if self.ref:
+           r2d_options.extend([
+             "--ref",
+             self.ref
+           ]) 
+
+          r2d_options.extend([
+            "--user-name",
+            "jovyan",
+            "--user-id",
+            "1000",
+            "--image-name",
+            self.image_name,
+            self.repo_url
+          ])
+
+          return r2d_options
+
+      def submit(self):
+        """
+        Submit a build pod to create the image for the repository.
+        Progress of the build can be monitored by listening for items in
+        the Queue passed to the constructor as `q`.
+        """
+        self.name = 'kaniko-' + self.name[7:]
+        self.build_image = 'docker.io/spectraes/kbuilder:27-04-2023'
+        volume_mounts = []
+        volumes = []
+        if True: #self.push_secret:
+            volume_mounts.append(
+                client.V1VolumeMount(mount_path="/kaniko/.docker", name="kaniko-secret")
+            )
+            volumes.append(
+                client.V1Volume(
+                    name="kaniko-secret",
+                    secret=client.V1SecretVolumeSource(secret_name=self.push_secret, items=[client.V1KeyToPath(key='.dockerconfigjson',path='config.json')]),
+                )
+            )
+        env = []
+        if self.git_credentials:
+            env.append(
+                client.V1EnvVar(name="GIT_CREDENTIAL_ENV", value=self.git_credentials)
+            )
+        self.pod = client.V1Pod(
+            metadata=client.V1ObjectMeta(
+                name=self.name,
+                labels={
+                    "name": self.name,
+                    "component": self._component_label,
+                },
+                annotations={
+                    "binder-repo": self.repo_url,
+                },
+            ),
+            spec=client.V1PodSpec(
+                containers=[
+                    client.V1Container(
+                        image=self.build_image,
+                        name="builder",
+                        args=self.get_cmd(),
+                        volume_mounts=volume_mounts,
+                        resources=client.V1ResourceRequirements(
+                            limits={"memory": self.memory_limit},
+                            requests={"memory": self.memory_request},
+                        ),
+                        security_context=client.V1SecurityContext(
+                            run_as_user=0,
+                            run_as_non_root=False,
+                            capabilities=client.V1Capabilities(add=["CHOWN", "FOWNER", "SETUID", "SETGID", "DAC_OVERRIDE"])
+                        ),
+                        env=env,
+                    )
+                ],
+                node_selector=self.node_selector,
+                volumes=volumes,
+                restart_policy="Never",
+                affinity=self.get_affinity(),
+            ),
+        )
+        try:
+            _ = self.api.create_namespaced_pod(
+                self.namespace,
+                self.pod,
+                _request_timeout=KUBE_REQUEST_TIMEOUT,
+            )
+        except client.rest.ApiException as e:
+            if e.status == 409:
+                # Someone else created it!
+                app_log.info("Build %s already running", self.name)
+                pass
+            else:
+                raise
+        else:
+            app_log.info("Started build %s", self.name)
+        app_log.info("Watching build pod %s", self.name)
+        while not self.stop_event.is_set():
+            w = watch.Watch()
+            try:
+                for f in w.stream(
+                    self.api.list_namespaced_pod,
+                    self.namespace,
+                    label_selector=f"name={self.name}",
+                    timeout_seconds=30,
+                    _request_timeout=KUBE_REQUEST_TIMEOUT,
+                ):
+                    try:
+                      print(self.api.read_namespaced_pod_log(name=self.name, namespace=self.namespace),flush=True)
+                    except:
+                      pass
+                    if f["type"] == "DELETED":
+                        # Assume this is a successful completion
+                        self.progress(
+                            ProgressEvent.Kind.BUILD_STATUS_CHANGE,
+                            ProgressEvent.BuildStatus.BUILT,
+                        )
+                        return
+                    self.pod = f["object"]
+                    if not self.stop_event.is_set():
+                        # Account for all the phases kubernetes pods can be in
+                        # Pending, Running, Succeeded, Failed, Unknown
+                        # https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase
+                        phase = self.pod.status.phase
+                        if phase == "Pending":
+                            self.progress(
+                                ProgressEvent.Kind.BUILD_STATUS_CHANGE,
+                                ProgressEvent.BuildStatus.PENDING,
+                            )
+                        elif phase == "Running":
+                            self.progress(
+                                ProgressEvent.Kind.BUILD_STATUS_CHANGE,
+                                ProgressEvent.BuildStatus.RUNNING,
+                            )
+                        elif phase == "Succeeded":
+                            # Do nothing! We will clean this up, and send a 'Completed' progress event
+                            # when the pod has been deleted
+                            pass
+                        elif phase == "Failed":
+                            self.progress(
+                                ProgressEvent.Kind.BUILD_STATUS_CHANGE,
+                                ProgressEvent.BuildStatus.FAILED,
+                            )
+                        elif phase == "Unknown":
+                            self.progress(
+                                ProgressEvent.Kind.BUILD_STATUS_CHANGE,
+                                ProgressEvent.BuildStatus.UNKNOWN,
+                            )
+                        else:
+                            # This shouldn't happen, unless k8s introduces new Phase types
+                            warnings.warn(
+                                f"Found unknown phase {phase} when building {self.name}"
+                            )
+                    if self.pod.status.phase == "Succeeded":
+                        self.cleanup()
+                    elif self.pod.status.phase == "Failed":
+                        self.cleanup()
+            except Exception:
+                app_log.exception("Error in watch stream for %s", self.name)
+                raise
+            finally:
+                w.stop()
+            if self.stop_event.is_set():
+                app_log.info("Stopping watch of %s", self.name)
+                return
+    if hasattr(c, 'BinderHub'):
+      c.BinderHub.build_class = KanikoBuilder
+    else:
+      raise NameError("Kaniko build class cannot find Binderhub configuration")
