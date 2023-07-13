@@ -71,8 +71,8 @@ helm-v3.11.1/helm upgrade minio bitnami/minio \
   --create-namespace \
   --namespace c-scale-pangeo-dask \
   --version 12.6.4 \
-  --values pangeo-eosc/minio.yaml \
-  --values pangeo-eosc/minio-secrets.yaml
+  --values minio/minio.yaml \
+  --values minio/minio-secrets.yaml
 ```
 
 All going well the **MinIO Console** will be available at
