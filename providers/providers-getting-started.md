@@ -1,7 +1,7 @@
 # How to deploy `pangeo-eosc` services yourself?
 
-In this section you will learn how to deploy `pangeo-eosc` services
-in the [European Open Science Cloud](https://eosc-portal.eu/about).
+In this section you will learn how to deploy the [Pangeo](https://pangeo.io/)
+stack in the [European Open Science Cloud](https://eosc-portal.eu/about).
 
 We currently offer two options:
 * [Deployment using a virtualised kubernetes on top of OpenStack](./openstack/README.md)
