@@ -16,7 +16,7 @@ Managers of the Virtual Organisations may **take several days** to approve your 
 
 Access DaskHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.fedcloud.eu/) and choose among the 4 available flavors (as shown on the figure below):
 
-![Cloud EGI JupyterHub flavors](./figures/flavors.png)
+![Cloud EGI JupyterHub flavors](../figures/flavors.png)
 
 - Pangeo Notebook uses a docker image maintained by the Pangeo community. It contains all the Python packages you need to data analysis and visualization. The list of packages and all the Pangeo Notebook environment is made available [here](https://github.com/pangeo-data/pangeo-docker-images); look up the `pangeo-notebook` folder. 
 - Machine Learning Pangeo notebook with GPU enable tensorflow2: similarly, it is maintained by the Pangeo community and the complete computational environment with the list of Python packages is also available at [https://github.com/pangeo-data/pangeo-docker-images](https://github.com/pangeo-data/pangeo-docker-images) in the `ml-notebook` folder. This flavor contains all the packages from the Pangeo Notebook flavor and is GPU-enabled tensorflow2. Choose this flavor if you need GPUs; for instance for training neural networks;
@@ -33,11 +33,11 @@ Each user has a very small amount of local storage when using the DaskHub as it 
 
 The MinIO console endpoint is: [https://pangeo-eosc-minio.vm.fedcloud.eu/](https://pangeo-eosc-minio.vm.fedcloud.eu/). You can authenticate to the MinIO Object Storage in the same way you login to DaskHub. As shown on the Figure below, make sure you "Select Other Authentication Method" and "Login with SSO (checkin)" to access the MinIO console. Then use your ORCID iD to login.
 
-![minIO Login](./figures/minIO_login.png)
+![minIO Login](../figures/minIO_login.png)
 
 You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets.
 
-![minIO buckets](./figures/minIO_buckets.png)
+![minIO buckets](../figures/minIO_buckets.png)
 
 In addition to the MinIO console, the API end point is `https://pangeo-eosc-minioapi.vm.fedcloud.eu/` for those who prefer to interact with MinIO via the API.
 
@@ -55,13 +55,13 @@ Let's start with a bit of background information! The cloud resources for pangeo
 
 ### The European Open Science Cloud (EOSC)
 
-![EOSC logo](./figures/EOSC_logo-small.png)
+![EOSC logo](../figures/EOSC_logo-small.png)
 
 The [European Open Science Cloud (EOSC)](https://eosc-portal.eu/about/eosc) aims at becoming the main environment for hosting and processing research data to support European Science. 
 
 ### Pangeo Europe 
 
-![Pangeo logo](./figures/pangeo_name_logo.png)
+![Pangeo logo](../figures/pangeo_name_logo.png)
 
 [Pangeo](https://pangeo.io/) is a worldwide community for Big Data geoscience promoting open, reproducible, and scalable science. 
 
