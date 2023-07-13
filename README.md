@@ -4,6 +4,8 @@ In this repository we are storing configuration files we use for setting up Pang
 
 Are you a user who wants to get access to `pangeo-eosc` services? Please check the [getting started for users](./users/users-getting-started.md).
 
+Would you like to deploy this yourself instead? Please check the [getting started for providers](./providers/providers-getting-started.md).
+
 ## Publication & outreach
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
