@@ -4,11 +4,6 @@ dask-gateway:
     service:
       type: ClusterIP
   gateway:
-    auth:
-      jupyterhub:
-        apiToken: token1 # replace this 
-        apiUrl: http://proxy-public/hub/api
-      type: jupyterhub
     extraConfig:
       dasklimits: |
         c.ClusterConfig.cluster_max_cores = 6
@@ -91,16 +86,6 @@ jupyterhub:
           spawner.container_security_context = {"capabilities": {"drop": ["ALL"]}}
 
         c.KubeSpawner.pre_spawn_hook = bootstrap_pre_spawn
-    config:
-      Authenticator:
-        admin_users:
-        - admin
-      JupyterHub:
-        admin_access: true
-        authenticator_class: nativeauthenticator.NativeAuthenticator          
-    services:
-      dask-gateway:
-        apiToken: token1 # replace this
     networkPolicy:
       interNamespaceAccessLabels: "accept"
     containerSecurityContext:
@@ -128,7 +113,6 @@ jupyterhub:
         secretName: pangeo.vm.fedcloud.eu # replace this with your DNS name
 
   proxy:
-    secretToken: token2 # replace this 
     service:
       type: ClusterIP
     chp:
