@@ -4,6 +4,7 @@ dask-gateway:
     service:
       type: ClusterIP
   gateway:
+#    loglevel: DEBUG
     extraConfig:
       dasklimits: |
         c.ClusterConfig.cluster_max_cores = 6
@@ -106,11 +107,11 @@ jupyterhub:
       nginx.ingress.kubernetes.io/proxy-body-size: "1g"
     enabled: true
     hosts:
-      - pangeo.vm.fedcloud.eu # replace this with your DNS name
+      - pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
     tls:
       - hosts:
-        - pangeo.vm.fedcloud.eu # replace this with your DNS name
-        secretName: pangeo.vm.fedcloud.eu # replace this with your DNS name
+        - pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
+        secretName: pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
 
   proxy:
     service:
@@ -143,7 +144,7 @@ jupyterhub:
       blockWithIptables: false
     cpu:
       guarantee: 1
-      limit: 2
+      limit: 8
     defaultUrl: /lab
     extraEnv:
       DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
@@ -176,7 +177,7 @@ jupyterhub:
           image: jupyter/datascience-notebook:2023-04-10
     memory:
       guarantee: 2G
-      limit: 4G
+      limit: 32G
     startTimeout: 600
     storage:
       capacity: 10Gi

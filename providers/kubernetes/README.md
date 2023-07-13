@@ -10,7 +10,7 @@ This guide assumes that you have:
 
 1. Access to a kubernetes cluster with `kubectl`.
 2. [Helm](https://helm.sh/) is installed (i.e. the `helm` command works).
-3. Access to configure a DNS hostname for the **DaskHub** deployment. In this deployment we will use `pangeo.vm.fedcloud.eu`.
+3. Access to configure a DNS hostname for the **DaskHub** deployment. In this deployment we will use `pangeo-eosc.vm.fedcloud.eu`.
 
 ## Why not using the official helm chart?
 
@@ -23,7 +23,7 @@ under the [daskhub/](./daskhub/) folder is adapted to avoid that issue.
 Please configure the values below accordingly:
 
 * [daskhub.yaml](./daskhub.yaml): `token1` and `token2` must be replaced with a hash generated using `openssl rand -hex 32` on Linux.
-* [daskhub-secrets.yaml](./daskhub-secrets.yaml): `pangeo.vm.fedcloud.eu` must be replaced with your DNS hostname.
+* [daskhub-secrets.yaml](./daskhub-secrets.yaml): `pangeo-eosc.vm.fedcloud.eu` must be replaced with your DNS hostname.
 
 ## Steps
 
@@ -48,4 +48,4 @@ helm upgrade daskhub daskhub/ \
 	--values daskhub-secrets.yaml
 ```
 
-All going well **DaskHub** will be available at [https://pangeo.vm.fedcloud.eu](https://pangeo.vm.fedcloud.eu).
+All going well **DaskHub** will be available at [https://pangeo-eosc.vm.fedcloud.eu](https://pangeo-eosc.vm.fedcloud.eu).
