@@ -41,6 +41,8 @@ You can create, access and manage your buckets from the minIO console (or use [m
 
 In addition to the MinIO console, the API end point is `https://pangeo-eosc-minioapi.vm.fedcloud.eu/` for those who prefer to interact with MinIO via the API.
 
+Please check out this [example](./how-to/object-storage-minio-test.ipynb) to get started.
+
 ## Support
 
 If you need support, please open an [issue](https://github.com/pangeo-data/pangeo-eosc/issues).
