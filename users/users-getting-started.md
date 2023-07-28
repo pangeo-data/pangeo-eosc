@@ -49,17 +49,23 @@ If you need support, please open an [issue](https://github.com/pangeo-data/pange
 
 Check out the [open grafana dashboard](https://kuba-mon.cloud.e-infra.cz/d/vd9rFCL4z/c-scale?orgId=1&refresh=30s). It is particularly useful to check that there are GPUs available before requesting an environment with GPU.
 
-## Background information
+# Weekly coffee meetings
+
+Join the Pangeo community in Europe in a weekly call every Tuesday at 9.30am CET/CEST at: https://meet.jit.si/pangeo-europe
+
+Attend the meeting not only to get to know each other but also to ask questions about how to use the Pangeo ecosystem.
+
+# Background information
 
 Let's start with a bit of background information! The cloud resources for pangeo-eosc are provided through the collaboration between the [Pangeo community](https://pangeo.io), the [EGI-ACE project](https://www.egi.eu/project/egi-ace/), and the [C-SCALE project](https://c-scale.eu) within the [European Open Science Cloud](https://eosc-portal.eu/about/eosc) framework.
 
-### The European Open Science Cloud (EOSC)
+## The European Open Science Cloud (EOSC)
 
 ![EOSC logo](../figures/EOSC_logo-small.png)
 
 The [European Open Science Cloud (EOSC)](https://eosc-portal.eu/about/eosc) aims at becoming the main environment for hosting and processing research data to support European Science. 
 
-### Pangeo Europe 
+## Pangeo Europe 
 
 ![Pangeo logo](../figures/pangeo_name_logo.png)
 
