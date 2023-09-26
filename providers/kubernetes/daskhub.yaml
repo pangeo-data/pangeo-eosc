@@ -3,6 +3,11 @@ dask-gateway:
   traefik:
     service:
       type: ClusterIP
+    additionalArguments:
+      - "--providers.kubernetescrd.allowcrossnamespace=false"
+      - "--providers.kubernetescrd.namespaces=c-scale-pangeo-dask"
+      - "--providers.kubernetesgateway.namespaces=c-scale-pangeo-dask"
+      - "--providers.kubernetesingress.namespaces=c-scale-pangeo-dask"
   gateway:
 #    loglevel: DEBUG
     extraConfig:
