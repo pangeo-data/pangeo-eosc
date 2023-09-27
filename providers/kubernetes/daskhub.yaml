@@ -3,12 +3,18 @@ dask-gateway:
   traefik:
     service:
       type: ClusterIP
+    additionalArguments:
+      - "--providers.kubernetescrd.allowcrossnamespace=false"
+      - "--providers.kubernetescrd.namespaces=c-scale-pangeo-dask"
+      - "--providers.kubernetesgateway.namespaces=c-scale-pangeo-dask"
+      - "--providers.kubernetesingress.namespaces=c-scale-pangeo-dask"
   gateway:
 #    loglevel: DEBUG
     extraConfig:
+      # https://gateway.dask.org/resource-limits.html
       dasklimits: |
-        c.ClusterConfig.cluster_max_cores = 6
-        c.ClusterConfig.cluster_max_memory = "24 G"
+        c.ClusterConfig.cluster_max_cores = 32
+        c.ClusterConfig.cluster_max_memory = "128 G"
         c.ClusterConfig.cluster_max_workers = 4
         c.ClusterConfig.idle_timeout = 1800
       optionHandler: |
