@@ -155,8 +155,8 @@ jupyterhub:
     extraEnv:
       DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
-      name: pangeo/pangeo-notebook
-      tag: 2022.08.19
+      name: quay.io/pangeo/pangeo-notebook
+      tag: 2023.10.28
     profileList:
       - display_name: "pangeo-notebook"
         description: "Pangeo stack"
