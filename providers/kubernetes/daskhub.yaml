@@ -156,7 +156,7 @@ jupyterhub:
       DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
       name: quay.io/pangeo/pangeo-notebook
-      tag: 2023.10.28
+      tag: 2023.12.17
     profileList:
       - display_name: "pangeo-notebook"
         description: "Pangeo stack"
@@ -164,7 +164,7 @@ jupyterhub:
       - display_name: "ml-notebook"
         description: "pangeo-notebook + GPU-enabled tensorflow2"
         kubespawner_override:
-          image: quay.io/pangeo/ml-notebook:2023.03.28
+          image: quay.io/pangeo/ml-notebook:2023.12.17
           extra_resource_guarantees:
             nvidia.com/gpu: 1
           extra_resource_limits:
@@ -172,7 +172,7 @@ jupyterhub:
       - display_name: "pytorch-notebook"
         description: "pangeo-notebook + GPU-enabled pytorch"
         kubespawner_override:
-          image: quay.io/pangeo/pytorch-notebook:2023.03.28
+          image: quay.io/pangeo/pytorch-notebook:2023.12.17
           extra_resource_guarantees:
             nvidia.com/gpu: 1
           extra_resource_limits:
@@ -180,7 +180,7 @@ jupyterhub:
       - display_name: "datascience-notebook"
         description: "Python, R, and Julia."
         kubespawner_override:
-          image: jupyter/datascience-notebook:2023-04-10
+          image: jupyter/datascience-notebook:2023-10-20
     memory:
       guarantee: 2G
       limit: 32G
