@@ -4,11 +4,16 @@ These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deployin
 a [Dask Gateway](https://gateway.dask.org/) enabled [Jupyterhub](https://jupyter.org/hub) using the 
 infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
 
+## How to ask for support
+
+Please contact us for support via
+[GitHub](https://github.com/pangeo-data/pangeo-eosc/issues).
+
 ## How to get access
 
 Getting access consists of the following steps:
 
-1. [Sign-up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-In account.
+1. [Sign up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-In account.
 1. Request to join the `vo.pangeo.eu`
    [Virtual Organisation (VO)](https://confluence.egi.eu/display/EGIG/Virtual+organisation)
    by visiting the [enrollment URL](https://aai.egi.eu/registry/co_petitions/start/coef:386)
