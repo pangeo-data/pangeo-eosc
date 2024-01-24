@@ -1,6 +1,6 @@
 # How to deploy Pangeo in the infrastructure of the EGI Federation
 
-These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes-helm.html#helm-install-dask-for-multiple-users),
+These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes.html#daskhub),
 a [Dask Gateway](https://gateway.dask.org/) enabled [Jupyterhub](https://jupyter.org/hub) using the 
 infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
 
