@@ -87,8 +87,7 @@ Here are additional details to fill out the registration form:
   * `Application Type`: `Web`
   * `Redirect URI`: `https://pangeo.vm.fedcloud.eu/hub/oauth_callback`. 
      Adapt it to your own host name.
-  * `Scope`: select `openid`, `email`, `profile`, `eduperson_entitlement`,
-     `eduperson_scoped_affiliation`, and `eduperson_unique_id`.
+  * `Scope`: select `openid`, `email`, `profile`, and `eduperson_entitlement`.
   * `Grant Types`: `authorization code`
   * `Token Endpoint Authorization Method`: `Client Secret over HTTP Basic`
   * `Client Secret`: leave this empty
