@@ -1,14 +1,19 @@
 # How to deploy Pangeo in the infrastructure of the EGI Federation
 
-These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes-helm.html#helm-install-dask-for-multiple-users),
+These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes.html#daskhub),
 a [Dask Gateway](https://gateway.dask.org/) enabled [Jupyterhub](https://jupyter.org/hub) using the 
 infrastructure of the [EGI Federation](https://www.egi.eu/egi-federation/).
+
+## How to ask for support
+
+Please contact us for support via
+[GitHub](https://github.com/pangeo-data/pangeo-eosc/issues).
 
 ## How to get access
 
 Getting access consists of the following steps:
 
-1. [Sign-up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-In account.
+1. [Sign up](https://docs.egi.eu/users/aai/check-in/signup/) for an EGI Check-In account.
 1. Request to join the `vo.pangeo.eu`
    [Virtual Organisation (VO)](https://confluence.egi.eu/display/EGIG/Virtual+organisation)
    by visiting the [enrollment URL](https://aai.egi.eu/registry/co_petitions/start/coef:386)
@@ -82,8 +87,7 @@ Here are additional details to fill out the registration form:
   * `Application Type`: `Web`
   * `Redirect URI`: `https://pangeo.vm.fedcloud.eu/hub/oauth_callback`. 
      Adapt it to your own host name.
-  * `Scope`: select `openid`, `email`, `profile`, `eduperson_entitlement`,
-     `eduperson_scoped_affiliation`, and `eduperson_unique_id`.
+  * `Scope`: select `openid`, `email`, `profile`, and `eduperson_entitlement`.
   * `Grant Types`: `authorization code`
   * `Token Endpoint Authorization Method`: `Client Secret over HTTP Basic`
   * `Client Secret`: leave this empty
