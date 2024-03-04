@@ -1,0 +1,87 @@
+<!-- htmlhint doctype-first:false -->
+{% extends "page.html" %}
+{% if announcement_login %}
+  {% set announcement = announcement_login %}
+{% endif %}
+
+{% block nav_bar_right_items %}
+<li>
+  <span id="user-guide">
+  <a role="button" class="navbar-btn btn-sm btn btn-egi" href="https://docs.egi.eu/users/notebooks/">
+      <i aria-hidden="true" class="fa fa-book"></i> User Guide</a>
+  </span>
+</li>
+{% endblock %}
+
+{% block main %}
+{% block login %}
+<div id="login-main" class="container">
+<div class="jumbotron">
+    {% block main_intro %}
+    <h1><img alt="Notebooks Logo" src="{{ static_url('images/egi-icon-notebooks.svg') }}" height="100">Notebooks</h1>
+    <p>
+    Notebooks is an environment based on <a href="http://jupyter.org/">Jupyter</a> and
+    the <a href="https://www.egi.eu/services/cloud-compute/">EGI cloud service</a> that
+    offers a browser-based, scalable tool for interactive data analysis. The Notebooks
+    environment provides users with notebooks where they can combine text, mathematics,
+    computations and rich media output.
+    </p>
+    <p>
+    Access requires a valid <a href="https://docs.egi.eu/users/check-in/signup">EGI account</a>
+    and <a href="https://aai.egi.eu/registry/co_petitions/start/coef:111">enrolling to the
+    vo.notebooks.egi.eu VO</a>.
+    </p>
+    {% endblock main_intro %}
+    {% block checkin_button %}
+    <div class="spacer-sm"></div>
+    <p class="text-center">
+          <a role="button" class="btn button-blue-background btn-lg" href="{{authenticator_login_url}}">
+            Continue with EGI Check-in
+          </a>
+    </p>
+    <div class="spacer-sm"></div>
+    {% endblock checkin_button %}
+    {% block main_outro %}
+    <p>
+    User communities/advanced users can have their customised EGI Notebooks service
+    instance. EGI offers consultancy and support, as well as can operate the setup.
+    Order a <a href="https://marketplace.eosc-portal.eu/services/egi-notebooks">community
+    notebooks instance via the EOSC Marketplace</a>.
+    </p>
+    {% endblock main_outro %}
+</div>
+
+</div>
+{% endblock login %}
+
+{% block footer %}
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <img alt="EU logo" src="{{ static_url('images/eu-flag.png') }}" height="40">
+      </div>
+      <div class="col-sm-1">
+        <a href="https://www.egi.eu/projects/egi-ace/">
+        <img alt="EGI-ACE logo" src="{{ static_url('images/egi-ace.png') }}" height="40">
+        </a>
+      </div>
+      <div class="col-sm-1">
+        <a href="https://www.cesnet.cz/?lang=en">
+        <img alt="CESNET logo" src="{{ static_url('images/cesnet.png') }}" height="40">
+        </a>
+      </div>
+      <div class="col-sm-5">
+        {{ service_name }} is a service provided by <a href="https://www.cesnet.cz/?lang=en">CESNET</a>,
+        co-funded by <a href="https://www.egi.eu/projects/egi-ace/">EGI-ACE</a>.
+      </div>
+      <div class="col-sm-4 text-right">
+        <a href="/policies/privacy-policy.html">Privacy Notice</a> |
+        <a href="/policies/terms-of-use.html">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+
+{% endblock %}
