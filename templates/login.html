@@ -4,6 +4,24 @@
   {% set announcement = announcement_login %}
 {% endif %}
 
+{% block stylesheet %}
+{{ super() }}
+<style>
+.jumbotron {
+  background-color: transparent;
+}
+.btn-egi {
+  background-color: #0067b1;
+  color: #fff;
+}
+.btn-egi:hover {
+  color: #999999;
+}
+.spacer-lg { margin:0; padding:0; height:100px; }
+.spacer-sm { margin:0; padding:0; height:50px; }
+</style>
+{% endblock %}
+
 {% block nav_bar_right_items %}
 <li>
   <span id="user-guide">
