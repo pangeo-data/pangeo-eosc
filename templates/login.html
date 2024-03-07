@@ -7,7 +7,7 @@
 {% block nav_bar_right_items %}
 <li>
   <span id="user-guide">
-  <a role="button" class="navbar-btn btn-sm btn btn-egi" href="https://docs.egi.eu/users/notebooks/">
+  <a role="button" class="navbar-btn btn-sm btn btn-egi" href="https://docs.egi.eu/users/getting-started/communities/pangeo/">
       <i aria-hidden="true" class="fa fa-book"></i> User Guide</a>
   </span>
 </li>
@@ -18,24 +18,41 @@
 <div id="login-main" class="container">
 <div class="jumbotron">
     {% block main_intro %}
-    <h1><img alt="Notebooks Logo" src="{{ static_url('custom/figures/pangeo_logo.png') }}" height="100">Notebooks</h1>
+    <h1><img alt="Notebooks Logo" src="{{ static_url('custom/figures/pangeo_logo.png') }}" height="100">Pangeo@EOSC</h1>
     <p>
-    Notebooks is an environment based on <a href="http://jupyter.org/">Jupyter</a> and
-    the <a href="https://www.egi.eu/services/cloud-compute/">EGI cloud service</a> that
-    offers a browser-based, scalable tool for interactive data analysis. The Notebooks
-    environment provides users with notebooks where they can combine text, mathematics,
-    computations and rich media output.
+    The European Open Science Cloud (<a href="https://eosc-portal.eu/about">EOSC</a>)
+    is the main initiative in Europe for providing a federated and open
+    multi-disciplinary environment where European researchers, innovators,
+    companies and citizens can share, publish, find and re-use data, tools
+    and services for research, innovation and educational purposes.
+    </p>
+    The Pangeo Community in Europe teamed up with two EOSC projects, namely
+    <a href="https://www.egi.eu/project/egi-ace/">EGI-ACE</a> and
+    <a href="https://c-scale.eu/">C-SCALE</a> to deploy a DaskHub composed
+    of <a href="https://gateway.dask.org/">Dask Gateway</a> and
+    <a href="https://jupyter.org/hub">JupyterHub</a>, with a Kubernetes
+    cluster backend on EOSC using the infrastructure of the
+    <a href="https://www.egi.eu/egi-federation/">EGI Federation</a>. The
+    Pangeo@EOSC JupyterHub deployment makes use of 1)
+    <a href="https://www.egi.eu/service/check-in/">EGI Check-in</a> to enable
+    user registration and thereby authenticated and authorised access to the
+    Pangeo@EOSC JupyterHub portal and to the underlying distributed compute
+    infrastructure; and 2) the
+    <a href="https://www.egi.eu/service/cloud-compute/">EGI Cloud Compute</a>
+    to distribute the computational tasks to a scalable compute platform and
+    to store intermediate results produced by the user jobs.
     </p>
     <p>
     Access requires a valid <a href="https://docs.egi.eu/users/check-in/signup">EGI account</a>
-    and <a href="https://aai.egi.eu/registry/co_petitions/start/coef:111">enrolling to the
-    vo.notebooks.egi.eu VO</a>.
+    and <a href="https://aai-dev.egi.eu/registry/co_petitions/start/coef:290">enrolling to the
+    vo.pangeo.eu VO</a>.
     </p>
+    <div class="spacer-sm"></div>
     {% endblock main_intro %}
     {% block checkin_button %}
     <div class="spacer-sm"></div>
     <p class="text-center">
-          <a role="button" class="btn button-blue-background btn-lg" href="{{authenticator_login_url}}">
+          <a role="button" class="btn button-blue-background btn-lg" href="https://repro-challenge.vm.fedcloud.eu/">
             Continue with EGI Check-in
           </a>
     </p>
