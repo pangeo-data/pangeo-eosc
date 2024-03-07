@@ -18,7 +18,11 @@
 <div id="login-main" class="container">
 <div class="jumbotron">
     {% block main_intro %}
-    <h1><img alt="Notebooks Logo" src="{{ static_url('custom/figures/pangeo_logo.png') }}" height="100">Pangeo@EOSC</h1>
+    <h1>
+       <img alt="Pangeo Logo" src="{{ static_url('custom/figures/pangeo_logo.png') }}" height="100">
+       Pangeo@EOSC
+       <img alt="Pangeo Logo" src="{{ static_url('custom/figures/EOSC_logo-small.png') }}" height="100">      
+    </h1>
     <p>
     The <a href="https://eosc-portal.eu/about">European Open Science Cloud</a>
     is the main initiative in Europe for providing a federated and open
@@ -67,7 +71,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-1">
-        <img alt="EU logo" src="{{ static_url('images/eu-flag.png') }}" height="40">
+        <img alt="EU logo" src="{{ static_url('custom/figures/eu-flag.png') }}" height="40">
       </div>
       <div class="col-sm-1">
         <a href="https://www.egi.eu/projects/egi-ace/">
