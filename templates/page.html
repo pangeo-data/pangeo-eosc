@@ -56,7 +56,7 @@ body {
    border-color: #005faa;
    border-radius: 100vw;
    background-color: #005faa;
-   background-image: url({{ static_url('images/egi-logo-white.svg') }});
+   background-image: url({{ static_url('custom/figures/egi-logo-white.svg') }});
    background-position: 30px 43%;
    background-size: 36px;
    background-repeat: no-repeat;
@@ -70,7 +70,7 @@ body {
 
 .button-blue-background:hover {
    background-color: #fff;
-   background-image: url({{ static_url('images/egi-logo.svg') }});
+   background-image: url({{ static_url('custom/figures/egi-logo.svg') }});
    color: #005faa;
 }
 </style>
@@ -81,6 +81,6 @@ body {
 
 {% block logo %}
 <span id="jupyterhub-logo" class="pull-left">
-  <a href="{{logo_url or base_url}}"><img src="{{ static_url('images/egi-logo.svg') }}" alt="Pangeo@EOSC" class="egi-logo" title="Home"></a>
+  <a href="{{logo_url or base_url}}"><img src="{{ static_url('custom/figures/egi-logo.svg') }}" alt="Pangeo@EOSC" class="egi-logo" title="Home"></a>
 </span>
 {% endblock %}
