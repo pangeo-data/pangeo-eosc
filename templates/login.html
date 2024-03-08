@@ -15,7 +15,8 @@
 
 {% block main %}
 {% block login %}
-<div id="login-main" class="jumbotron">
+<div id="login-main" class="container">
+<div class="jumbotron">
     {% block main_intro %}
     <h1>
        <img alt="Pangeo Logo" src="{{ static_url('custom/figures/pangeo_name_logo.png') }}" height="100">
@@ -52,6 +53,8 @@
     </p>
     <div class="spacer-sm"></div>
     {% endblock checkin_button %}
+</div>
+
 </div>
 {% endblock login %}
 
