@@ -5,11 +5,7 @@
 
 {% block stylesheet %}
 {{ super() }}
-<link
-  rel="stylesheet"
-  href="/hub/static/custom/policies/css/egi.css"
-  type="text/css"
-/>
+    <link rel="stylesheet" href="{{ static_url("custom/policies/css/egi.css") }}" type="text/css"/>
 {% endblock %}
 
 
