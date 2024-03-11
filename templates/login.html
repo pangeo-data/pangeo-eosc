@@ -1,0 +1,93 @@
+<!-- htmlhint doctype-first:false -->
+{% extends "page.html" %}
+{% if announcement_login %}
+  {% set announcement = announcement_login %}
+{% endif %}
+
+{% block nav_bar_right_items %}
+<li>
+  <span id="user-guide">
+  <a role="button" class="navbar-btn btn-sm btn btn-egi" href="https://docs.egi.eu/users/getting-started/communities/pangeo/">
+      <i aria-hidden="true" class="fa fa-book"></i> User Guide</a>
+  </span>
+</li>
+{% endblock %}
+
+{% block main %}
+{% block login %}
+<div id="login-main" class="container">
+<div class="jumbotron">
+    {% block main_intro %}
+    <h1>
+       <img alt="Pangeo Logo" src="{{ static_url('custom/figures/pangeo_name_logo.png') }}" height="100">
+       @
+       <img alt="Pangeo Logo" src="{{ static_url('custom/figures/EOSC_logo-small.png') }}" height="100">
+    </h1>
+    <p>
+    The <a href="https://eosc-portal.eu/about">European Open Science Cloud</a>
+    is the main initiative in Europe for providing a federated and open
+    multi-disciplinary environment where European researchers, innovators,
+    companies and citizens can share, publish, find and re-use data, tools
+    and services for research, innovation and educational purposes.
+    </p>
+    <p>
+    The Pangeo Community in Europe teamed up with two EOSC projects, namely
+    <a href="https://www.egi.eu/project/egi-ace/">EGI-ACE</a> and
+    <a href="https://c-scale.eu/">C-SCALE</a>, to deploy a DaskHub composed
+    of <a href="https://gateway.dask.org/">Dask Gateway</a> and
+    <a href="https://jupyter.org/hub">JupyterHub</a>, with a Kubernetes
+    cluster backend on EOSC using
+    <a href="https://www.egi.eu/service/cloud-compute/">EGI Cloud Compute</a>.
+    </p>
+    <p>
+    Access requires a valid <a href="https://docs.egi.eu/users/check-in/signup">EGI Check-in account</a>
+    and <a href="https://aai-dev.egi.eu/registry/co_petitions/start/coef:290">enrolling to the vo.pangeo.eu VO</a>.
+    </p>
+    {% endblock main_intro %}
+    {% block checkin_button %}
+    <div class="spacer-sm"></div>
+    <p class="text-center">
+          <a role="button" class="btn button-blue-background btn-lg" href="https://pangeo-eosc.vm.fedcloud.eu/hub/oauth_login?next=">
+            Continue with EGI Check-in
+          </a>
+    </p>
+    <div class="spacer-sm"></div>
+    {% endblock checkin_button %}
+</div>
+
+</div>
+{% endblock login %}
+
+{% block footer %}
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <a href="https://www.egi.eu/projects/egi-ace/">
+        <img alt="EGI-ACE logo" src="{{ static_url('custom/figures/egi-ace.png') }}" height="40">
+        </a>
+      </div>
+      <div class="col-sm-1">
+        <a href="https://c-scale.eu/">
+        <img alt="EGI-ACE logo" src="{{ static_url('custom/figures/logo-c-scale-vertical-blue.png') }}" height="40">
+        </a>
+      </div>
+      <div class="col-sm-1">
+        <a href="https://www.cesnet.cz/?lang=en">
+        <img alt="CESNET logo" src="{{ static_url('custom/figures/cesnet.png') }}" height="40">
+        </a>
+      </div>
+      <div class="col-sm-5">
+        For more information visit the
+        <a href="https://github.com/pangeo-data/pangeo-eosc/">Pangeo@EOSC repository on GitHub</a>.
+      </div>      
+      <div class="col-sm-4 text-right">
+        <a href="/static/custom/policies/privacy-policy.html">Privacy Notice</a> |
+        <a href="/static/custom/policies/terms-of-use.html">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+
+{% endblock %}

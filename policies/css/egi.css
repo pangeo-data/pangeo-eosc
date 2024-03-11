@@ -1,0 +1,67 @@
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans">
+
+.jumbotron {
+  background-color: transparent;
+}
+.btn-egi {
+  background-color: #0067b1;
+  color: #fff;
+}
+.btn-egi:hover {
+  color: #999999;
+}
+.spacer-lg { margin:0; padding:0; height:100px; }
+.spacer-sm { margin:0; padding:0; height:50px; }
+
+/* Footer */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  font-family: 'DM Sans', sans-serif;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+}
+
+.egi-logo {
+    height: 60px;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+
+.navbar {
+   min-height: 70px;
+}
+
+.button-blue-background {
+   margin: 20px 20px 0px 0px;
+   padding: 20px 30px 20px 80px;
+   border-style: solid;
+   border-width: 2px;
+   border-color: #005faa;
+   border-radius: 100vw;
+   background-color: #005faa;
+   background-image: url({{ static_url('custom/figures/egi-logo-white.svg') }});
+   background-position: 30px 43%;
+   background-size: 36px;
+   background-repeat: no-repeat;
+   -webkit-transition: all 200ms ease-in-out;
+   transition: all 200ms ease-in-out;
+   font-family: ‘DM Sans’, sans-serif;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 700;
+}
+
+.button-blue-background:hover {
+   background-color: #fff;
+   background-image: url({{ static_url('custom/figures/egi-logo.svg') }});
+   color: #005faa;
+}
