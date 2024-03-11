@@ -82,7 +82,60 @@ rbac:
 
 jupyterhub:
   hub:
+    initContainers:
+      - name: git-clone-templates
+        image: alpine/git
+        args:
+          - clone
+          - --single-branch
+          - --branch=main
+          - --depth=1
+          - --
+          - https://github.com/pangeo-data/pangeo-eosc.git
+          - /etc/jupyterhub/custom
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+           drop:
+           - ALL
+        volumeMounts:
+          - name: custom-templates
+            mountPath: /etc/jupyterhub/custom
+      - name: git-clone-static
+        image: alpine/git
+        args:
+          - clone
+          - --single-branch
+          - --branch=main
+          - --depth=1
+          - --
+          - https://github.com/pangeo-data/pangeo-eosc.git
+          - /usr/local/share/jupyterhub/static/custom
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+           drop:
+           - ALL
+        volumeMounts:
+          - name: custom-static
+            mountPath: /usr/local/share/jupyterhub/static/custom
+    extraVolumes:
+      - name: custom-templates
+        emptyDir: {}
+      - name: custom-static
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: custom-templates
+        mountPath: /etc/jupyterhub/custom
+      - name: custom-static
+        mountPath: /usr/local/share/jupyterhub/static/custom
     extraConfig:
+      templates: |
+        c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/templates']
 #      01-add-message: |
 #        c.JupyterHub.template_vars = {'announcement_login': 'This DaskHub is currently under maintenance. ' +
 #                                                            'It means you cannot use it at the moment, sorry! ' +
