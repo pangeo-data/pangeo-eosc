@@ -13,12 +13,15 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
 
-### 2022
 
-- T. Odaka, A. Coca-Castro, P.L. Marasco, J.Iaquinta, A. Fouilloux,  and G. Eynard-Bontemps: [Pangeo 101: a community-centric, open, collaborative and scalable big geoscience data analytic platform](https://doi.org/10.5281/zenodo.7804619), FOSS4G workshop, Florence, [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7804619.svg)](https://doi.org/10.5281/zenodo.7804619) , 23 August 2022.
-- A. Fouilloux, A. Coca-Castro, P.L. Marasco, P. Strobl, T. Odaka and G. Eynard-Bontemps: [Pangeo, an open, inclusive, reproducible and scalable EO data analytic platform](https://doi.org/10.5281/zenodo.7804597), Oral presentation at Living Planet Symposium 2022, [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7804597.svg)](https://doi.org/10.5281/zenodo.7804597) , 25 May 2022 in Bonn, Germany.
-- Anne Fouilloux, Alejandro Coca-Castro, Pier Lorenzo Marasco, Peter Strobl, Tina Odaka, Guillaume Eynard-Bontemps: [Pangeo, an open source driven community for Big Data geoscience](https://doi.org/10.5281/zenodo.7804572), Poster at Living Planet Symposium 2022, [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7804572.svg)](https://doi.org/10.5281/zenodo.7804572), 23–27 May 2022 in Bonn, Germany.
-- A. Fouilloux, A. Coca-Castro, P.L. Marasco, P. Strobl, T. Odaka and G. Eynard-Bontemps: [Pangeo, An open, inclusive, reproducible and scalable Geoscience data analytic community](https://doi.org/10.5281/zenodo.7803457), ICAS (International Computing in the Atmospheric Sciences Symposium), [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7803457.svg)](https://doi.org/10.5281/zenodo.7803457), 11-15 September 2022;
+### 2024
+
+- Kmoch, A., Bovy, B., Magin, J., Abernathey, R., Strobl, P., Coca-Castro, A., Fouilloux, A., Loos, D., and Odaka, T.: XDGGS: Xarray Extension for Discrete Global Grid Systems (DGGS), EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-15416, https://doi.org/10.5194/egusphere-egu24-15416, 2024.
+- Wiesmann, D., Odaka, T., Fouilloux, A., Autret, E., Woillez, M., and Ragan-Kelley, B.: Harnessing the Pangeo ecosystem for delivering the cloud-based Global Fish Tracking System, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-10741, https://doi.org/10.5194/egusphere-egu24-10741, 2024.
+- Fouilloux, A.: How EOSC became our best ally?, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-3441, https://doi.org/10.5194/egusphere-egu24-3441, 2024.
+- Stöckl, V., Grüning, B., Fouilloux, A., Iaquinta, J., and Coca-Castro, A.: Implementation of a reproducible pipeline for producing seasonal Arctic sea ice forecasts, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-8343, https://doi.org/10.5194/egusphere-egu24-8343, 2024.
+- Anne Fouilloux. (2024). annefou/DSD_FAIR: version 1.0.0 Workshop delivered at the Digital Scholarship Days 2024 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10577912
+- Anne Fouilloux, & Jean Iaquinta. (2024). annefou/DSD_EOSC: version 1.0.0 Workshop delivered at the Digital Scholarship Days 2024 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10577905
 
 ### 2023
 
@@ -31,3 +34,15 @@ You will find below a list of publications & conferences that made use of EOSC P
 - Coca-Castro, A., Fouilloux, A., Hosking, J. S., and community, E. D. S. B.: FAIR Notebooks: opportunities and challenges for the geoscience community, EGU General Assembly 2023, Vienna, Austria, 24–28 Apr 2023, EGU23-13768, [https://doi.org/10.5194/egusphere-egu23-13768](https://doi.org/10.5194/egusphere-egu23-13768,), 2023;
 - Magin, J. and Odaka, T.: Spatio-Temporal Asset Catalog (STAC) for in-situ data, EGU General Assembly 2023, Vienna, Austria, 24–28 Apr 2023, EGU23-8096, [https://doi.org/10.5194/egusphere-egu23-8096](https://doi.org/10.5194/egusphere-egu23-8096), 2023
 - Carval, T., Bodere, E., Meillon, J., Woillez, M., Le Roux, J. F., Magin, J., and Odaka, T.: Enabling simple access to a data lake both from HPC and Cloud using Kerchunk and Intake, EGU General Assembly 2023, Vienna, Austria, 24–28 Apr 2023, EGU23-17494, [https://doi.org/10.5194/egusphere-egu23-17494](https://doi.org/10.5194/egusphere-egu23-17494), 2023
+- McDonald, A., Coca-Castro, A., Fouilloux, A., Ricardo, B. L., Hyde, A., & Rao, Y. (Douglas) . (2023, December 15). Implementing Reproducible Environmental Data Science with Open Science: Lessons from the 1st Climate Informatics Reproducibility Challenge. The American Geophysical Union (AGU) Fall Meeting 2023 (AGU23), San Francisco, USA. Zenodo. https://doi.org/10.5281/zenodo.10376130
+- Fouilloux, A., & Kmoch, A. (2023, August 7). Pangeo - An open, inclusive, reproducible and scalable Geoscience data analytic community. Zenodo. https://doi.org/10.5281/zenodo.8220007
+- Fouilloux, A., Coca-Castro, A., Cremer, F., Eynard Bontemps, G., Iaquinta, J., Luna-Valero, S., Caballer, M., Paul, F., Ragan-Kelley, B., & Odaka, T. (2023, May 16). Pangeo, a worldwide community-centric, open, collaborative, inclusive, reproducible and scalable big geoscience data analytic ecosystem. Zenodo. https://doi.org/10.5281/zenodo.7946478
+
+
+### 2022
+
+- T. Odaka, A. Coca-Castro, P.L. Marasco, J.Iaquinta, A. Fouilloux,  and G. Eynard-Bontemps: [Pangeo 101: a community-centric, open, collaborative and scalable big geoscience data analytic platform](https://doi.org/10.5281/zenodo.7804619), FOSS4G workshop, Florence, [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7804619.svg)](https://doi.org/10.5281/zenodo.7804619) , 23 August 2022.
+- A. Fouilloux, A. Coca-Castro, P.L. Marasco, P. Strobl, T. Odaka and G. Eynard-Bontemps: [Pangeo, an open, inclusive, reproducible and scalable EO data analytic platform](https://doi.org/10.5281/zenodo.7804597), Oral presentation at Living Planet Symposium 2022, [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7804597.svg)](https://doi.org/10.5281/zenodo.7804597) , 25 May 2022 in Bonn, Germany.
+- Anne Fouilloux, Alejandro Coca-Castro, Pier Lorenzo Marasco, Peter Strobl, Tina Odaka, Guillaume Eynard-Bontemps: [Pangeo, an open source driven community for Big Data geoscience](https://doi.org/10.5281/zenodo.7804572), Poster at Living Planet Symposium 2022, [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7804572.svg)](https://doi.org/10.5281/zenodo.7804572), 23–27 May 2022 in Bonn, Germany.
+- A. Fouilloux, A. Coca-Castro, P.L. Marasco, P. Strobl, T. Odaka and G. Eynard-Bontemps: [Pangeo, An open, inclusive, reproducible and scalable Geoscience data analytic community](https://doi.org/10.5281/zenodo.7803457), ICAS (International Computing in the Atmospheric Sciences Symposium), [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7803457.svg)](https://doi.org/10.5281/zenodo.7803457), 11-15 September 2022;
+
