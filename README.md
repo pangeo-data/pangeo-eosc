@@ -9,6 +9,21 @@ Would you like to deploy the [Pangeo](https://pangeo.io/) stack using services
 from the [European Open Science Cloud](https://eosc-portal.eu/about)?
 Please check the [getting started for providers](./providers/providers-getting-started.md).
 
+## Training events
+
+### 2024
+- **IGARSS 2024** Earthly marvels revealed: Pangeo, AI, and Copernicus in action ” *half day* tutorial.
+- **Digital Scholarship Days 2024** [Unlocking the Power of EOSC](https://www.ub.uio.no/english/courses-events/events/dsc/2024/digital-scholarship-days/21-unlocking-eosc.html): Navigating Services for Research Visibility and Impact - The European Open Science Cloud (EOSC) in a nutshell. Jan. 12, 2024 9:00 AM – 12:00 PM at the university of Oslo, Norway.
+
+### 2023
+- **BiDS 2023** [PANGEO & OpenEO one day Training event](https://openeo.cloud/2023/09/05/bids23-satellite-event-monday-6th-november/)
+
+### 2022
+- **FOSS4G 2022** [Pangeo Training event](pangeo-data.github.io/foss4g-2022)
+- **[Pangeo 101 Tutorial for CLIVAR CMIP6 Bootcamp 2022](https://pangeo-data.github.io/clivar-2022/)**
+- **[eScience 2022 course on Tools in Climate Science: Linking Observations with Modelling](https://pangeo-data.github.io/escience-2022/)**
+
+
 ## Publication & outreach
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
