@@ -31,12 +31,12 @@ You will find below a list of publications & conferences that made use of EOSC P
 
 ### 2024
 
-- Kmoch, A., Bovy, B., Magin, J., Abernathey, R., Strobl, P., Coca-Castro, A., Fouilloux, A., Loos, D., and Odaka, T.: XDGGS: Xarray Extension for Discrete Global Grid Systems (DGGS), EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-15416, https://doi.org/10.5194/egusphere-egu24-15416, 2024.
+- Kmoch, A., Bovy, B., Magin, J., Abernathey, R., Strobl, P., Coca-Castro, A., Fouilloux, A., Loos, D., and Odaka, T.: XDGGS: Xarray Extension for Discrete Global Grid Systems (DGGS), EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-15416, [https://doi.org/10.5194/egusphere-egu24-15416](https://doi.org/10.5194/egusphere-egu24-15416), 2024.
 - Wiesmann, D., Odaka, T., Fouilloux, A., Autret, E., Woillez, M., and Ragan-Kelley, B.: Harnessing the Pangeo ecosystem for delivering the cloud-based Global Fish Tracking System, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-10741, https://doi.org/10.5194/egusphere-egu24-10741, 2024.
-- Fouilloux, A.: How EOSC became our best ally?, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-3441, https://doi.org/10.5194/egusphere-egu24-3441, 2024.
-- Stöckl, V., Grüning, B., Fouilloux, A., Iaquinta, J., and Coca-Castro, A.: Implementation of a reproducible pipeline for producing seasonal Arctic sea ice forecasts, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-8343, https://doi.org/10.5194/egusphere-egu24-8343, 2024.
-- Anne Fouilloux. (2024). annefou/DSD_FAIR: version 1.0.0 Workshop delivered at the Digital Scholarship Days 2024 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10577912
-- Anne Fouilloux, & Jean Iaquinta. (2024). annefou/DSD_EOSC: version 1.0.0 Workshop delivered at the Digital Scholarship Days 2024 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10577905
+- Fouilloux, A.: How EOSC became our best ally?, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-3441, [https://doi.org/10.5194/egusphere-egu24-3441](https://doi.org/10.5194/egusphere-egu24-3441), 2024.
+- Stöckl, V., Grüning, B., Fouilloux, A., Iaquinta, J., and Coca-Castro, A.: Implementation of a reproducible pipeline for producing seasonal Arctic sea ice forecasts, EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-8343, [https://doi.org/10.5194/egusphere-egu24-8343](https://doi.org/10.5194/egusphere-egu24-8343), 2024.
+- Anne Fouilloux. (2024). annefou/DSD_FAIR: version 1.0.0 Workshop delivered at the Digital Scholarship Days 2024 (v1.0.0). Zenodo. [https://doi.org/10.5281/zenodo.10577912](https://doi.org/10.5281/zenodo.10577912)
+- Anne Fouilloux, & Jean Iaquinta. (2024). annefou/DSD_EOSC: version 1.0.0 Workshop delivered at the Digital Scholarship Days 2024 (v1.0.0). Zenodo. [https://doi.org/10.5281/zenodo.10577905](https://doi.org/10.5281/zenodo.10577905)
 
 ### 2023
 
