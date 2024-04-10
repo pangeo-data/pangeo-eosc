@@ -17,9 +17,10 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 ### 2023
 - **BiDS 2023** [PANGEO & OpenEO one day Training event](https://openeo.cloud/2023/09/05/bids23-satellite-event-monday-6th-november/)
+- **[Reproducibility Challenge 2023](https://eds-book.github.io/reproducibility-challenge-2023/intro.html)**
 
 ### 2022
-- **FOSS4G 2022** [Pangeo Training event](pangeo-data.github.io/foss4g-2022)
+- **FOSS4G 2022** [Pangeo Training event](https://pangeo-data.github.io/foss4g-2022)
 - **[Pangeo 101 Tutorial for CLIVAR CMIP6 Bootcamp 2022](https://pangeo-data.github.io/clivar-2022/)**
 - **[eScience 2022 course on Tools in Climate Science: Linking Observations with Modelling](https://pangeo-data.github.io/escience-2022/)**
 
