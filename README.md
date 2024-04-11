@@ -53,7 +53,7 @@ You will find below a list of publications & conferences that made use of EOSC P
 - McDonald, A., Coca-Castro, A., Fouilloux, A., Ricardo, B. L., Hyde, A., & Rao, Y. (Douglas) . (2023, December 15). Implementing Reproducible Environmental Data Science with Open Science: Lessons from the 1st Climate Informatics Reproducibility Challenge. The American Geophysical Union (AGU) Fall Meeting 2023 (AGU23), San Francisco, USA. Zenodo. https://doi.org/10.5281/zenodo.10376130
 - Fouilloux, A., & Kmoch, A. (2023, August 7). Pangeo - An open, inclusive, reproducible and scalable Geoscience data analytic community. Zenodo. https://doi.org/10.5281/zenodo.8220007
 - Fouilloux, A., Coca-Castro, A., Cremer, F., Eynard Bontemps, G., Iaquinta, J., Luna-Valero, S., Caballer, M., Paul, F., Ragan-Kelley, B., & Odaka, T. (2023, May 16). Pangeo, a worldwide community-centric, open, collaborative, inclusive, reproducible and scalable big geoscience data analytic ecosystem. Zenodo. https://doi.org/10.5281/zenodo.7946478
-
+- Anne Fouilloux, Tina Erica Odaka, Alejandro Coca-Castro, Sebastian Luna-Valero, Pier Lorenzo Marasco and Guillaume Eynard-Bontemps, PANGEO@EOSC: enabling Open, Reproducible, and scalable Big data geoscience for everyone, 2023. [https://publications.jrc.ec.europa.eu/repository/handle/JRC135493](https://publications.jrc.ec.europa.eu/repository/handle/JRC135493)
 
 ### 2022
 
