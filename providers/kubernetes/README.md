@@ -4,7 +4,7 @@ These are the steps to deploy [MinIO](https://min.io/),
 [Jupyterhub](https://jupyter.org/hub),
 [BinderHub](https://binderhub.readthedocs.io/),
 and [Dask Gateway](https://gateway.dask.org/) using the
-baremetal k8s cluster at [CESNET](https://www.cesnet.cz/?lang=en)
+baremetal k8s cluster at [CESNET](https://www.cesnet.cz/en/)
 in [C-SCALE](https://c-scale.eu/).
 
 ## Assumptions for deployment

@@ -136,11 +136,11 @@ jupyterhub:
     extraConfig:
       templates: |
         c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/templates']
-#      01-add-message: |
-#        c.JupyterHub.template_vars = {'announcement_login': 'This DaskHub is currently under maintenance. ' +
-#                                                            'It means you cannot use it at the moment, sorry! ' +
-#                                                            'We will apply the necessary fixes by 12th July.'
-#                                     }
+      01-add-message: |
+        c.JupyterHub.template_vars = {'announcement_login': 'Pangeo@EOSC: scheduled maintenance window ' +
+                                                            'on 7th May, 2.30pm - 3.30pm CEST. ' +
+                                                            'Backup your data!'
+                                     }
       pre-spawn-hook: |
         async def bootstrap_pre_spawn(spawner):
           spawner.container_security_context = {"capabilities": {"drop": ["ALL"]}}

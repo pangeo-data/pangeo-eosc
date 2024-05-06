@@ -6,7 +6,7 @@ Are you a user who wants to get access to `pangeo-eosc` services?
 Please check the [getting started for users](./users/users-getting-started.md).
 
 Would you like to deploy the [Pangeo](https://pangeo.io/) stack using services
-from the [European Open Science Cloud](https://eosc-portal.eu/about)?
+from the [European Open Science Cloud](https://open-science-cloud.ec.europa.eu/)?
 Please check the [getting started for providers](./providers/providers-getting-started.md).
 
 ## Training events
