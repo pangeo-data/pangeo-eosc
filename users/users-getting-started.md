@@ -7,8 +7,8 @@ In this section you will learn how to register and access `pangeo-eosc` services
 
 You need to create an [EGI Check-in account](https://www.egi.eu/service/check-in/) and enroll to the `vo.pangeo.eu` Virtual Organisation. There are several steps to follow:
 
-1. Sign up for an EGI account on the **development instance** of EGI Check-In, clicking on: [https://aai-dev.egi.eu/registry/co_petitions/start/coef:2](https://aai-dev.egi.eu/registry/co_petitions/start/coef:2). **Use your [ORCID iD](https://orcid.org/) account to authenticate.**
-2. **Enroll** in the `vo.pangeo.eu` Virtual Organisation (VO) by clicking on: [https://aai-dev.egi.eu/registry/co_petitions/start/coef:290](https://aai-dev.egi.eu/registry/co_petitions/start/coef:290). Review and click on `Submit`. Please add a note in the statement of purpose when requesting to join the VO explaining why you want to access `pangeo-eosc`.
+1. **Sign up** for an EGI Check-in account following [these steps](https://docs.egi.eu/users/aai/check-in/signup/). **Using [ORCID iD](https://orcid.org/) to authenticate is recommended.**
+2. **Enroll** in the `vo.pangeo.eu` Virtual Organisation (VO) by clicking on [the enrollment URL](https://aai.egi.eu/registry/co_petitions/start/coef:386) using the EGI Check-in account created in the previous step. Review and click on `Submit`. Please add a note in the statement of purpose when requesting to join the VO explaining why you want to access `pangeo-eosc`.
 
 Managers of the Virtual Organisations may **take several days** to approve your petitions to join and also get back to you via email to verify your identity.
 
@@ -58,15 +58,15 @@ Join the Pangeo community in Europe in a weekly call every Tuesday at 9.30am CET
 
 Attend the meeting not only to get to know each other but also to ask questions about how to use the Pangeo ecosystem.
 
-# Background information
+# How to acknowledge Pangeo-EOSC
 
-Let's start with a bit of background information! The cloud resources for pangeo-eosc are provided through the collaboration between the [Pangeo community](https://pangeo.io), the [EGI-ACE project](https://www.egi.eu/project/egi-ace/), and the [C-SCALE project](https://c-scale.eu) within the [European Open Science Cloud](https://eosc-portal.eu/about/eosc) framework.
+[Pangeo-EOSC](https://github.com/pangeo-data/pangeo-eosc/) has benefited from services and resources provided by the [EGI-ACE project](https://www.egi.eu/project/egi-ace/) (funded by the European Union’s Horizon 2020 research and innovation programme under Grant Agreement no. 101017567), and the [C-SCALE project](https://c-scale.eu/) (funded by the European Union's Horizon 2020 research and innovation programme under grant agreement no. 101017529), with the dedicated support of [CESNET](https://www.cesnet.cz/en/).
 
 ## The European Open Science Cloud (EOSC)
 
 ![EOSC logo](../figures/EOSC_logo-small.png)
 
-The [European Open Science Cloud (EOSC)](https://eosc-portal.eu/about/eosc) aims at becoming the main environment for hosting and processing research data to support European Science. 
+The [European Open Science Cloud (EOSC)](https://open-science-cloud.ec.europa.eu/) aims at becoming the main environment for hosting and processing research data to support European Science.
 
 ## Pangeo Europe 
 
@@ -74,4 +74,4 @@ The [European Open Science Cloud (EOSC)](https://eosc-portal.eu/about/eosc) aims
 
 [Pangeo](https://pangeo.io/) is a worldwide community for Big Data geoscience promoting open, reproducible, and scalable science. 
 
-[Pangeo Europe](https://pangeo.io/meeting-notes.html) aims at highlighting European contributions to the Pangeo Community and at providing a reference deployment for Pangeo on EOSC. The Pangeo deployment on EOSC has been made possible thanks to [CESNET](https://www.cesnet.cz/?lang=en) in the context of the the [EGI-ACE project](https://youtu.be/Vc9SZNa2-Os) and the [C-SCALE project](https://youtu.be/-jBkR_2_vg8).
+[Pangeo Europe](https://pangeo.io/meeting-notes.html) aims at highlighting European contributions to the Pangeo Community and at providing a reference deployment for Pangeo on EOSC. The Pangeo deployment on EOSC has been made possible thanks to [CESNET](https://www.cesnet.cz/en/) in the context of the the [EGI-ACE project](https://youtu.be/Vc9SZNa2-Os) and the [C-SCALE project](https://youtu.be/-jBkR_2_vg8).
