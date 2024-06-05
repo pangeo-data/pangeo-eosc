@@ -233,7 +233,7 @@ jupyterhub:
       - display_name: "datascience-notebook"
         description: "Python, R, and Julia."
         kubespawner_override:
-          image: jupyter/datascience-notebook:2024-06-04
+          image: quay.io/jupyter/datascience-notebook:2024-06-04
     memory:
       guarantee: 2G
       limit: 32G
