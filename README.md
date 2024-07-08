@@ -12,7 +12,7 @@ Please check the [getting started for providers](./providers/providers-getting-s
 ## Training events
 
 ### 2024
-- **IGARSS 2024**: [Earthly marvels revealed: Pangeo, AI, and Copernicus in action](https://www.2024.ieeeigarss.org/).
+- **IGARSS 2024**: [Earthly marvels revealed: Pangeo, AI, and Copernicus in action](https://www.2024.ieeeigarss.org/). See also the [dedicated repository](https://pangeo-data.github.io/pangeo-igarss2024/intro.html) with training material.
 - **GEO-OPEN-HACK-2024**: [Big Geospatial Data Hackathon with Open Infrastructure and Tools](https://iiasa.ac.at/events/jun-2024/geo-open-hack-2024-big-geospatial-data-hackathon-with-open-infrastructure-and-tools). See also the [dedicated repository](https://pangeo-data.github.io/geo-open-hack-2024/intro.html) with training material.
 - **Digital Scholarship Days 2024**: [Unlocking the Power of EOSC](https://www.ub.uio.no/english/courses-events/events/dsc/2024/digital-scholarship-days/21-unlocking-eosc.html): Navigating Services for Research Visibility and Impact - The European Open Science Cloud (EOSC) in a nutshell. Jan. 12, 2024 9:00 AM – 12:00 PM at the university of Oslo, Norway.
 
