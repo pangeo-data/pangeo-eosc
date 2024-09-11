@@ -132,8 +132,8 @@ jupyterhub:
     extraEnv:
       DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
     image:
-      name: pangeo/pangeo-notebook
-      tag: 2024.06.02
+      name: quay.io/pangeo/pangeo-notebook
+      tag: 2024.08.18
     memory:
       guarantee: 2G
       limit: 48G
