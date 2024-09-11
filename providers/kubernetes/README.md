@@ -59,7 +59,6 @@ helm upgrade daskhub daskhub/ \
   --cleanup-on-fail \
   --create-namespace \
   --namespace c-scale-pangeo-dask \
-  --version 2022.8.2 \
   --values daskhub.yaml \
   --values daskhub-secrets.yaml
 ```
