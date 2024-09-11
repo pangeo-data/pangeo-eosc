@@ -1,25 +1,26 @@
 apiVersion: v2
-appVersion: jh2.0.0-dg2023.1.1
-dependencies:
-- import-values:
-  - child: rbac
-    parent: rbac
-  name: jupyterhub
-  repository: https://jupyterhub.github.io/helm-chart/
-  version: 2.0.0
-- name: dask-gateway
-  repository: https://helm.dask.org/
-  version: 2023.1.1
-description: Multi-user JupyterHub and Dask deployment.
-icon: https://avatars3.githubusercontent.com/u/17131925?v=3&s=200
-maintainers:
-- email: jtomlinson@nvidia.com
-  name: Jacob Tomlinson (Nvidia)
-- email: jhamman@ucar.edu
-  name: Joe Hamman (NCAR)
-- email: erik@sundellopensource.se
-  name: Erik Sundell
-- email: tom.w.augspurger@gmail.com
-  name: Tom Augspurger
 name: daskhub
-version: 2023.1.0
+icon: https://avatars3.githubusercontent.com/u/17131925?v=3&s=200
+version: 2024.1.1
+# appVersion is set to be a combination of the dependencies
+appVersion: "jh3.2.1-dg2024.1.0"
+description: Multi-user JupyterHub and Dask deployment.
+dependencies:
+  - name: jupyterhub
+    version: "3.2.1"
+    repository: https://jupyterhub.github.io/helm-chart/
+    import-values:
+      - child: rbac
+        parent: rbac
+  - name: dask-gateway
+    version: "2024.1.0"
+    repository: https://helm.dask.org/
+maintainers:
+  - name: Jacob Tomlinson (Nvidia)
+    email: jtomlinson@nvidia.com
+  - name: Joe Hamman (NCAR)
+    email: jhamman@ucar.edu
+  - name: Erik Sundell
+    email: erik@sundellopensource.se
+  - name: Tom Augspurger
+    email: tom.w.augspurger@gmail.com

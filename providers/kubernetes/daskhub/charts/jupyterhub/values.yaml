@@ -3,6 +3,11 @@
 fullnameOverride: ""
 nameOverride:
 
+# enabled is ignored by the jupyterhub chart itself, but a chart depending on
+# the jupyterhub chart conditionally can make use this config option as the
+# condition.
+enabled:
+
 # custom can contain anything you want to pass to the hub pod, as all passed
 # Helm template values will be made available there.
 custom: {}
@@ -78,8 +83,8 @@ hub:
   extraVolumes: []
   extraVolumeMounts: []
   image:
-    name: jupyterhub/k8s-hub
-    tag: "2.0.0"
+    name: quay.io/jupyterhub/k8s-hub
+    tag: "3.2.1"
     pullPolicy:
     pullSecrets: []
   resources: {}
@@ -102,6 +107,8 @@ hub:
     egress: []
     egressAllowRules:
       cloudMetadataServer: true
+      dnsPortsCloudMetadataServer: true
+      dnsPortsKubeSystemNamespace: true
       dnsPortsPrivateIPs: true
       nonPrivateIPs: true
       privateIPs: true
@@ -194,11 +201,11 @@ proxy:
       runAsGroup: 65534 # nobody group
       allowPrivilegeEscalation: false
     image:
-      name: jupyterhub/configurable-http-proxy
+      name: quay.io/jupyterhub/configurable-http-proxy
       # tag is automatically bumped to new patch versions by the
       # watch-dependencies.yaml workflow.
       #
-      tag: "4.5.3" # https://github.com/jupyterhub/configurable-http-proxy/releases
+      tag: "4.6.1" # https://github.com/jupyterhub/configurable-http-proxy/tags
       pullPolicy:
       pullSecrets: []
     extraCommandLineFlags: []
@@ -226,6 +233,8 @@ proxy:
       egress: []
       egressAllowRules:
         cloudMetadataServer: true
+        dnsPortsCloudMetadataServer: true
+        dnsPortsKubeSystemNamespace: true
         dnsPortsPrivateIPs: true
         nonPrivateIPs: true
         privateIPs: true
@@ -249,7 +258,7 @@ proxy:
       # tag is automatically bumped to new patch versions by the
       # watch-dependencies.yaml workflow.
       #
-      tag: "v2.8.4" # ref: https://hub.docker.com/_/traefik?tab=tags
+      tag: "v2.10.5" # ref: https://hub.docker.com/_/traefik?tab=tags
       pullPolicy:
       pullSecrets: []
     hsts:
@@ -273,6 +282,8 @@ proxy:
       egress: []
       egressAllowRules:
         cloudMetadataServer: true
+        dnsPortsCloudMetadataServer: true
+        dnsPortsKubeSystemNamespace: true
         dnsPortsPrivateIPs: true
         nonPrivateIPs: true
         privateIPs: true
@@ -293,8 +304,8 @@ proxy:
       runAsGroup: 65534 # nobody group
       allowPrivilegeEscalation: false
     image:
-      name: jupyterhub/k8s-secret-sync
-      tag: "2.0.0"
+      name: quay.io/jupyterhub/k8s-secret-sync
+      tag: "3.2.1"
       pullPolicy:
       pullSecrets: []
     resources: {}
@@ -333,8 +344,8 @@ singleuser:
     preferred: []
   networkTools:
     image:
-      name: jupyterhub/k8s-network-tools
-      tag: "2.0.0"
+      name: quay.io/jupyterhub/k8s-network-tools
+      tag: "3.2.1"
       pullPolicy:
       pullSecrets: []
     resources: {}
@@ -349,6 +360,8 @@ singleuser:
     egress: []
     egressAllowRules:
       cloudMetadataServer: false
+      dnsPortsCloudMetadataServer: true
+      dnsPortsKubeSystemNamespace: true
       dnsPortsPrivateIPs: true
       nonPrivateIPs: true
       privateIPs: false
@@ -383,8 +396,8 @@ singleuser:
       volumeNameTemplate: volume-{username}{servername}
       storageAccessModes: [ReadWriteOnce]
   image:
-    name: jupyterhub/k8s-singleuser-sample
-    tag: "2.0.0"
+    name: quay.io/jupyterhub/k8s-singleuser-sample
+    tag: "3.2.1"
     pullPolicy:
     pullSecrets: []
   startTimeout: 300
@@ -499,13 +512,14 @@ scheduling:
       #            - If "successfully acquired lease" can be seen in the logs, it
       #              is a good sign kube-scheduler is ready to schedule pods.
       #
-      name: k8s.gcr.io/kube-scheduler
+      name: registry.k8s.io/kube-scheduler
       # tag is automatically bumped to new patch versions by the
       # watch-dependencies.yaml workflow. The minor version is pinned in the
       # workflow, and should be updated there if a minor version bump is done
-      # here.
+      # here. We aim to stay around 1 minor version behind the latest k8s
+      # version.
       #
-      tag: "v1.23.10" # ref: https://github.com/kubernetes/website/blob/main/content/en/releases/patch-releases.md
+      tag: "v1.26.11" # ref: https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG
       pullPolicy:
       pullSecrets: []
     nodeSelector: {}
@@ -531,13 +545,13 @@ scheduling:
   userPlaceholder:
     enabled: true
     image:
-      name: k8s.gcr.io/pause
+      name: registry.k8s.io/pause
       # tag is automatically bumped to new patch versions by the
       # watch-dependencies.yaml workflow.
       #
       # If you update this, also update prePuller.pause.image.tag
       #
-      tag: "3.8"
+      tag: "3.9"
       pullPolicy:
       pullSecrets: []
     revisionHistoryLimit:
@@ -591,8 +605,8 @@ prePuller:
     pullOnlyOnChanges: true
     # image and the configuration below relates to the hook-image-awaiter Job
     image:
-      name: jupyterhub/k8s-image-awaiter
-      tag: "2.0.0"
+      name: quay.io/jupyterhub/k8s-image-awaiter
+      tag: "3.2.1"
       pullPolicy:
       pullSecrets: []
     containerSecurityContext:
@@ -617,13 +631,13 @@ prePuller:
       runAsGroup: 65534 # nobody group
       allowPrivilegeEscalation: false
     image:
-      name: k8s.gcr.io/pause
+      name: registry.k8s.io/pause
       # tag is automatically bumped to new patch versions by the
       # watch-dependencies.yaml workflow.
       #
       # If you update this, also update scheduling.userPlaceholder.image.tag
       #
-      tag: "3.8"
+      tag: "3.9"
       pullPolicy:
       pullSecrets: []
 
