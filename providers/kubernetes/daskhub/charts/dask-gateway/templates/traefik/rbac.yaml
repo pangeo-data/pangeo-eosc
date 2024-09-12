@@ -30,6 +30,7 @@ rules:
       - list
       - watch
   - apiGroups:
+      - traefik.io
       - traefik.containo.us
     resources:
       - ingressroutes

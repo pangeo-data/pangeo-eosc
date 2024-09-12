@@ -31,8 +31,15 @@ gateway:
   # The image to use for the dask-gateway-server pod (api pod)
   image:
     name: ghcr.io/dask/dask-gateway-server
-    tag: "2023.1.1"
-    pullPolicy: IfNotPresent
+    tag: "2024.1.0"
+    pullPolicy:
+
+  # Add additional environment variables to the gateway pod
+  # e.g.
+  # env:
+  # - name: MYENV
+  #   value: "my value"
+  env: []
 
   # Image pull secrets for gateway-server pod
   imagePullSecrets: []
@@ -114,8 +121,8 @@ gateway:
     # The image to use for both schedulers and workers.
     image:
       name: ghcr.io/dask/dask-gateway
-      tag: "2023.1.1"
-      pullPolicy: IfNotPresent
+      tag: "2024.1.0"
+      pullPolicy:
 
     # Image pull secrets for a dask cluster's scheduler and worker pods
     imagePullSecrets: []
@@ -213,8 +220,8 @@ controller:
   # The image to use for the controller pod.
   image:
     name: ghcr.io/dask/dask-gateway-server
-    tag: "2023.1.1"
-    pullPolicy: IfNotPresent
+    tag: "2024.1.0"
+    pullPolicy:
 
   # Settings for nodeSelector, affinity, and tolerations for the controller pods
   nodeSelector: {}
@@ -239,8 +246,8 @@ traefik:
   # The image to use for the proxy pod
   image:
     name: traefik
-    tag: "2.9.4"
-    pullPolicy: IfNotPresent
+    tag: "2.10.6"
+    pullPolicy:
   imagePullSecrets: []
 
   # Any additional arguments to forward to traefik
