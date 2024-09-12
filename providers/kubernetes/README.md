@@ -59,7 +59,6 @@ helm upgrade daskhub daskhub/ \
   --cleanup-on-fail \
   --create-namespace \
   --namespace c-scale-pangeo-dask \
-  --version 2022.8.2 \
   --values daskhub.yaml \
   --values daskhub-secrets.yaml
 ```
@@ -151,7 +150,7 @@ helm-v3.11.1/helm upgrade minio bitnami/minio \
   --cleanup-on-fail \
   --create-namespace \
   --namespace c-scale-pangeo-dask \
-  --version 12.6.4 \
+  --version 14.6.12 \
   --values minio/minio.yaml \
   --values minio/minio-secrets.yaml
 ```

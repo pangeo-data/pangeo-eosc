@@ -20,7 +20,7 @@ gateway:
       c.Backend.cluster_options = Options(
         Integer("worker_cores", default=1, min=1, max=4, label="Worker Cores"),
         Float("worker_memory", default=2, min=2, max=8, label="Worker Memory (GiB)"),
-        String("image", default="pangeo/pangeo-notebook:2022.08.19", label="Image"),
+        String("image", default="quay.io/pangeo/pangeo-notebook:2024.08.18", label="Image"),
         handler=options_handler,
       )
   prefix: /services/dask-gateway
