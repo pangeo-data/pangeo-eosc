@@ -13,8 +13,9 @@ dask-gateway:
     extraConfig:
       # https://gateway.dask.org/resource-limits.html
       dasklimits: |
-        c.ClusterConfig.cluster_max_cores = 32
-        c.ClusterConfig.cluster_max_memory = "128 G"
+        # see https://github.com/dask/dask-gateway/issues/315
+        c.ClusterConfig.cluster_max_cores = 40 # instead of "32"
+        c.ClusterConfig.cluster_max_memory = "140 G" # instead of "128 G"
         c.ClusterConfig.cluster_max_workers = 4
         c.ClusterConfig.idle_timeout = 1800
       optionHandler: |
