@@ -13,8 +13,9 @@ dask-gateway:
     extraConfig:
       # https://gateway.dask.org/resource-limits.html
       dasklimits: |
-        c.ClusterConfig.cluster_max_cores = 32
-        c.ClusterConfig.cluster_max_memory = "128 G"
+        # see https://github.com/dask/dask-gateway/issues/315
+        c.ClusterConfig.cluster_max_cores = 40 # instead of "32"
+        c.ClusterConfig.cluster_max_memory = "140 G" # instead of "128 G"
         c.ClusterConfig.cluster_max_workers = 4
         c.ClusterConfig.idle_timeout = 1800
       optionHandler: |
@@ -30,8 +31,8 @@ dask-gateway:
           }
 
         c.Backend.cluster_options = Options(
-          Integer("worker_cores", default=1, min=1, max=4, label="Worker Cores"),
-          Float("worker_memory", default=2, min=2, max=8, label="Worker Memory (GiB)"),
+          Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
+          Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
           String("image", default="quay.io/pangeo/pangeo-notebook:2024.08.18", label="Image"),
           handler=options_handler,
         )
