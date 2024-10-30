@@ -12,6 +12,9 @@ Please check the [getting started for providers](./providers/providers-getting-s
 ## Training events
 
 ### 2024
+- **EGU 2025**: [Harnessing the Power of Pangeo: Enhancing Your Scientific Data Analysis Workflow with scalable open source tools](https://meetingorganizer.copernicus.org/EGU25/session/53638)
+
+### 2024
 - **EGI 2024**: [Pangeo@EOSC: A EOSC service to enable big data geoscience scientific discoveries and collaborations](https://indico.egi.eu/event/6441/contributions/19246/). See also the [dedicated repository](https://pangeo-data.github.io/egi2024-demo/) with training material.
 - **IGARSS 2024**: [Earthly marvels revealed: Pangeo, AI, and Copernicus in action](https://www.2024.ieeeigarss.org/). See also the [dedicated repository](https://pangeo-data.github.io/pangeo-igarss2024/intro.html) with training material.
 - **GEO-OPEN-HACK-2024**: [Big Geospatial Data Hackathon with Open Infrastructure and Tools](https://iiasa.ac.at/events/jun-2024/geo-open-hack-2024-big-geospatial-data-hackathon-with-open-infrastructure-and-tools). See also the [dedicated repository](https://pangeo-data.github.io/geo-open-hack-2024/intro.html) with training material.
