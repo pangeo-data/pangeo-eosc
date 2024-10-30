@@ -68,7 +68,7 @@ dask-gateway:
               type: RuntimeDefault
           tolerations:
           - effect: NoSchedule
-            key: node.kubernetes.io/unschedulable
+            key: reservation.cerit.io/pangeo
             operator: Exists
         extraContainerConfig:
           securityContext:
