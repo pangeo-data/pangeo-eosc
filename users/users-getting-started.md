@@ -36,7 +36,8 @@ The MinIO console endpoint is: [https://pangeo-eosc-minio.vm.fedcloud.eu/](https
 
 ![minIO Login](../figures/minIO_login.png)
 
-You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets.
+You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets. 
+NB: As an individual user, make sure to let your bucket-name start with the prefix 'os.environ['JUPYTERHUB_USER']'+'-'. Otherwise the bucket will not be created.
 
 ![minIO buckets](../figures/minIO_buckets.png)
 
