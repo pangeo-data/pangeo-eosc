@@ -36,15 +36,11 @@ The MinIO console endpoint is: [https://pangeo-eosc-minio.vm.fedcloud.eu/](https
 
 ![minIO Login](../figures/minIO_login.png)
 
-You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets. 
-
-As an individual user, make sure to let your bucket-name start with the prefix `os.environ['JUPYTERHUB_USER']+'-'`, otherwise the bucket will not be created.
+You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets. As an individual user, make sure to let your bucket-name start with the prefix `os.environ['JUPYTERHUB_USER']+'-'` as shown in DaskHub, otherwise the bucket will not be created. See an [example here](./how-to/object-storage-minio-test.ipynb).
 
 ![minIO buckets](../figures/minIO_buckets.png)
 
-In addition to the MinIO console, the API end point is `https://pangeo-eosc-minioapi.vm.fedcloud.eu/` for those who prefer to interact with MinIO via the API.
-
-Please check out this [example](./how-to/object-storage-minio-test.ipynb) to get started.
+In addition to the MinIO console, the API end point is `https://pangeo-eosc-minioapi.vm.fedcloud.eu/` for those who prefer to interact with MinIO via the API. Please check out this [example](./how-to/object-storage-minio-test.ipynb) to get started.
 
 ## Support
 
