@@ -9,6 +9,7 @@ You need to create an [EGI Check-in account](https://www.egi.eu/service/check-in
 
 1. **Sign up** for an EGI Check-in account following [these steps](https://docs.egi.eu/users/aai/check-in/signup/). **Using [ORCID iD](https://orcid.org/) to authenticate is recommended.**
 2. **Enroll** in the `vo.pangeo.eu` Virtual Organisation (VO) by clicking on [the enrollment URL](https://aai.egi.eu/registry/co_petitions/start/coef:386) using the EGI Check-in account created in the previous step. Review and click on `Submit`. Please add a note in the statement of purpose when requesting to join the VO explaining why you want to access `pangeo-eosc`.
+3. **Subscribe** to the [pangeo-eosc-user emailing list](https://mailman.egi.eu/mailman/listinfo/pangeo-eosc-users) to stay in the loop. Please open an [issue](https://github.com/pangeo-data/pangeo-eosc/issues) to be added to the list.
 
 Managers of the Virtual Organisations may **take several days** to approve your petitions to join and also get back to you via email to verify your identity.
 
@@ -45,6 +46,8 @@ In addition to the MinIO console, the API end point is `https://pangeo-eosc-mini
 ## Support
 
 If you need support, please open an [issue](https://github.com/pangeo-data/pangeo-eosc/issues).
+
+There is also [an emailing list](https://mailman.egi.eu/mailman/listinfo/pangeo-eosc-users) that you can join if you want to stay tuned. Please open an [issue](https://github.com/pangeo-data/pangeo-eosc/issues) if you want to be subscribed.
 
 ## Monitoring
 
