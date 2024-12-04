@@ -11,7 +11,7 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 ## Training events
 
-### 2024
+### 2025
 - **EGU 2025**: [Harnessing the Power of Pangeo: Enhancing Your Scientific Data Analysis Workflow with scalable open source tools](https://meetingorganizer.copernicus.org/EGU25/session/53638)
 
 ### 2024
