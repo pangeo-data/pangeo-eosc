@@ -33,6 +33,10 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
 
+### 2025
+- Coca-Castro, A., Fouilloux, A., Ricardo, B. L., McDonald, A., Rao, Y. and Hosking J.S. (2025). Improving the reproducibility in geoscientific papers: lessons learned from a Hackathon in climate science. Environmental Data Science, 4:e6, 1-10, [doi:10.1017/eds.2024.35](https://doi.org/10.1017/eds.2024.35)
+
+
 ### 2024
 
 - Kmoch, A., Bovy, B., Magin, J., Abernathey, R., Strobl, P., Coca-Castro, A., Fouilloux, A., Loos, D., and Odaka, T.: XDGGS: Xarray Extension for Discrete Global Grid Systems (DGGS), EGU General Assembly 2024, Vienna, Austria, 14–19 Apr 2024, EGU24-15416, [https://doi.org/10.5194/egusphere-egu24-15416](https://doi.org/10.5194/egusphere-egu24-15416), 2024.
