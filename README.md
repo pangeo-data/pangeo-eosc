@@ -12,6 +12,7 @@ Please check the [getting started for providers](./providers/providers-getting-s
 ## Training events
 
 ### 2025
+- Coca-Castro A, Fouilloux A, Barros Lourenço R, McDonald A, Rao Y, Hosking JS. Improving the reproducibility in geoscientific papers: lessons learned from a Hackathon in climate science. Environmental Data Science. 2025;4:e6. [doi:10.1017/eds.2024.35](https://doi.org/10.1017/eds.2024.35)
 - **EGU 2025**: [Harnessing the Power of Pangeo: Enhancing Your Scientific Data Analysis Workflow with scalable open source tools](https://meetingorganizer.copernicus.org/EGU25/session/53638)
 
 ### 2024
