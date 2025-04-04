@@ -206,33 +206,49 @@ jupyterhub:
       guarantee: 1
       limit: 8
     defaultUrl: /lab
-    image:
-      name: quay.io/pangeo/pangeo-notebook
-      tag: 2025.01.24
     profileList:
-      - display_name: "pangeo-notebook"
-        description: "Pangeo stack"
-        default: true
-      - display_name: "ml-notebook"
-        description: "pangeo-notebook + GPU-enabled tensorflow2"
-        kubespawner_override:
-          image: quay.io/pangeo/ml-notebook:2025.01.24
-          extra_resource_guarantees:
-            nvidia.com/gpu: 1
-          extra_resource_limits:
-            nvidia.com/gpu: 1
-      - display_name: "pytorch-notebook"
-        description: "pangeo-notebook + GPU-enabled pytorch"
-        kubespawner_override:
-          image: quay.io/pangeo/pytorch-notebook:2025.01.24
-          extra_resource_guarantees:
-            nvidia.com/gpu: 1
-          extra_resource_limits:
-            nvidia.com/gpu: 1
-      - display_name: "datascience-notebook"
-        description: "Python, R, and Julia."
-        kubespawner_override:
-          image: quay.io/jupyter/datascience-notebook:2025-04-01
+      - display_name: Choose your environment
+        slug: only-choice
+        profile_options:
+          image:
+            display_name: Image
+            # Enables dynamic image building for this profile
+            dynamic_image_building:
+              enabled: True
+            unlisted_choice:
+              enabled: True
+              display_name: "Custom image"
+              validation_regex: "^.+:.+$"
+              validation_message: "Must be a publicly available docker image, of form <image-name>:<tag>"
+              display_name_in_choices: "Specify an existing docker image"
+              description_in_choices: "Use a pre-existing docker image from a public docker registry (dockerhub, quay, etc)"
+              kubespawner_override:
+                image: "{value}"
+            choices:
+               pangeo:
+                 display_name: "quay.io/pangeo/pangeo-notebook:2025.01.24"
+                 kubespawner_override:
+                   image: quay.io/pangeo/pangeo-notebook:2025.01.24
+               ml-notebook:
+                 display_name: "quay.io/pangeo/ml-notebook:2025.01.24"
+                 kubespawner_override:
+                   image: quay.io/pangeo/ml-notebook:2025.01.24
+                   extra_resource_guarantees:
+                     nvidia.com/gpu: 1
+                   extra_resource_limits:
+                     nvidia.com/gpu: 1
+               pytorch-notebook:
+                 display_name: "quay.io/pangeo/pytorch-notebook:2025.01.24"
+                 kubespawner_override:
+                   image: quay.io/pangeo/pytorch-notebook:2025.01.24
+                   extra_resource_guarantees:
+                     nvidia.com/gpu: 1
+                   extra_resource_limits:
+                     nvidia.com/gpu: 1
+               datascience-notebook:
+                 display_name: "quay.io/jupyter/datascience-notebook:2025-04-01"
+                 kubespawner_override:
+                   image: quay.io/jupyter/datascience-notebook:2025-04-01
     memory:
       guarantee: 2G
       limit: 32G
