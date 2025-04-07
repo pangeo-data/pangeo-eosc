@@ -52,7 +52,7 @@ Check out the [open grafana dashboard](https://kuba-mon.cloud.e-infra.cz/d/vd9rF
 
 # Weekly coffee meetings
 
-Join the Pangeo community in Europe in a weekly call every Tuesday at 9.30am CET/CEST at: https://meet.jit.si/pangeo-europe
+Join the Pangeo community in Europe in a weekly call every Tuesday at 16:00 CET on [Zoom](https://numfocus-org.zoom.us/j/81977735338?pwd=pVM3UvnSAJORc2p4Oad39TESPvBzV5.1)
 
 Attend the meeting not only to get to know each other but also to ask questions about how to use the Pangeo ecosystem.
 
