@@ -7,6 +7,10 @@ global:
 #image:
 #  debug: true
 
+extraEnvVars:
+  - name: MINIO_STS_DURATION
+    value: "168h" # 7 days
+
 ingress:
   enabled: true
   ingressClassName: "nginx"
