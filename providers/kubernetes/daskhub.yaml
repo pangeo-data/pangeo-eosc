@@ -225,6 +225,10 @@ jupyterhub:
               kubespawner_override:
                 image: "{value}"
             choices:
+               openscapes:
+                 display_name: "docker.io/openscapes/python:a1ff0c5"
+                 kubespawner_override:
+                   image: docker.io/openscapes/python:a1ff0c5
                pangeo:
                  display_name: "quay.io/pangeo/pangeo-notebook:2025.01.24"
                  kubespawner_override:
