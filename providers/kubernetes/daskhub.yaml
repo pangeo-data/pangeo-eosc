@@ -226,6 +226,10 @@ jupyterhub:
                 image: "{value}"
             choices:
                openscapes:
+                 display_name: "docker.io/openscapes/python:92bb0eb"
+                 kubespawner_override:
+                   image: docker.io/openscapes/python:92bb0eb
+               openscapes-latest:
                  display_name: "docker.io/openscapes/python:latest"
                  kubespawner_override:
                    image: docker.io/openscapes/python:latest
