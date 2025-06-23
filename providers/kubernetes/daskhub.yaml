@@ -33,7 +33,7 @@ dask-gateway:
         c.Backend.cluster_options = Options(
           Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
           Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
-          String("image", default="quay.io/pangeo/pangeo-notebook:2025.05.22", label="Image"),
+          String("image", default="quay.io/pangeo/pangeo-notebook:2025.06.02", label="Image"),
           handler=options_handler,
         )
     prefix: /services/dask-gateway
@@ -225,38 +225,38 @@ jupyterhub:
               kubespawner_override:
                 image: "{value}"
             choices:
-               openscapes:
-                 display_name: "docker.io/openscapes/python:92bb0eb"
+               protocoast-latest:
+                 display_name: "quay.io/globalcoast/protocoast-notebook:latest "
                  kubespawner_override:
-                   image: docker.io/openscapes/python:92bb0eb
+                   image: quay.io/globalcoast/protocoast-notebook:latest
                openscapes-latest:
                  display_name: "docker.io/openscapes/python:latest"
                  kubespawner_override:
                    image: docker.io/openscapes/python:latest
                pangeo:
-                 display_name: "quay.io/pangeo/pangeo-notebook:2025.05.22"
+                 display_name: "quay.io/pangeo/pangeo-notebook:2025.06.02"
                  kubespawner_override:
-                   image: quay.io/pangeo/pangeo-notebook:2025.05.22
+                   image: quay.io/pangeo/pangeo-notebook:2025.06.02
                ml-notebook:
-                 display_name: "quay.io/pangeo/ml-notebook:2025.05.22"
+                 display_name: "quay.io/pangeo/ml-notebook:2025.06.02"
                  kubespawner_override:
-                   image: quay.io/pangeo/ml-notebook:2025.05.22
+                   image: quay.io/pangeo/ml-notebook:2025.06.02
                    extra_resource_guarantees:
                      nvidia.com/gpu: 1
                    extra_resource_limits:
                      nvidia.com/gpu: 1
                pytorch-notebook:
-                 display_name: "quay.io/pangeo/pytorch-notebook:2025.05.22"
+                 display_name: "quay.io/pangeo/pytorch-notebook:2025.06.02"
                  kubespawner_override:
-                   image: quay.io/pangeo/pytorch-notebook:2025.05.22
+                   image: quay.io/pangeo/pytorch-notebook:2025.06.02
                    extra_resource_guarantees:
                      nvidia.com/gpu: 1
                    extra_resource_limits:
                      nvidia.com/gpu: 1
                datascience-notebook:
-                 display_name: "quay.io/jupyter/datascience-notebook:2025-05-26"
+                 display_name: "quay.io/jupyter/datascience-notebook:2025-06-23"
                  kubespawner_override:
-                   image: quay.io/jupyter/datascience-notebook:2025-05-26
+                   image: quay.io/jupyter/datascience-notebook:2025-06-23
     memory:
       guarantee: 2G
       limit: 32G
