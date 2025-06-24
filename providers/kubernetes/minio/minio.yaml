@@ -4,12 +4,14 @@
 global:
   storageClass: "nfs-csi-backup"
 
-#image:
-#  debug: true
+image:
+  debug: true
 
 extraEnvVars:
   - name: MINIO_STS_DURATION
     value: "168h" # 7 days
+  - name: MINIO_LOG_LEVEL
+    value: DEBUG
 
 ingress:
   enabled: true
