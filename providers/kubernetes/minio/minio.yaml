@@ -4,12 +4,24 @@
 global:
   storageClass: "nfs-csi-backup"
 
-#image:
-#  debug: true
+image:
+  debug: true
 
 extraEnvVars:
   - name: MINIO_STS_DURATION
     value: "168h" # 7 days
+  - name: MINIO_LOG_LEVEL
+    value: DEBUG
+
+resources:
+  limits:
+    cpu: "2"
+    ephemeral-storage: "10Gi"
+    memory: "1Gi"
+  requests:
+    cpu: "375m"
+    ephemeral-storage: "2Gi"
+    memory: "384Mi"
 
 ingress:
   enabled: true
