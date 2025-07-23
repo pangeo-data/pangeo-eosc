@@ -1,7 +1,7 @@
 # Creating object storage container/bucket from Openstack web interface provided by CESNET.
 
 ## Log on to openstack interface
-Go to [Openstack dashboard of CESNET](https://dashboard.cloud.muni.cz/auth/login/) and chose EGI Check-in.
+Go to [Openstack dashboard of CESNET](https://horizon.brno.openstack.cloud.e-infra.cz/) and chose EGI Check-in.
 
 ## Create containers/buckets
 Click 'Object Store' -> 'Containers'

@@ -41,11 +41,11 @@ Depending on the workshop you are attending, the following command should work:
 ```bash
 # CLIVAR workshop:
 # https://www.clivar.org/events/arctic-processes-cmip6-bootcamp
-fedcloud openstack --vo "/vo.pangeo.eu/swift" --site CESNET-MCC container list
+fedcloud openstack --vo "vo.pangeo.eu-swift" --site CESNET-MCCG2 container list
 
 # eScience workshop:
 # https://www.aces.su.se/research/projects/escience-tools-in-climate-science-linking-observations-with-modelling/
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC container list
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 container list
 ```
 
 Please note that the `--vo` option is supplied with different strings in the commands above depending on
@@ -56,23 +56,23 @@ about your `<project-name>`, please [contact us](https://github.com/pangeo-data/
 
 ```bash
 # get OS_STORAGE_URL
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC catalog show swift
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 catalog show swift
 
 # get OS_AUTH_TOKEN
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC token issue -c id -f value
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 token issue -c id -f value
 ```
 
 You'll need `OS_AUTH_TOKEN` and `OS_STORAGE_URL` in order to interact with Swift using Zarr.
 
 ## Retrieve S3 credentials
 
-CESNET provides the following self-service to get S3 credentials:
-https://docs.cloud.muni.cz/cloud/advanced-features/#s3-credentials.
+CESNET provides the following self-service to get
+[S3 credentials](https://docs.platforms.cloud.e-infra.cz/en/docs/additional-information/object-storage#s3-credentials).
 
 Please run:
 ```
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials create
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials list
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 ec2 credentials create
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 ec2 credentials list
 ```
 
 Once you've created a credential, you can retrieve it with the `list` command. Do not use create if you already have one. 
@@ -84,9 +84,9 @@ __Be really careful of what you do with your credentials, e.g. avoid living them
 In case, you need to re-set your creentials with following command. 
 
 ```
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials delete <`access` key> 
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials create
-fedcloud openstack --vo "/vo.pangeo.eu/escience" --site CESNET-MCC ec2 credentials list
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 ec2 credentials delete <`access` key>
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 ec2 credentials create
+fedcloud openstack --vo "vo.pangeo.eu-escience" --site CESNET-MCCG2 ec2 credentials list
 ```
 
 ## Use S3 credentials
