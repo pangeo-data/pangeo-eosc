@@ -66,8 +66,8 @@ You'll need `OS_AUTH_TOKEN` and `OS_STORAGE_URL` in order to interact with Swift
 
 ## Retrieve S3 credentials
 
-CESNET provides the following self-service to get S3 credentials:
-https://docs.cloud.muni.cz/cloud/advanced-features/#s3-credentials.
+CESNET provides the following self-service to get
+[S3 credentials](https://docs.platforms.cloud.e-infra.cz/en/docs/additional-information/object-storage#s3-credentials).
 
 Please run:
 ```
