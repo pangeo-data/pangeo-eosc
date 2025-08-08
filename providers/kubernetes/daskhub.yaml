@@ -225,10 +225,14 @@ jupyterhub:
               kubespawner_override:
                 image: "{value}"
             choices:
-               protocoast-latest:
-                 display_name: "quay.io/globalcoast/protocoast-notebook:latest "
+               protocoast-main:
+                 display_name: "quay.io/globalcoast/protocoast-notebook:main"
                  kubespawner_override:
-                   image: quay.io/globalcoast/protocoast-notebook:latest
+                   image: quay.io/globalcoast/protocoast-notebook:main
+               protocoast-develop:
+                 display_name: "quay.io/globalcoast/protocoast-notebook:develop"
+                 kubespawner_override:
+                   image: quay.io/globalcoast/protocoast-notebook:develop
                openscapes-latest:
                  display_name: "docker.io/openscapes/python:latest"
                  kubespawner_override:
