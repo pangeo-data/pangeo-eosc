@@ -241,10 +241,22 @@ jupyterhub:
                  display_name: "quay.io/pangeo/pangeo-notebook:2025.06.02"
                  kubespawner_override:
                    image: quay.io/pangeo/pangeo-notebook:2025.06.02
+               pangeo-latest:
+                 display_name: "quay.io/pangeo/pangeo-notebook:latest"
+                 kubespawner_override:
+                   image: quay.io/pangeo/pangeo-notebook:latest
                ml-notebook:
                  display_name: "quay.io/pangeo/ml-notebook:2025.06.02"
                  kubespawner_override:
                    image: quay.io/pangeo/ml-notebook:2025.06.02
+                   extra_resource_guarantees:
+                     nvidia.com/gpu: 1
+                   extra_resource_limits:
+                     nvidia.com/gpu: 1
+               ml-notebook-latest:
+                 display_name: "quay.io/pangeo/ml-notebook:latest"
+                 kubespawner_override:
+                   image: quay.io/pangeo/ml-notebook:latest
                    extra_resource_guarantees:
                      nvidia.com/gpu: 1
                    extra_resource_limits:
@@ -257,10 +269,22 @@ jupyterhub:
                      nvidia.com/gpu: 1
                    extra_resource_limits:
                      nvidia.com/gpu: 1
+               pytorch-notebook-latest:
+                 display_name: "quay.io/pangeo/pytorch-notebook:latest"
+                 kubespawner_override:
+                   image: quay.io/pangeo/pytorch-notebook:latest
+                   extra_resource_guarantees:
+                     nvidia.com/gpu: 1
+                   extra_resource_limits:
+                     nvidia.com/gpu: 1
                datascience-notebook:
                  display_name: "quay.io/jupyter/datascience-notebook:2025-06-23"
                  kubespawner_override:
                    image: quay.io/jupyter/datascience-notebook:2025-06-23
+               datascience-notebook-latest:
+                 display_name: "quay.io/jupyter/datascience-notebook:latest"
+                 kubespawner_override:
+                   image: quay.io/jupyter/datascience-notebook:latest
     memory:
       guarantee: 2G
       limit: 32G
