@@ -19,7 +19,7 @@ dask-gateway:
         c.ClusterConfig.cluster_max_workers = 4
         c.ClusterConfig.idle_timeout = 1800
       optionHandler: |
-        from dask_gateway_server.options import Options, Integer, Float, String
+        from dask_gateway_server.options import Options, Integer, Float, String, Mapping
 
         def options_handler(options):
           if ":" not in options.image:
@@ -28,12 +28,14 @@ dask-gateway:
             "worker_cores": options.worker_cores,
             "worker_memory": int(options.worker_memory * 2 ** 30),
             "image": options.image,
+            "environment_vars": options.environment_vars,
           }
 
         c.Backend.cluster_options = Options(
           Integer("worker_cores", default=1, min=1, max=8, label="Worker Cores"),
           Float("worker_memory", default=2, min=2, max=32, label="Worker Memory (GiB)"),
           String("image", default="quay.io/pangeo/pangeo-notebook:2025.06.02", label="Image"),
+          Mapping("environment_vars", {}, label="Environment Variables"),
           handler=options_handler,
         )
     prefix: /services/dask-gateway
