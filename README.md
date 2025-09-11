@@ -12,6 +12,7 @@ Please check the [getting started for providers](./providers/providers-getting-s
 ## Training events
 
 ### 2025
+- [Big Data From Space (BiDS'25)](https://www.bigdatafromspace2025.org): Scalable Earth Observation Data Analysis with Pangeo and EO4EU, Vasileios Baousis (European Centre for Medium-Range Weather Forecasts (ECMWF)), Anne Fouilloux (Simula), Tina Odaka (ifremer), Mohanad Albughdadi (ECMWF), Claudio Pisa (ECMWF), Armagan Karatosun (EUMETSAT). Tutorial given to BiDS Satellite event using Pangeo@EOSC.
 - Coca-Castro A, Fouilloux A, Barros Lourenço R, McDonald A, Rao Y, Hosking JS. Improving the reproducibility in geoscientific papers: lessons learned from a Hackathon in climate science. Environmental Data Science. 2025;4:e6. [doi:10.1017/eds.2024.35](https://doi.org/10.1017/eds.2024.35)
 - **EGU 2025**: [Harnessing the Power of Pangeo: Enhancing Your Scientific Data Analysis Workflow with scalable open source tools](https://meetingorganizer.copernicus.org/EGU25/session/53638). See also the [dedicated repository](https://github.com/pangeo-data/egu-2025-course) with training material.
 - [WCRP Global KM scale hackathon 2025](https://github.com/digital-earths-global-hackathon). The Digital Earths Global Hackathon brings together scientists from around the world to jointly analyze the first ever coordinated experiments of 6 - 8 climate models simulating a full annual cycle with horizontal grid spacings of 5 km or less based on a common protocol ([Takasuka, D. et al. (2024)](https://doi.org/10.1186/s40645-024-00668-1)).
