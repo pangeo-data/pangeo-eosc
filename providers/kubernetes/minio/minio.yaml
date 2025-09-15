@@ -15,13 +15,13 @@ extraEnvVars:
 
 resources:
   limits:
-    cpu: "2"
+    cpu: "4"
     ephemeral-storage: "10Gi"
-    memory: "1Gi"
+    memory: "8Gi"
   requests:
-    cpu: "375m"
+    cpu: "1"
     ephemeral-storage: "2Gi"
-    memory: "384Mi"
+    memory: "2Gi"
 
 ingress:
   enabled: true
