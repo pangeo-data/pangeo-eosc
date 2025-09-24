@@ -45,7 +45,7 @@ In addition to the MinIO console, the API end point is `https://pangeo-eosc-mini
 ### Custom access policies
 
 Custom bucket policies are needed in certain academic, collaborative and educational situations. 
-If custom policies for bucket-access are needed: consider filing a request to set up a group. Please check out policy-examples [here](./how-to/custom-access-policies/)
+If custom policies for bucket-access are needed: consider filing a request to set up a group. Check out the policy-example [here](./how-to/custom-access-policies/)
 
 
 ## Support

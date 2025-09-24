@@ -2,10 +2,11 @@ Below are group- and bucket-policies used to create a public bucket in a private
 
 
 Group-name:
-urn:mace:egi.eu:group:vo.pangeo.eu:groupname:role=member#aai.egi.eu
+`urn:mace:egi.eu:group:vo.pangeo.eu:groupname:role=member#aai.egi.eu`
 
 
 Group-policy:
+```
 {
     "Version": "2012-10-17", 
     "Statement": [ 
@@ -20,9 +21,10 @@ Group-policy:
         }
     ]
 }
-
+```
 
 Bucket-policy:
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -57,4 +59,4 @@ Bucket-policy:
         }
     ]
 }
-
+```
