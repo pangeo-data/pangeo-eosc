@@ -206,6 +206,8 @@ jupyterhub:
       guarantee: 1
       limit: 8
     defaultUrl: /lab
+    image:
+      pullPolicy: Always
     profileList:
       - display_name: Choose your environment
         slug: only-choice
