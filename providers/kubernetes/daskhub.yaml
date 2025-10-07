@@ -194,7 +194,7 @@ jupyterhub:
 
   singleuser:
     extraEnv:
-      DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
+      DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{{JUPYTER_IMAGE_SPEC}}'
     extraFiles:
       jupyter_notebook_config.json:
         mountPath: /etc/jupyter/jupyter_notebook_config.json
