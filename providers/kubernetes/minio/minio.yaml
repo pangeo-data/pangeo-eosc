@@ -3,8 +3,12 @@
 
 global:
   storageClass: "nfs-csi-backup"
+  security:
+    allowInsecureImages: true
 
 image:
+  repository: bitnamilegacy/minio
+  tag: 2025.4.22-debian-12-r2
   debug: true
 
 extraEnvVars:
