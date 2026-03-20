@@ -11,6 +11,9 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 ## Training events
 
+### 2026
+- Introduction to deep learning: Carpentries-style hands-on lesson material for introducing researchers to deep learning. Journal of Open Source Education, 9(95), 307,  van der Burg et al., (2026), [DOI: 10.21105/jose.00307 ](https://doi.org/10.21105/jose.00307)
+
 ### 2025
 - [Big Data From Space (BiDS'25)](https://www.bigdatafromspace2025.org): Scalable Earth Observation Data Analysis with Pangeo and EO4EU, Vasileios Baousis (European Centre for Medium-Range Weather Forecasts (ECMWF)), Anne Fouilloux (Simula), Tina Odaka (ifremer), Mohanad Albughdadi (ECMWF), Claudio Pisa (ECMWF), Armagan Karatosun (EUMETSAT). Tutorial given to BiDS Satellite event using Pangeo@EOSC.
 - **EGU 2025**: [Harnessing the Power of Pangeo: Enhancing Your Scientific Data Analysis Workflow with scalable open source tools](https://meetingorganizer.copernicus.org/EGU25/session/53638). See also the [dedicated repository](https://github.com/pangeo-data/egu-2025-course) with training material.
