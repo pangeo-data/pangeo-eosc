@@ -40,6 +40,12 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
 
+### 2026
+
+- Samardzhiev, K., Samardzhiev, D., Anghelea, A., and Dobrowolska, E.: From Disparate Datasets to Analysis-Ready Data Cubes with Pangeo on EarthCODE, EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-21395, https://doi.org/10.5194/egusphere-egu26-21395, 2026.
+- Magin, J., Bovy, B., Richard, P., Delouis, J.-M., and Odaka, T.: Ellipsoidal HEALPix for the Earth sciences: healpix-geo and xdggs integration into the Pangeo ecosystem, EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-18208, https://doi.org/10.5194/egusphere-egu26-18208, 2026.
+- Odaka, T. E., Cap, E., Mazouni, Q., Hue, C., Delouis, J.-M., Woillez, M., Fouilloux, A., Ragan-Kelley, B., and Wiesmann, D.: Pangeo-Fish and the Global Fish Tracking System: Scaling Biologging Analytics with Earth System Digital Twins for evidence-based policy support, EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-19040, https://doi.org/10.5194/egusphere-egu26-19040, 2026.
+
 ### 2025
 - Coca-Castro, A., Fouilloux, A., Ricardo, B. L., McDonald, A., Rao, Y. and Hosking J.S. (2025). Improving the reproducibility in geoscientific papers: lessons learned from a Hackathon in climate science. Environmental Data Science, 4:e6, 1-10, [doi:10.1017/eds.2024.35](https://doi.org/10.1017/eds.2024.35).
 
