@@ -12,6 +12,7 @@ Please check the [getting started for providers](./providers/providers-getting-s
 ## Training events
 
 ### 2026
+- [European Tracking Network (ETN) Symposium 2026](https://europeantrackingnetwork.org/): Fish geolocation with Pangeo-Fish, Tina Odaka (Ifremer), Clément Chauveau (Ifremer). Hands-on workshop introducing the Pangeo ecosystem (Xarray, Dask, HEALPix) and a complete [pangeo-fish](https://github.com/pangeo-fish/pangeo-fish) geolocation workflow on biologging data, using Pangeo@EOSC with the [pangeo-fish Docker image](https://github.com/pangeo-fish/pangeo-fish-docker). See also the [dedicated repository](https://github.com/pangeo-fish/pangeo-fish-etn2026) with [training material](https://pangeo-fish.github.io/pangeo-fish-etn2026). 15 October 2026, Copenhagen, Denmark.
 - Introduction to deep learning: Carpentries-style hands-on lesson material for introducing researchers to deep learning. Journal of Open Source Education, 9(95), 307,  van der Burg et al., (2026), [DOI: 10.21105/jose.00307 ](https://doi.org/10.21105/jose.00307)
 
 ### 2025
