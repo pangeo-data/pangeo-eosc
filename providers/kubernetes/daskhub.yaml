@@ -25,7 +25,6 @@ dask-gateway:
             def option_handler(options):
                 if ":" not in options.image:
                     raise ValueError("When specifying an image you must also provide a tag")
-
                 return {
                     "worker_cores": options.worker_cores,
                     "worker_memory": int(options.worker_memory * 2 ** 30),
@@ -35,7 +34,7 @@ dask-gateway:
             return Options(
                 Integer("worker_cores", default=1, min=1, max=1, label="Worker Cores"),
                 Float("worker_memory", default=2, min=2, max=7, label="Worker Memory (GiB)"),
-                String("image", default="quay.io/pangeo/pangeo-notebook:2025.06.02", label="Image"),
+                String("image", default="quay.io/pangeo/pangeo-notebook:latest", label="Image"),
                 Mapping("environment_vars", {}, label="Environment Variables"),
                 handler=options_handler,
             )
@@ -166,10 +165,10 @@ jupyterhub:
 
   ingress:
     annotations:
-      kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
       nginx.ingress.kubernetes.io/proxy-body-size: "1g"
     enabled: true
+    ingressClassName: nginx
     hosts:
       - pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
     tls:
@@ -210,6 +209,8 @@ jupyterhub:
       guarantee: 1
       limit: 8
     defaultUrl: /lab
+    image:
+      pullPolicy: Always
     profileList:
       - display_name: Choose your environment
         slug: only-choice

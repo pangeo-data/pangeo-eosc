@@ -11,10 +11,16 @@ Please check the [getting started for providers](./providers/providers-getting-s
 
 ## Training events
 
+### 2026
+- [European Tracking Network (ETN) Symposium 2026](https://europeantrackingnetwork.org/): Fish geolocation with Pangeo-Fish, Tina Odaka (Ifremer), Clément Chauveau (Ifremer). Hands-on workshop introducing the Pangeo ecosystem (Xarray, Dask, HEALPix) and a complete [pangeo-fish](https://github.com/pangeo-fish/pangeo-fish) geolocation workflow on biologging data, using Pangeo@EOSC with the [pangeo-fish Docker image](https://github.com/pangeo-fish/pangeo-fish-docker). See also the [dedicated repository](https://github.com/pangeo-fish/pangeo-fish-etn2026) with [training material](https://pangeo-fish.github.io/pangeo-fish-etn2026). 15 October 2026, Copenhagen, Denmark.
+- Introduction to deep learning: Carpentries-style hands-on lesson material for introducing researchers to deep learning. Journal of Open Source Education, 9(95), 307,  van der Burg et al., (2026), [DOI: 10.21105/jose.00307 ](https://doi.org/10.21105/jose.00307)
+
 ### 2025
 - [Big Data From Space (BiDS'25)](https://www.bigdatafromspace2025.org): Scalable Earth Observation Data Analysis with Pangeo and EO4EU, Vasileios Baousis (European Centre for Medium-Range Weather Forecasts (ECMWF)), Anne Fouilloux (Simula), Tina Odaka (ifremer), Mohanad Albughdadi (ECMWF), Claudio Pisa (ECMWF), Armagan Karatosun (EUMETSAT). Tutorial given to BiDS Satellite event using Pangeo@EOSC.
 - **EGU 2025**: [Harnessing the Power of Pangeo: Enhancing Your Scientific Data Analysis Workflow with scalable open source tools](https://meetingorganizer.copernicus.org/EGU25/session/53638). See also the [dedicated repository](https://github.com/pangeo-data/egu-2025-course) with training material.
 - [WCRP Global KM scale hackathon 2025](https://github.com/digital-earths-global-hackathon). The Digital Earths Global Hackathon brings together scientists from around the world to jointly analyze the first ever coordinated experiments of 6 - 8 climate models simulating a full annual cycle with horizontal grid spacings of 5 km or less based on a common protocol ([Takasuka, D. et al. (2024)](https://doi.org/10.1186/s40645-024-00668-1)).
+- [Cloud Native Ocean Data and Visualization School](https://github.com/OpenScienceComputing/cloud-school-2025) co-organized by [CMCC](https://www.cmcc.it/), the [University of Bologna](https://www.unibo.it/en), and [EGI](https://www.egi.eu/); Instructor: Rich Signell, [Open Science Computing](https://opensciencecomputing.com/). See the encouraging [School Feedback Reponses](https://github.com/OpenScienceComputing/cloud-school-2025/blob/main/pangeo_class_survey_results.pdf). 13th-17th October 2025, Bologna, Italy.
+- IMT Atlantique 2025: "Calcul intensif : distribution des données et des calculs" (UETAF-CALC-B), short course on distributed data and computation using the Pangeo ecosystem for engineering students at [IMT Atlantique](https://www.imt-atlantique.fr/) (Brest campus); instructor: Tina Odaka (Ifremer). 9–10 December 2025.
 
 ### 2024
 - **EGI 2024**: [Pangeo@EOSC: A EOSC service to enable big data geoscience scientific discoveries and collaborations](https://indico.egi.eu/event/6441/contributions/19246/). See also the [dedicated repository](https://pangeo-data.github.io/egi2024-demo/) with training material.
@@ -34,6 +40,12 @@ Please check the [getting started for providers](./providers/providers-getting-s
 ## Publication & outreach
 
 You will find below a list of publications & conferences that made use of EOSC Pangeo resources and/or promoting Pangeo EOSC deployments:
+
+### 2026
+
+- Samardzhiev, K., Samardzhiev, D., Anghelea, A., and Dobrowolska, E.: From Disparate Datasets to Analysis-Ready Data Cubes with Pangeo on EarthCODE, EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-21395, https://doi.org/10.5194/egusphere-egu26-21395, 2026.
+- Magin, J., Bovy, B., Richard, P., Delouis, J.-M., and Odaka, T.: Ellipsoidal HEALPix for the Earth sciences: healpix-geo and xdggs integration into the Pangeo ecosystem, EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-18208, https://doi.org/10.5194/egusphere-egu26-18208, 2026.
+- Odaka, T. E., Cap, E., Mazouni, Q., Hue, C., Delouis, J.-M., Woillez, M., Fouilloux, A., Ragan-Kelley, B., and Wiesmann, D.: Pangeo-Fish and the Global Fish Tracking System: Scaling Biologging Analytics with Earth System Digital Twins for evidence-based policy support, EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-19040, https://doi.org/10.5194/egusphere-egu26-19040, 2026.
 
 ### 2025
 - Coca-Castro, A., Fouilloux, A., Ricardo, B. L., McDonald, A., Rao, Y. and Hosking J.S. (2025). Improving the reproducibility in geoscientific papers: lessons learned from a Hackathon in climate science. Environmental Data Science, 4:e6, 1-10, [doi:10.1017/eds.2024.35](https://doi.org/10.1017/eds.2024.35).
