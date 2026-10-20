@@ -22,7 +22,7 @@ dask-gateway:
         from dask_gateway_server.options import Options, Integer, Float, String, Mapping
 
         def cluster_options(user):
-            def option_handler(options):
+            def options_handler(options):
                 if ":" not in options.image:
                     raise ValueError("When specifying an image you must also provide a tag")
                 return {
