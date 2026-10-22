@@ -1,11 +1,6 @@
 # How to deploy Pangeo using a baremetal kubernetes cluster
 
-These are the steps to deploy [MinIO](https://min.io/),
-[Jupyterhub](https://jupyter.org/hub),
-[BinderHub](https://binderhub.readthedocs.io/),
-and [Dask Gateway](https://gateway.dask.org/) using the
-baremetal k8s cluster at [CESNET](https://www.cesnet.cz/en/)
-in [C-SCALE](https://c-scale.eu/).
+These are the steps to deploy [Jupyterhub](https://jupyter.org/hub) and [MinIO](https://min.io/) using the baremetal k8s cluster at [CESNET](https://www.egi.eu/partner/cesnet).
 
 ## Assumptions for deployment
 
@@ -26,6 +21,19 @@ cd working/dir/
 git clone git@github.com:pangeo-data/pangeo-eosc.git
 cd providers/kubernetes/
 ```
+
+# JupyterHub
+
+To deploy [Jupyterhub](https://jupyter.org/hub) we use the official documentation from [Zero to JupyterHub with Kubernetes](https://z2jh.jupyter.org/).
+
+## Before going ahead
+
+Please configure the values below accordingly:
+
+* [jupyterhub-secrets.yaml](./jupyterhub/jupyterhub-secrets.yaml): `token1` and `token2` must be
+  replaced with a hash generated using `openssl rand -hex 32` on Linux.
+* [jupyterhub.yaml](.jupyterhub/jupyterhub.yaml): `pangeo-eosc.vm.fedcloud.eu` must be replaced
+  with your DNS hostname.
 
 # DaskHub
 
