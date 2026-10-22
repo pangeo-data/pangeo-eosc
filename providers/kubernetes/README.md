@@ -1,4 +1,4 @@
-# Baremetal kubernetes deployment at CESNET for C-SCALE
+# How to deploy Pangeo using a baremetal kubernetes cluster
 
 These are the steps to deploy [MinIO](https://min.io/),
 [Jupyterhub](https://jupyter.org/hub),
