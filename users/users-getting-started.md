@@ -28,7 +28,7 @@ There are different user environments available:
 
 Currently (October 2026) we have configured quotas to host 20 simultaneous users with 8 CPUs and 32GB RAM each. This is subject to change depending on usage and resource availability at [CESNET](https://www.egi.eu/partner/cesnet).
 
-[Dask Kubernetes Operator](https://kubernetes.dask.org/) is available for scaling your computation. See an [example notebook](https://github.com/pangeo-data/pangeo-eosc/blob/main/users/how-to/dask-operator-test.ipynb) to get started.
+[Dask Kubernetes Operator](https://kubernetes.dask.org/) is available for scaling your computation. See an [example notebook](./how-to/dask-operator-test.ipynb) to get started.
 
 ## Access MinIO
 
