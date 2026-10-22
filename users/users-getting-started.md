@@ -14,7 +14,9 @@ Managers of the Virtual Organisations may **take several days** to approve your 
 
 ## Access JupyterHub with Dask
 
-Access JupyterHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.fedcloud.eu/) and choose among the available flavors:
+Access JupyterHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.fedcloud.eu/). Click on `Sign in with EGI Check-in` and then use your ORCID iD credentials.
+
+There are different user environments available:
 
 ![Cloud EGI JupyterHub flavors](../figures/flavors.png)
 
@@ -24,9 +26,7 @@ Access JupyterHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.
 - Datascience Notebook with Python, R and Julia is maintained by the Jupyter community at [https://github.com/jupyter/docker-stacks](https://github.com/jupyter/docker-stacks). Look up the `datascience-notebook` folder. It contains 3 different kernels, namely Python, R and Julia notebooks. Please note that you would probably need to add additional packages as the list of available packages is not exhaustive.
 - It is also possible to specify your own docker image.
 
-Currently (September 2023) we have configured quotas to host 20 simultaneous users with 8 CPUs and 32GB RAM each. This is subject to change depending on usage and resource availability at CESNET.
-
-You need to click on `Sign in with EGI Check-in` and then use your ORCID iD credentials.
+Currently (October 2026) we have configured quotas to host 20 simultaneous users with 8 CPUs and 32GB RAM each. This is subject to change depending on usage and resource availability at [CESNET](https://www.egi.eu/partner/cesnet).
 
 [Dask Kubernetes Operator](https://kubernetes.dask.org/) is available for scaling your computation. See an [example notebook](https://github.com/pangeo-data/pangeo-eosc/blob/main/users/how-to/dask-operator-test.ipynb) to get started.
 
