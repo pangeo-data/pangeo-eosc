@@ -8,10 +8,10 @@ This guide assumes that you have:
 
 1. Access to a kubernetes cluster with `kubectl`.
 2. [Helm](https://helm.sh/) is installed (i.e. the `helm` command works).
-3. Access to configure DNS hostnames (e.g.
-   the [EGI Dynamic DNS](https://docs.egi.eu/users/compute/cloud-compute/dynamic-dns/)).
-4. Credentials for an OIDC client from EGI Check-in
-   (see [documentation](https://docs.egi.eu/providers/check-in/sp/)).
+3. Access to configure DNS hostnames (e.g. the
+   [EGI Dynamic DNS](https://docs.egi.eu/users/compute/cloud-compute/dynamic-dns/)).
+4. Credentials for an OIDC (e.g. the
+   [EGI Check-in](https://docs.egi.eu/providers/check-in/sp/)).
 
 ## Get a copy of this repository
 
@@ -33,7 +33,7 @@ To deploy [Jupyterhub](https://jupyter.org/hub) we use the official documentatio
 Please configure the values below accordingly:
 
 * [jupyterhub-secrets.yaml](./jupyterhub/jupyterhub-secrets.yaml): replace `client_id`, `client_secret`, and `oauth_callback_url` with your own values.
-* [jupyterhub.yaml](.jupyterhub/jupyterhub.yaml): `pangeo-eosc.vm.fedcloud.eu` must be replaced with your DNS hostname.
+* [jupyterhub.yaml](./jupyterhub/jupyterhub.yaml): `pangeo-eosc.vm.fedcloud.eu` must be replaced with your DNS hostname.
 
 # DaskHub
 
