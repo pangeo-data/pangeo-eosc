@@ -1,6 +1,6 @@
 # How to deploy Pangeo using a baremetal kubernetes cluster
 
-These are the steps to deploy [Jupyterhub](https://jupyter.org/hub) and [MinIO](https://min.io/) using the baremetal k8s cluster at [CESNET](https://www.egi.eu/partner/cesnet).
+These are the steps to deploy [Jupyterhub](https://jupyter.org/hub) connected to [Dask](https://kubernetes.dask.org/) and [MinIO](https://min.io/) using the baremetal k8s cluster at [CESNET](https://www.egi.eu/partner/cesnet).
 
 ## Assumptions for deployment
 
