@@ -34,6 +34,7 @@ Please configure the values below accordingly:
 
 * [jupyterhub-secrets.yaml](./jupyterhub/jupyterhub-secrets.yaml): replace `client_id`, `client_secret`, and `oauth_callback_url` with your own values.
 * [jupyterhub.yaml](./jupyterhub/jupyterhub.yaml): `pangeo-eosc.vm.fedcloud.eu` must be replaced with your DNS hostname.
+* [dask-user-role.yaml](./dask/dask-user-role.yaml) and [dask-user-rolebinding.yaml](./dask/dask-user-role.yaml): `c-scale-pangeo-dask` must be replaced with your own namespace.
 
 # DaskHub
 
