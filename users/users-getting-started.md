@@ -12,9 +12,11 @@ You need to create an [EGI Check-in account](https://www.egi.eu/service/check-in
 
 Managers of the Virtual Organisations may **take several days** to approve your petitions to join and also get back to you via email to verify your identity.
 
-## Access DaskHub
+## Access JupyterHub with Dask
 
-Access DaskHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.fedcloud.eu/) and choose among the 4 available flavors (as shown on the figure below):
+Access JupyterHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.fedcloud.eu/). Click on `Sign in with EGI Check-in` and then use your ORCID iD credentials.
+
+There are different user environments available:
 
 ![Cloud EGI JupyterHub flavors](../figures/flavors.png)
 
@@ -22,11 +24,11 @@ Access DaskHub via [https://pangeo-eosc.vm.fedcloud.eu/](https://pangeo-eosc.vm.
 - Machine Learning Pangeo notebook with GPU enable tensorflow2: similarly, it is maintained by the Pangeo community and the complete computational environment with the list of Python packages is also available at [https://github.com/pangeo-data/pangeo-docker-images](https://github.com/pangeo-data/pangeo-docker-images) in the `ml-notebook` folder. This flavor contains all the packages from the Pangeo Notebook flavor and is GPU-enabled tensorflow2. Choose this flavor if you need GPUs; for instance for training neural networks;
 - Machine Learning Pangeo notebook with GPU enable pytorch: it is the same as `ml-notebook` but with GPU-enabled pytorch.
 - Datascience Notebook with Python, R and Julia is maintained by the Jupyter community at [https://github.com/jupyter/docker-stacks](https://github.com/jupyter/docker-stacks). Look up the `datascience-notebook` folder. It contains 3 different kernels, namely Python, R and Julia notebooks. Please note that you would probably need to add additional packages as the list of available packages is not exhaustive.
+- It is also possible to specify your own docker image.
 
-Currently (September 2023) we have configured quotas to host 20 simultaneous users with Jupyter (8 CPUs, 32GB RAM) and a Dask cluster (max: 4 workers, each worker with 8 CPUs and 32 GB RAM). This is subject to change depending on usage and resource availability at CESNET.
-You need to click on `Sign in with EGI Check-in` and then use your ORCID iD credentials.
+Currently (October 2026) we have configured quotas to host 20 simultaneous users with 8 CPUs and 32GB RAM each. This is subject to change depending on usage and resource availability at [CESNET](https://www.egi.eu/partner/cesnet).
 
-A [Dask Gateway](https://gateway.dask.org/) is available for scaling your computation. For more details on this deployment, you may want to take a look at [Daskhub helm chart](https://github.com/dask/helm-chart/tree/main/daskhub).
+[Dask Kubernetes Operator](https://kubernetes.dask.org/) is available for scaling your computation. See an [example notebook](./how-to/dask-operator-test.ipynb) to get started.
 
 ## Access MinIO
 
