@@ -1,7 +1,8 @@
 # Pangeo @ EOSC
 
 In this repository we are storing configuration files we use
-for setting up a Pangeo environment on the [European Open Science Cloud (EOSC)](https://open-science-cloud.ec.europa.eu/).
+for setting up a [Pangeo environment](https://pangeo-eosc.vm.fedcloud.eu/)
+on the [European Open Science Cloud (EOSC)](https://open-science-cloud.ec.europa.eu/).
 
 Are you a user who wants to get access to `pangeo-eosc` services?
 Please check the [getting started for users](./users/users-getting-started.md).
