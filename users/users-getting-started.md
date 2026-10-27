@@ -32,13 +32,13 @@ Currently (October 2026) we have configured quotas to host 20 simultaneous users
 
 ## Access MinIO
 
-Each user has a very small amount of local storage when using the DaskHub as it is not meant to be used for storing large data.  Instead a dedicated [MinIO Object storage](https://min.io) has been setup.
+Each user has a very small amount of local storage when using the JupyterHub as it is not meant to be used for storing large data.  Instead a dedicated [MinIO Object storage](https://min.io) has been setup.
 
-The MinIO console endpoint is: [https://pangeo-eosc-minio.vm.fedcloud.eu/](https://pangeo-eosc-minio.vm.fedcloud.eu/). You can authenticate to the MinIO Object Storage in the same way you login to DaskHub. As shown on the Figure below, make sure you "Select Other Authentication Method" and "Login with SSO (checkin)" to access the MinIO console. Then use your ORCID iD to login.
+The MinIO console endpoint is: [https://pangeo-eosc-minio.vm.fedcloud.eu/](https://pangeo-eosc-minio.vm.fedcloud.eu/). You can authenticate to the MinIO Object Storage in the same way you login to JupyterHub. As shown on the Figure below, make sure you "Select Other Authentication Method" and "Login with SSO (checkin)" to access the MinIO console. Then use your ORCID iD to login.
 
 ![minIO Login](../figures/minIO_login.png)
 
-You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets. As an individual user, make sure to let your bucket-name start with the prefix `os.environ['JUPYTERHUB_USER']+'-'` as shown in DaskHub, otherwise the bucket will not be created. The value of `os.environ['JUPYTERHUB_USER']` shows up in the top-right corner, next to the `Logout` button when you first log into https://pangeo-eosc.vm.fedcloud.eu/.
+You can create, access and manage your buckets from the minIO console (or use [minIO Python package](https://min.io/docs/minio/linux/developers/python/minio-py.html)). The figure below shows the GUI (with several tabs on the left; the bucket tab is selected on the figure): initially, you won't have any buckets so please feel free to create public/privates buckets. As an individual user, make sure to let your bucket-name start with the prefix `os.environ['JUPYTERHUB_USER']+'-'` as shown in JupyterHub, otherwise the bucket will not be created. The value of `os.environ['JUPYTERHUB_USER']` shows up in the top-right corner, next to the `Logout` button when you first log into https://pangeo-eosc.vm.fedcloud.eu/.
 
 ![minIO buckets](../figures/minIO_buckets.png)
 
