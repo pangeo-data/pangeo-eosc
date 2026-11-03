@@ -9,4 +9,4 @@ We currently offer two options:
 
 Both deployments have been carried out in the context of the following projects:
 * [EGI-ACE](https://www.egi.eu/project/egi-ace/)
-* [C-SCALE](https://c-scale.eu/)
+* [C-SCALE](https://www.egi.eu/project/c-scale)

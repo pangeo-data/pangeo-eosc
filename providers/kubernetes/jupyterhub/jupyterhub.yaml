@@ -1,0 +1,223 @@
+
+hub:
+  initContainers:
+    - name: git-clone-templates
+      image: alpine/git
+      args:
+        - clone
+        - --single-branch
+        - --branch=main
+        - --depth=1
+        - --
+        - https://github.com/pangeo-data/pangeo-eosc.git
+        - /etc/jupyterhub/custom
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        allowPrivilegeEscalation: false
+        capabilities:
+         drop:
+         - ALL
+      volumeMounts:
+        - name: custom-templates
+          mountPath: /etc/jupyterhub/custom
+    - name: git-clone-static
+      image: alpine/git
+      args:
+        - clone
+        - --single-branch
+        - --branch=main
+        - --depth=1
+        - --
+        - https://github.com/pangeo-data/pangeo-eosc.git
+        - /usr/local/share/jupyterhub/static/custom
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        allowPrivilegeEscalation: false
+        capabilities:
+         drop:
+         - ALL
+      volumeMounts:
+        - name: custom-static
+          mountPath: /usr/local/share/jupyterhub/static/custom
+  extraVolumes:
+    - name: custom-templates
+      emptyDir: {}
+    - name: custom-static
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: custom-templates
+      mountPath: /etc/jupyterhub/custom
+    - name: custom-static
+      mountPath: /usr/local/share/jupyterhub/static/custom
+  extraConfig:
+    templates: |
+      c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/templates']
+    pre-spawn-hook: |
+      async def bootstrap_pre_spawn(spawner):
+        spawner.container_security_context = {"capabilities": {"drop": ["ALL"]}}
+
+      c.KubeSpawner.pre_spawn_hook = bootstrap_pre_spawn
+  networkPolicy:
+    interNamespaceAccessLabels: "accept"
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+     drop:
+     - ALL
+  podSecurityContext:
+    fsGroupChangePolicy: OnRootMismatch
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1g"
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
+  tls:
+    - hosts:
+      - pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
+      secretName: pangeo-eosc.vm.fedcloud.eu # replace this with your DNS name
+
+proxy:
+  service:
+    type: ClusterIP
+  chp:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+    extraPodSpec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
+singleuser:
+  extraFiles:
+    # kernel culling config
+    jupyter_notebook_config.json:
+      mountPath: /etc/jupyter/jupyter_notebook_config.json
+      data:
+        MappingKernelManager:
+          cull_idle_timeout: 3600
+          cull_interval: 300
+          cull_connected: true
+          cull_busy: false
+
+    # Allow the Jupyter proxy to reach the Dask scheduler's dashboard
+    jupyter-server-config:
+      mountPath: /etc/jupyter/jupyter_server_config.py
+      stringData: |
+        # Restrict host_allowlist to your Dask namespace rather than allowing everything,
+        # for better security than the "allow all" example in the Dask docs.
+        c.ServerProxy.host_allowlist = lambda app, host: host.endswith('.c-scale-pangeo-dask')
+
+    # Make Dask generate dashboard links that go through the Jupyter proxy
+    dask-dashboard-config:
+      mountPath: /home/jovyan/.config/dask/distributed.yaml
+      stringData: |
+        distributed:
+          dashboard:
+            link: "/user/{JUPYTERHUB_USER}/proxy/{host}:{port}/status"
+
+  networkPolicy:
+    enabled: false
+  cloudMetadata:
+    blockWithIptables: false
+  cpu:
+    guarantee: 1
+    limit: 8
+  defaultUrl: /lab
+  image:
+    pullPolicy: Always
+  profileList:
+    - display_name: Choose your environment 
+      slug: only-choice
+      profile_options:
+        image:
+          display_name: Image
+          # Enables dynamic image building for this profile
+          dynamic_image_building:
+            enabled: True
+          unlisted_choice:
+            enabled: True
+            display_name: "Custom image"
+            validation_regex: "^.+:.+$"
+            validation_message: "Must be a publicly available docker image, of form <image-name>:<tag>"
+            display_name_in_choices: "Specify an existing docker image"
+            description_in_choices: "Use a pre-existing docker image from a public docker registry (dockerhub, quay, etc)"
+            kubespawner_override:
+              image: "{value}"
+          choices:
+             protocoast-main:
+               display_name: "quay.io/globalcoast/protocoast-notebook:main"
+               kubespawner_override:
+                 image: quay.io/globalcoast/protocoast-notebook:main
+             protocoast-develop:
+               display_name: "quay.io/globalcoast/protocoast-notebook:develop"
+               kubespawner_override:
+                 image: quay.io/globalcoast/protocoast-notebook:develop
+             openscapes-latest:
+               display_name: "docker.io/openscapes/python:latest"
+               kubespawner_override:
+                 image: docker.io/openscapes/python:latest
+             pangeo-latest:
+               display_name: "quay.io/pangeo/pangeo-notebook:latest"
+               kubespawner_override:
+                 image: quay.io/pangeo/pangeo-notebook:latest
+             ml-notebook-latest:
+               display_name: "quay.io/pangeo/ml-notebook:latest"
+               kubespawner_override:
+                 image: quay.io/pangeo/ml-notebook:latest
+                 extra_resource_guarantees:
+                   nvidia.com/gpu: 1
+                 extra_resource_limits:
+                   nvidia.com/gpu: 1
+             pytorch-notebook-latest:
+               display_name: "quay.io/pangeo/pytorch-notebook:latest"
+               kubespawner_override:
+                 image: quay.io/pangeo/pytorch-notebook:latest
+                 extra_resource_guarantees:
+                   nvidia.com/gpu: 1
+                 extra_resource_limits:
+                   nvidia.com/gpu: 1
+             datascience-notebook-latest:
+               display_name: "quay.io/jupyter/datascience-notebook:latest"
+               kubespawner_override:
+                 image: quay.io/jupyter/datascience-notebook:latest
+  memory:
+    guarantee: 2G
+    limit: 32G
+  startTimeout: 800
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: nfs-csi-backup
+  allowPrivilegeEscalation: false
+  extraPodConfig:
+    automountServiceAccountToken: true
+    securityContext:
+      fsGroupChangePolicy: OnRootMismatch
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+
+scheduling:
+  userScheduler:
+    enabled: false
+  userPlaceholder:
+    enabled: false
+
+prePuller:
+  hook:
+    enabled: false
+  continuous:
+    enabled: false

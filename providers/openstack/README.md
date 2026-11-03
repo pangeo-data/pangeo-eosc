@@ -1,4 +1,4 @@
-# How to deploy Pangeo in the infrastructure of the EGI Federation
+# How to deploy Pangeo using a virtualised kubernetes on top of OpenStack
 
 These are the steps to deploy [Daskhub](https://docs.dask.org/en/stable/deploying-kubernetes.html#daskhub),
 a [Dask Gateway](https://gateway.dask.org/) enabled [Jupyterhub](https://jupyter.org/hub) using the 
